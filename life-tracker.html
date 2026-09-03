@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Professsor Wong">
+<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" href="data:image/png;base64,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AEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhPo/m/CVgv4gOsoAAAAASUVORK5CYII=">
+<link rel="icon" href="data:image/png;base64,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AEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhBIAgFACABBKAABCCQBAKAEACCUAAKEEACCUAACEEgCAUAIAEEoAAEIJAEAoAQAIJQAAoQQAIJQAAIQSAIBQAgAQSgAAQgkAQCgBAAglAAChBAAglAAAhPo/m/CVgv4gOsoAAAAASUVORK5CYII=">
+<title>Professsor Wong</title>
+<style>
+  :root{
+    --bg:#ffffff;
+    --text:#111111;
+    --sub:#3a3a3c;
+    --faint:#b3b3b8;
+    --line:#ececec;
+    --card:#fbfbfb;
+    --accent:#DFFF00;
+    --accent-dark:#8fa300;
+    --cathead:#DFFF00;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+  input[type=number]{-moz-appearance:textfield;appearance:textfield;}
+  #bgLayer{position:fixed;inset:0;z-index:-1;background-size:cover;background-position:center;
+    background-repeat:no-repeat;pointer-events:none;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Microsoft JhengHei",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  #app{max-width:520px;margin:0 auto;padding:0 0 60px;}
+
+  header.top{position:sticky;top:0;background:var(--card);backdrop-filter:blur(8px);
+    z-index:10;padding:18px 20px 10px;border-bottom:1px solid var(--line);}
+  .title{font-size:20px;font-weight:600;letter-spacing:.2px;margin:0 0 12px;cursor:pointer;min-height:26px;display:block;}
+  .title:active{opacity:.6;}
+  .title-row{display:flex;align-items:center;justify-content:space-between;}
+  .settings-btn{width:32px;height:32px;margin-bottom:12px;border:none;border-radius:50%;
+    background:#f2f2f4;color:var(--sub);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .settings-btn:active{background:#e6e6e8;}
+  .tabs{display:flex;background:#f2f2f4;border-radius:10px;padding:3px;gap:3px;margin-bottom:12px;}
+  .tab{flex:1;text-align:center;padding:8px 0;font-size:14px;border-radius:8px;color:var(--sub);
+    cursor:pointer;font-weight:500;transition:.15s;}
+  .tab.active{background:#ffffff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+
+  .nav{display:flex;align-items:center;justify-content:center;gap:18px;padding:2px 0 2px;}
+  .navbtn{width:30px;height:30px;border-radius:50%;border:none;background:#f2f2f4;color:var(--text);
+    font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .navbtn:active{background:#e6e6e8;}
+  .navlabel{font-size:15px;font-weight:600;min-width:110px;text-align:center;}
+
+  main{padding:14px 16px 0;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;}
+  .cat-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--cathead);}
+  .cat-name{font-size:15.5px;font-weight:600;color:var(--text);cursor:pointer;min-width:60px;min-height:20px;display:inline-block;}
+  .cat-name:active{opacity:.6;}
+  .yr-cat-name{cursor:pointer;min-width:60px;min-height:18px;display:inline-block;}
+  .yr-cat-name:active{opacity:.6;}
+  .name-placeholder{color:var(--faint);font-weight:500;font-style:italic;}
+  .cat-head .name-placeholder{color:rgba(0,0,0,.4);}
+  .cat-right{display:flex;align-items:center;gap:8px;}
+  .cat-count{font-size:13px;color:rgba(0,0,0,.45);font-variant-numeric:tabular-nums;}
+  .chev{font-size:11px;color:rgba(0,0,0,.4);transition:transform .2s;}
+  .card.open .chev{transform:rotate(90deg);}
+  .drag-handle{width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+    color:var(--faint);cursor:grab;touch-action:none;user-select:none;flex:0 0 auto;}
+  .cat-head .drag-handle{color:rgba(0,0,0,.4);}
+  .dragging{opacity:.92;box-shadow:0 10px 26px rgba(0,0,0,.18);z-index:50;}
+  .dragging .drag-handle{color:var(--text);cursor:grabbing;}
+  .drop-placeholder{border:1.5px dashed #d5d5d8;border-radius:14px;margin-bottom:10px;background:#f7f7f8;}
+
+  .cat-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .card.open .cat-body{max-height:1200px;}
+  .cat-inner{padding:0 16px 14px;}
+
+  .item-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--cathead);}
+  .item-row:first-child{border-top:none;}
+  .check{width:20px;height:20px;border-radius:6px;border:1.6px solid #d5d5d8;flex:0 0 20px;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;}
+  .check.done{background:var(--accent);border-color:var(--accent);}
+  .check svg{width:12px;height:12px;display:none;}
+  .check.done svg{display:block;}
+  .item-name{flex:1;font-size:14.5px;color:var(--sub);cursor:pointer;}
+  .item-name.done{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--faint);}
+  .del{color:var(--faint);font-size:15px;cursor:pointer;padding:2px 4px;flex:0 0 auto;}
+
+  .counter-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--cathead);}
+  .counter-row:first-child{border-top:none;}
+  .finance-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;
+    border-top:1px solid var(--cathead);cursor:pointer;}
+  .finance-row:first-child{border-top:none;}
+  .finance-row-text{display:flex;flex-direction:column;gap:2px;}
+  .finance-row-preview{font-size:12px;color:var(--faint);}
+  .finance-row-arrow{color:var(--faint);font-size:18px;}
+  .finance-row:active{opacity:.6;}
+  .counter-row:first-child{border-top:none;}
+  .counter-name{flex:1;font-size:14.5px;color:var(--sub);}
+  .counter-name.done{color:var(--accent-dark);font-weight:600;}
+  .stepper{display:flex;align-items:center;gap:8px;}
+  .stbtn{width:24px;height:24px;border-radius:50%;border:1px solid #d5d5d8;background:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text);cursor:pointer;}
+  .stbtn:active{background:#f0f0f0;}
+  .stval{min-width:44px;text-align:center;font-size:13px;color:var(--sub);font-variant-numeric:tabular-nums;}
+  .bar{width:60px;height:5px;border-radius:3px;background:#ececec;overflow:hidden;margin-left:2px;}
+  .bar-fill{height:100%;background:var(--accent);}
+
+  .add-row{display:flex;gap:8px;padding:10px 0 2px;border-top:1px solid var(--line);margin-top:2px;}
+  .add-input{flex:1;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;
+    background:#fff;color:var(--text);outline:none;}
+  .add-input:focus{border-color:#c9c9cc;}
+  .add-btn{width:34px;height:34px;border-radius:8px;border:none;background:#111;color:#fff;font-size:16px;cursor:pointer;}
+
+  /* year view */
+  .yr-card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:14px 16px;}
+  .yr-title{font-size:15.5px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+  .yr-title-right{display:flex;align-items:center;gap:4px;}
+  .yr-sub{font-size:11.5px;color:var(--faint);font-weight:400;}
+  .yr-col-label{font-size:11px;color:var(--sub);margin:8px 0 4px;text-transform:none;}
+  .yr-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{font-size:12.5px;padding:4px 9px;border-radius:20px;background:#f2f2f4;color:var(--sub);}
+  .tag.done{background:#f4ffd6;color:var(--accent-dark);}
+  .tag.empty{color:var(--faint);font-size:12.5px;background:none;padding:0;}
+  .run-note{font-size:12.5px;color:var(--sub);margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
+  .run-note b{color:var(--text);}
+
+  .empty-state{text-align:center;color:var(--faint);font-size:13px;padding:40px 0;}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);
+    z-index:2100;align-items:center;justify-content:center;padding:24px;}
+  .modal-box{background:#fff;border-radius:14px;padding:18px;width:100%;max-width:340px;}
+  .modal-title{font-size:15px;font-weight:600;margin-bottom:10px;}
+  .modal-input{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+    font-size:15px;color:var(--text);background:#fff;font-family:inherit;outline:none;box-sizing:border-box;}
+  .modal-input:focus{border-color:#c9c9cc;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px;}
+  .modal-btn{border:none;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit;}
+  .modal-btn.cancel{background:#f2f2f4;color:var(--sub);}
+  .modal-btn.save{background:#111;color:#fff;font-weight:600;}
+
+  .settings-box{max-width:360px;}
+  .settings-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;
+    border-top:1px solid var(--line);}
+  .settings-row:first-of-type{border-top:none;}
+  .settings-label{font-size:14px;color:var(--sub);}
+  .color-input{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;padding:0;
+    background:none;cursor:pointer;overflow:hidden;}
+  .color-input::-webkit-color-swatch-wrapper{padding:0;border-radius:50%;}
+  .color-input::-webkit-color-swatch{border:none;border-radius:50%;}
+  .photo-btn{font-size:13px;color:var(--text);background:#f2f2f4;padding:7px 12px;border-radius:8px;cursor:pointer;}
+  .photo-btn:active{background:#e6e6e8;}
+  .photo-preview-wrap{display:flex;align-items:center;gap:10px;padding:8px 0 2px;}
+  .photo-preview{width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--line);}
+  .photo-remove{font-size:12.5px;color:var(--faint);cursor:pointer;text-decoration:underline;}
+  .settings-actions{flex-wrap:wrap;justify-content:space-between;}
+  .settings-actions .modal-btn{flex:0 0 auto;}
+
+  .finance-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:2000;
+    flex-direction:column;}
+  .finance-overlay.open{display:flex;}
+  .finance-header{display:flex;align-items:center;justify-content:space-between;
+    padding:16px 18px;border-bottom:1px solid var(--line);background:var(--card);flex:0 0 auto;}
+  .finance-header-title{font-size:17px;font-weight:700;}
+  .finance-close{width:30px;height:30px;border-radius:50%;border:none;background:#f2f2f4;
+    color:var(--text);font-size:14px;cursor:pointer;}
+  .finance-body{flex:1 1 auto;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch;}
+
+  .fin-section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;margin-bottom:12px;}
+  .fin-section-title{font-size:14.5px;font-weight:700;margin:-14px -16px 12px -16px;
+    padding:12px 16px;border-radius:14px 14px 0 0;background:var(--cathead);color:rgba(0,0,0,.82);}
+  .fin-title-editable{cursor:pointer;}
+  .fin-title-editable:active{opacity:.6;}
+  .fin-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;
+    border-top:1px solid var(--cathead);}
+  .fin-row:first-child, .fin-section-title + .fin-row, .fin-subheading + .fin-row{border-top:none;}
+  .fin-row-label{font-size:13.5px;color:var(--sub);flex:1;}
+  .fin-name-input{font-size:13.5px;color:var(--text);border:1px solid var(--line);border-radius:8px;
+    padding:6px 8px;width:88px;background:#fff;font-family:inherit;}
+  .fin-num-input{font-size:14px;color:var(--text);border:1px solid var(--line);border-radius:8px;
+    padding:7px 10px;width:110px;text-align:right;background:#fff;font-family:inherit;}
+  .fin-pct-input{font-size:14px;color:var(--text);border:1px solid var(--line);border-radius:8px;
+    padding:7px 8px;width:60px;text-align:right;background:#fff;font-family:inherit;}
+  .fin-subtotal{display:flex;justify-content:space-between;padding-top:10px;margin-top:8px;
+    border-top:1px solid var(--line);font-size:14px;font-weight:700;}
+  .fin-remain{background:var(--card);border:1.5px solid var(--accent);border-radius:12px;
+    padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+  .fin-remain-label{font-size:14px;font-weight:600;}
+  .fin-remain-value{font-size:19px;font-weight:800;}
+  .fin-alloc-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13.5px;color:var(--sub);}
+  .fin-debt-simple{display:flex;align-items:center;justify-content:flex-end;gap:3px;
+    font-size:13px;color:var(--faint);font-weight:600;flex:0 0 auto;}
+  .fin-debt-paid-num{color:#00c5ef;}
+  .fin-total-inline{border:none;background:none;outline:none;color:#5f5f5f;font-weight:600;
+    font-size:13px;font-family:inherit;width:56px;text-align:left;padding:0;}
+  .fin-total-inline:focus{color:var(--text);}
+  .fin-row-label-wrap{display:flex;align-items:center;gap:6px;flex:1;min-width:0;}
+  .fin-note-mini{border:none;background:none;outline:none;color:var(--accent-dark);font-size:11.5px;
+    font-family:inherit;font-style:italic;flex:1;min-width:0;padding:0;}
+  .fin-note-mini::placeholder{color:var(--faint);font-style:italic;}
+  .fin-alloc-row b{color:var(--text);}
+  .fin-pct-warn{font-size:12px;color:var(--accent-dark);margin-top:4px;}
+  .fin-gate-status{font-size:12.5px;color:var(--accent-dark);background:rgba(0,0,0,.04);
+    border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.5;}
+  .fin-summary-note{font-weight:500;font-size:11.5px;color:var(--faint);}
+  .fin-note-input{width:100%;min-height:60px;border:1px solid var(--line);border-radius:10px;
+    padding:10px 12px;font-size:14px;color:var(--text);background:#fff;font-family:inherit;resize:vertical;}
+  .fin-save-btn{width:100%;padding:13px 0;border:none;border-radius:12px;background:var(--text);
+    color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px;}
+  .fin-reset-btn{width:100%;padding:11px 0;border:1px solid var(--line);border-radius:12px;
+    background:none;color:var(--faint);font-size:12.5px;cursor:pointer;margin-bottom:24px;font-family:inherit;}
+  .fin-reset-btn.armed{color:#fff;background:#c0392b;border-color:#c0392b;font-weight:700;}
+  .fin-saved-note{text-align:center;font-size:12px;color:var(--faint);height:16px;margin-bottom:8px;}
+  .fin-summary-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13.5px;color:var(--sub);
+    border-top:1px solid var(--cathead);}
+  .fin-summary-row:first-child, .fin-section-title + .fin-summary-row{border-top:none;}
+  .fin-summary-row b{color:var(--text);}
+  .fin-total-assets{display:flex;justify-content:space-between;align-items:center;padding-top:10px;
+    margin-top:6px;border-top:1.5px solid var(--line);font-size:15px;font-weight:800;}
+  .fin-total-assets-top{border-top:none;margin-top:0;padding-top:0;padding-bottom:10px;
+    border-bottom:1.5px solid var(--line);margin-bottom:4px;}
+  .fin-hint{font-size:11.5px;color:var(--faint);margin-top:8px;line-height:1.5;}
+  .fin-subheading{font-size:11.5px;color:var(--faint);font-weight:600;margin:12px 0 2px;
+    padding-top:8px;border-top:1px solid var(--cathead);}
+  .fin-debt-toggle{font-size:13px;color:var(--faint);cursor:pointer;text-align:center;padding-top:6px;}
+  .fin-debt-toggle:active{color:var(--text);}
+  .fin-del-custom{color:var(--faint);font-size:16px;padding:0 2px 0 8px;cursor:pointer;flex:0 0 auto;}
+  .fin-add-row{display:flex;gap:8px;padding:8px 0 2px;}
+  .fin-add-input{flex:1;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13.5px;
+    background:#fff;color:var(--text);outline:none;font-family:inherit;}
+  .fin-add-btn{width:32px;height:32px;border-radius:8px;border:none;background:var(--text);
+    color:#fff;font-size:15px;cursor:pointer;flex:0 0 auto;}
+  .fin-manual-toggle-row{padding:8px 0;border-top:1px solid var(--cathead);}
+  .fin-toggle-label{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
+  .fin-toggle-label input{width:16px;height:16px;flex:0 0 auto;}
+
+  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+  .goal-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .goal-title{font-size:15.5px;font-weight:600;}
+  .goal-input{width:100%;min-height:80px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;
+    font-size:14px;color:var(--text);background:var(--accent);font-family:inherit;resize:vertical;outline:none;}
+  .goal-input:focus{border-color:var(--accent-dark);}
+  .goal-saved{font-size:11px;color:var(--faint);margin-top:6px;height:14px;}
+</style>
+</head>
+<body>
+<div id="bgLayer"></div>
+<div id="app">
+  <header class="top">
+    <div class="title-row">
+      <div class="title" id="appTitleEl"></div>
+      <button class="settings-btn" id="settingsBtn" aria-label="外觀設定">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-view="month">月程</div>
+      <div class="tab" data-view="year">年程</div>
+    </div>
+    <div class="nav">
+      <button class="navbtn" id="prevBtn">‹</button>
+      <div class="navlabel" id="navLabel">—</div>
+      <button class="navbtn" id="nextBtn">›</button>
+    </div>
+  </header>
+  <main id="main"></main>
+</div>
+
+<div class="modal-overlay" id="renameOverlay">
+  <div class="modal-box">
+    <div class="modal-title">重新命名主題</div>
+    <input class="modal-input" id="renameInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="renameCancelBtn">取消</button>
+      <button class="modal-btn save" id="renameSaveBtn">儲存</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="settingsOverlay">
+  <div class="modal-box settings-box">
+    <div class="modal-title">外觀設定</div>
+
+    <div class="settings-row">
+      <span class="settings-label">背景顏色</span>
+      <input type="color" id="bgColorInput" class="color-input" value="#ffffff">
+    </div>
+    <div class="settings-row">
+      <span class="settings-label">打勾／強調色</span>
+      <input type="color" id="accentColorInput" class="color-input" value="#DFFF00">
+    </div>
+    <div class="settings-row">
+      <span class="settings-label">主題標題底色</span>
+      <input type="color" id="headerColorInput" class="color-input" value="#DFFF00">
+    </div>
+
+    <div class="settings-row settings-row-photo">
+      <span class="settings-label">背景照片</span>
+      <label class="photo-btn" for="bgPhotoInput">選擇照片</label>
+      <input type="file" id="bgPhotoInput" accept="image/*" style="display:none;">
+    </div>
+    <div id="bgPhotoPreviewWrap" class="photo-preview-wrap" style="display:none;">
+      <img id="bgPhotoPreview" class="photo-preview">
+      <span class="photo-remove" id="bgPhotoRemove">移除照片</span>
+    </div>
+
+    <div class="modal-actions settings-actions">
+      <button class="modal-btn cancel" id="settingsResetBtn">重設預設</button>
+      <button class="modal-btn cancel" id="settingsCancelBtn">取消</button>
+      <button class="modal-btn save" id="settingsSaveBtn">儲存</button>
+    </div>
+  </div>
+</div>
+
+<div class="finance-overlay" id="financeOverlay">
+  <div class="finance-header">
+    <div class="finance-header-title" id="financeHeaderTitle">月底理財管理</div>
+    <button class="finance-close" id="financeCloseBtn">✕</button>
+  </div>
+  <div class="finance-body" id="financeBody"></div>
+</div>
+
+<script>
+const CATEGORIES = [
+  {id:'work', name:'工作'},
+  {id:'sh', name:'SH 研究'},
+  {id:'sport', name:'運動', recurringCount:{key:'晨跑', target:16}},
+  {id:'finance', name:'理財管理', financeLink:{name:'月底理財管理'}},
+  {id:'social', name:'娛樂'},
+  {id:'shopping', name:'購買清單', defaultItems:[]},
+  {id:'japanese', name:'日語'},
+  {id:'books', name:'書籍'},
+  {id:'todo', name:'代辦事項'},
+  {id:'other', name:'其他'},
+];
+
+const FINANCE_DEFAULT = {
+  debts: {
+    A1:{name:'A1', total:0, note:''}, A2:{name:'A2', total:0, note:''}, A3:{name:'A3', total:0, note:''},
+    A4:{name:'A4', total:0, note:''}, A5:{name:'A5', total:0, note:''}
+  },
+  months: {}
+};
+
+let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null};
+let draftTheme = null;
+let view = 'month';
+let curMonth = monthKeyFromDate(new Date());
+let openState = {};
+
+function pad(n){return n<10?'0'+n:''+n;}
+function monthKeyFromDate(d){return d.getFullYear()+'-'+pad(d.getMonth()+1);}
+function shiftMonthKey(key,delta){
+  let [y,m]=key.split('-').map(Number);
+  m+=delta;
+  y+=Math.floor((m-1)/12);
+  m=((m-1)%12+12)%12+1;
+  return y+'-'+pad(m);
+}
+function shiftYearKey(key,delta){
+  let [y,m]=key.split('-');
+  y=parseInt(y)+delta;
+  return y+'-'+m;
+}
+function monthLabel(key){
+  let [y,m]=key.split('-');
+  return y+'年'+parseInt(m)+'月';
+}
+function yearOf(key){return key.split('-')[0];}
+function uid(){return 'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+
+const LOCAL_KEY = 'life-tracker-app-data-v2';
+const hasCloudStorage = typeof window.storage !== 'undefined';
+
+async function load(){
+  try{
+    if(hasCloudStorage){
+      const res = await window.storage.get('app-data-v2', false);
+      if(res && res.value){ data = JSON.parse(res.value); }
+    }else{
+      const raw = localStorage.getItem(LOCAL_KEY);
+      if(raw){ data = JSON.parse(raw); }
+    }
+  }catch(e){ /* no data yet */ }
+  ensureDefaults();
+  applyTheme(data.theme);
+  render();
+}
+function ensureDefaults(){
+  if(!data.yearGoals) data.yearGoals = {};
+  if(!data.categoryNames) data.categoryNames = {};
+  CATEGORIES.forEach(c=>{ if(!(c.id in data.categoryNames)) data.categoryNames[c.id] = ''; });
+  if(!data.theme) data.theme = {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null};
+  if(!data.theme.headerColor) data.theme.headerColor = '#DFFF00';
+  if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.finance.debts) data.finance.debts = JSON.parse(JSON.stringify(FINANCE_DEFAULT.debts));
+  ['A1','A2','A3','A4','A5'].forEach(k=>{
+    if(!data.finance.debts[k]) data.finance.debts[k] = {name:k, total:0, note:''};
+    if(data.finance.debts[k].note===undefined) data.finance.debts[k].note = '';
+  });
+  if(!data.finance.months) data.finance.months = {};
+  if(!data.finance.reserveTarget) data.finance.reserveTarget = 200000;
+  if(!data.finance.debtSectionTitle) data.finance.debtSectionTitle = '總資產追蹤';
+  if(data.finance.debtSectionTitle==='欠款項目設定（可隨時修改，一次性設定）' || data.finance.debtSectionTitle==='項目設定') data.finance.debtSectionTitle = '總資產追蹤';
+  if(!data.finance.customFixed) data.finance.customFixed = [];
+  if(!data.finance.customIncome) data.finance.customIncome = [];
+  if(!data.finance.labels) data.finance.labels = {income:{}, fixed:{}, pct:{}, summary:{}};
+  ['income','fixed','pct','summary'].forEach(t=>{ if(!data.finance.labels[t]) data.finance.labels[t] = {}; });
+  if(!data.categoryOrder) data.categoryOrder = [];
+  CATEGORIES.forEach(c=>{ if(!data.categoryOrder.includes(c.id)) data.categoryOrder.push(c.id); });
+  if(!data.categoryOrder.includes('yeargoal')) data.categoryOrder.unshift('yeargoal');
+  data.categoryOrder = data.categoryOrder.filter(id=>id==='yeargoal' || CATEGORIES.some(c=>c.id===id));
+  const shop = CATEGORIES.find(c=>c.id==='shopping');
+  const hasShop = data.items.some(it=>it.category==='shopping');
+  if(!hasShop){
+    const nowKey = monthKeyFromDate(new Date());
+    shop.defaultItems.forEach(name=>{
+      data.items.push({id:uid(), category:'shopping', name, createdMonth:nowKey, completedMonth:null});
+    });
+  }
+}
+function darkenColor(hex, amt){
+  hex = (hex||'#DFFF00').replace('#','');
+  if(hex.length===3){ hex = hex.split('').map(c=>c+c).join(''); }
+  const num = parseInt(hex,16) || 0xDFFF00;
+  let r=(num>>16)&255, g=(num>>8)&255, b=num&255;
+  r = Math.max(0, Math.round(r*(1-amt)));
+  g = Math.max(0, Math.round(g*(1-amt)));
+  b = Math.max(0, Math.round(b*(1-amt)));
+  return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function applyTheme(theme){
+  if(!theme) return;
+  const root = document.documentElement;
+  const bg = theme.bg || '#ffffff';
+  const accent = theme.accent || '#DFFF00';
+  const headerColor = theme.headerColor || '#DFFF00';
+  root.style.setProperty('--accent', accent);
+  root.style.setProperty('--accent-dark', darkenColor(accent, 0.4));
+  root.style.setProperty('--bg', bg);
+  root.style.setProperty('--cathead', headerColor);
+  if(theme.bgImage){
+    // keep cards opaque/white so text stays readable over a photo background
+    root.style.setProperty('--card', '#ffffff');
+    document.getElementById('bgLayer').style.backgroundImage = 'url(' + theme.bgImage + ')';
+  }else{
+    // no photo: tint cards to match the chosen background so the color change is clearly visible
+    root.style.setProperty('--card', bg);
+    document.getElementById('bgLayer').style.backgroundImage = '';
+  }
+}
+function updatePhotoPreviewUI(){
+  const wrap = document.getElementById('bgPhotoPreviewWrap');
+  const img = document.getElementById('bgPhotoPreview');
+  if(draftTheme && draftTheme.bgImage){
+    img.src = draftTheme.bgImage;
+    wrap.style.display = 'flex';
+  }else{
+    wrap.style.display = 'none';
+  }
+}
+function openSettingsModal(){
+  draftTheme = JSON.parse(JSON.stringify(data.theme || {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}));
+  document.getElementById('bgColorInput').value = draftTheme.bg || '#ffffff';
+  document.getElementById('accentColorInput').value = draftTheme.accent || '#DFFF00';
+  document.getElementById('headerColorInput').value = draftTheme.headerColor || '#DFFF00';
+  updatePhotoPreviewUI();
+  document.getElementById('settingsOverlay').style.display = 'flex';
+}
+function closeSettingsModal(){
+  document.getElementById('settingsOverlay').style.display = 'none';
+}
+function handlePhotoFile(file){
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const maxDim = 2000;
+      let w = img.width, h = img.height;
+      if(w>h){ if(w>maxDim){ h = Math.round(h*maxDim/w); w = maxDim; } }
+      else{ if(h>maxDim){ w = Math.round(w*maxDim/h); h = maxDim; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+      draftTheme.bgImage = canvas.toDataURL('image/jpeg', 0.9);
+      applyTheme(draftTheme);
+      updatePhotoPreviewUI();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function save(){
+  try{
+    if(hasCloudStorage){
+      await window.storage.set('app-data-v2', JSON.stringify(data), false);
+    }else{
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+    }
+  }catch(e){}
+}
+
+function catName(cat){
+  if(data.categoryNames && Object.prototype.hasOwnProperty.call(data.categoryNames, cat.id)){
+    return data.categoryNames[cat.id];
+  }
+  return cat.name;
+}
+function catNameHtml(cat){
+  const n = catName(cat);
+  return n ? escapeHtml(n) : '<span class="name-placeholder">點此命名</span>';
+}
+function getAppTitle(){
+  return data.appTitle || '';
+}
+function appTitleHtml(){
+  const t = getAppTitle();
+  return t ? escapeHtml(t) : '<span class="name-placeholder">點此命名</span>';
+}
+let renamingId = null;
+let showAllDebts = false;
+function activeDebtKeys(){
+  const all = ['A1','A2','A3','A4','A5'];
+  return showAllDebts ? all : all.filter(k=> financeDebtRemainPerItem(k) > 0);
+}
+function openRenameFor(id, currentName){
+  renamingId = id;
+  const overlay = document.getElementById('renameOverlay');
+  const input = document.getElementById('renameInput');
+  input.value = currentName;
+  overlay.style.display = 'flex';
+  setTimeout(()=>{ input.focus(); input.select(); }, 30);
+}
+function renameCategory(id){
+  const cat = CATEGORIES.find(c=>c.id===id);
+  if(!cat) return;
+  openRenameFor(id, catName(cat));
+}
+function renameAppTitle(){
+  openRenameFor('apptitle', getAppTitle());
+}
+function closeRenameModal(){
+  document.getElementById('renameOverlay').style.display = 'none';
+  renamingId = null;
+}
+function confirmRename(){
+  const input = document.getElementById('renameInput');
+  const trimmed = input.value.trim();
+  if(trimmed && renamingId){
+    if(renamingId==='apptitle'){
+      data.appTitle = trimmed;
+      document.title = trimmed;
+    }else if(renamingId==='financeDebtTitle'){
+      data.finance.debtSectionTitle = trimmed;
+      save();
+      closeRenameModal();
+      const titleEl = document.getElementById('financeDebtSectionTitle');
+      if(titleEl) titleEl.textContent = trimmed;
+      return;
+    }else if(renamingId.indexOf('finlabel:')===0){
+      const parts = renamingId.split(':');
+      const type = parts[1], key = parts[2];
+      if(type==='customfixed'){
+        const c = data.finance.customFixed.find(x=>x.id===key);
+        if(c) c.name = trimmed;
+      }else if(type==='customincome'){
+        const c = data.finance.customIncome.find(x=>x.id===key);
+        if(c) c.name = trimmed;
+      }else{
+        data.finance.labels[type][key] = trimmed;
+      }
+      save();
+      closeRenameModal();
+      const labelEl = document.getElementById('finLabelText_'+type+'_'+key);
+      if(labelEl) labelEl.textContent = trimmed;
+      return;
+    }else if(renamingId.indexOf('item:')===0){
+      const itemId = renamingId.slice(5);
+      const it = data.items.find(i=>i.id===itemId);
+      if(it) it.name = trimmed;
+    }else{
+      data.categoryNames[renamingId] = trimmed;
+    }
+    save();
+  }
+  closeRenameModal();
+  render();
+}
+
+function orderedCategories(){
+  return data.categoryOrder.map(id=>CATEGORIES.find(c=>c.id===id)).filter(Boolean);
+}
+function yearBlocksOrder(){
+  return data.categoryOrder.map(id=>{
+    if(id==='yeargoal') return {type:'goal', id:'yeargoal'};
+    const cat = CATEGORIES.find(c=>c.id===id);
+    return cat ? {type:'category', id:cat.id, cat} : null;
+  }).filter(Boolean);
+}
+function moveCategory(id, delta){
+  const idx = data.categoryOrder.indexOf(id);
+  const newIdx = idx + delta;
+  if(idx<0 || newIdx<0 || newIdx>=data.categoryOrder.length) return;
+  const arr = data.categoryOrder;
+  [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+  save(); render();
+}
+
+function itemsForCategoryMonth(catId, mKey){
+  return data.items.filter(it=>it.category===catId && it.createdMonth<=mKey &&
+    (it.completedMonth===null || mKey<=it.completedMonth));
+}
+function addItem(catId, name){
+  if(!name.trim()) return;
+  data.items.push({id:uid(), category:catId, name:name.trim(), createdMonth:curMonth, completedMonth:null});
+  save(); render();
+}
+function toggleItem(id){
+  const it = data.items.find(i=>i.id===id);
+  if(!it) return;
+  it.completedMonth = (it.completedMonth===curMonth) ? null : curMonth;
+  save(); render();
+}
+function deleteItem(id){
+  data.items = data.items.filter(i=>i.id!==id);
+  save(); render();
+}
+function getCheck(key, mKey){
+  return !!(data.recurringChecks[key] && data.recurringChecks[key][mKey]);
+}
+function toggleCheck(key, mKey){
+  if(!data.recurringChecks[key]) data.recurringChecks[key]={};
+  data.recurringChecks[key][mKey] = !data.recurringChecks[key][mKey];
+  save(); render();
+}
+function getCount(key, mKey){
+  return (data.recurringCounts[key] && data.recurringCounts[key][mKey]) || 0;
+}
+function bumpCount(key, mKey, delta){
+  if(!data.recurringCounts[key]) data.recurringCounts[key]={};
+  let v = (data.recurringCounts[key][mKey]||0) + delta;
+  if(v<0) v=0;
+  data.recurringCounts[key][mKey]=v;
+  save(); render();
+}
+function annualCount(key, year){
+  let sum=0;
+  for(let m=1;m<=12;m++){
+    const mk = year+'-'+pad(m);
+    sum += (data.recurringCounts[key] && data.recurringCounts[key][mk]) || 0;
+  }
+  return sum;
+}
+
+function checkIcon(){
+  return '<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+function catTotals(cat, mKey){
+  const items = itemsForCategoryMonth(cat.id, mKey);
+  let total = items.length, done = items.filter(i=>i.completedMonth===mKey).length;
+  if(cat.recurringCount){ total+=1; if(getCount(cat.recurringCount.key+':'+cat.id, mKey)>=cat.recurringCount.target) done+=1; }
+  if(cat.recurringCheck){ total+=1; if(getCheck(cat.recurringCheck.key+':'+cat.id, mKey)) done+=1; }
+  if(cat.financeLink){ total+=1; if(data.finance.months[mKey]) done+=1; }
+  return {total, done};
+}
+
+function emptyFinanceMonth(){
+  return {
+    income:{work:0, project:0, side:0, other:0},
+    fixed:{A1:0, A2:0, A3:0, A4:0, A5:0, rent:0, transport:0, food:0, utilities:0, insurance:0, software:0, other:0},
+    pct:{reserve:30, savings:30, fund:35, invest:5},
+    manualMode:false,
+    accountBalance:0,
+    note:''
+  };
+}
+function getFinanceMonth(mKey){
+  return data.finance.months[mKey] || emptyFinanceMonth();
+}
+const RESERVE_TARGET_DEFAULT = 200000;
+function getReserveTarget(){
+  return (data.finance && data.finance.reserveTarget) || RESERVE_TARGET_DEFAULT;
+}
+
+function financeMonthCalcItemized(m){
+  const customIncomeIds = (data.finance.customIncome||[]).map(c=>c.id);
+  const incomeTotal = ['work','project','side', ...customIncomeIds]
+    .reduce((s,k)=> s+(m.income[k]||0), 0);
+  const debtPaid = (m.fixed.A1||0)+(m.fixed.A2||0)+(m.fixed.A3||0)+(m.fixed.A4||0)+(m.fixed.A5||0);
+  const customFixedIds = (data.finance.customFixed||[]).map(c=>c.id);
+  const otherExpense = ['rent','transport','food','utilities','insurance','software','other', ...customFixedIds]
+    .reduce((s,k)=> s+(m.fixed[k]||0), 0);
+  const fixedTotal = debtPaid + otherExpense;
+  const remain = incomeTotal - fixedTotal;
+  return {incomeTotal, fixedTotal, remain, debtPaid};
+}
+// One step of the sequential walk.
+// runningBalance = the account's running total carried in from the previous month.
+//   - manual/balance-mode months set it directly to whatever total the person reads off their account.
+//   - itemized months add that month's flow (income - expenses) on top of the previous running total.
+// Before the reserve fund has ever reached the target, 100% of the running balance IS the reserve
+// (nothing else exists yet). Once unlocked (the target was reached at the end of some month),
+// every month from then on the reserve stays fixed at the target amount as a floor, and only the
+// EXCESS above that floor gets split by percentage into reserve/savings/fund/invest — so money that
+// was already counted as reserve is never re-split.
+function financeSeqStep(mKey, unlockedAtStart, runningBalanceIn){
+  const m = getFinanceMonth(mKey);
+  const debtPaid = (m.fixed.A1||0)+(m.fixed.A2||0)+(m.fixed.A3||0)+(m.fixed.A4||0)+(m.fixed.A5||0);
+  let remain, incomeTotal=0, fixedTotal=0, runningBalance;
+  if(m.manualMode){
+    runningBalance = m.accountBalance||0;
+    remain = runningBalance - (runningBalanceIn||0);
+  }else{
+    const c = financeMonthCalcItemized(m);
+    incomeTotal = c.incomeTotal; fixedTotal = c.fixedTotal; remain = c.remain;
+    runningBalance = (runningBalanceIn||0) + remain;
+  }
+  const target = getReserveTarget();
+  let alloc, unlockedOut;
+  if(!unlockedAtStart){
+    alloc = {reserve:runningBalance, savings:0, fund:0, invest:0};
+    unlockedOut = runningBalance >= target;
+  }else{
+    const excess = Math.max(0, runningBalance - target);
+    const p = m.pct;
+    alloc = {
+      reserve: target + Math.round(excess * (p.reserve||0)/100),
+      savings: Math.round(excess * (p.savings||0)/100),
+      fund: Math.round(excess * (p.fund||0)/100),
+      invest: Math.round(excess * (p.invest||0)/100)
+    };
+    unlockedOut = true;
+  }
+  return {incomeTotal, fixedTotal, remain, debtPaid, alloc, runningBalance, unlockedOut};
+}
+function financeMonthCalc(mKey){
+  const before = financeStateBefore(mKey);
+  const step = financeSeqStep(mKey, before.unlocked, before.lastBalance);
+  return {incomeTotal:step.incomeTotal, fixedTotal:step.fixedTotal, remain:step.remain, debtPaid:step.debtPaid};
+}
+function financeStateBefore(mKey){
+  const keys = Object.keys(data.finance.months).filter(k=>k<mKey).sort();
+  let unlocked=false, runningBalance=0, debtPaid=0;
+  let lastAlloc = {reserve:0, savings:0, fund:0, invest:0};
+  keys.forEach(k=>{
+    const step = financeSeqStep(k, unlocked, runningBalance);
+    unlocked = step.unlockedOut;
+    runningBalance = step.runningBalance;
+    debtPaid += step.debtPaid;
+    lastAlloc = step.alloc;
+  });
+  return {reserve:lastAlloc.reserve, savings:lastAlloc.savings, fund:lastAlloc.fund, invest:lastAlloc.invest, debtPaid, unlocked, lastBalance:runningBalance};
+}
+function financeCumulativeUpTo(mKey){
+  const keys = Object.keys(data.finance.months).filter(k=>k<=mKey).sort();
+  let unlocked=false, runningBalance=0, debtPaid=0;
+  let lastAlloc = {reserve:0, savings:0, fund:0, invest:0};
+  keys.forEach(k=>{
+    const step = financeSeqStep(k, unlocked, runningBalance);
+    unlocked = step.unlockedOut;
+    runningBalance = step.runningBalance;
+    debtPaid += step.debtPaid;
+    lastAlloc = step.alloc;
+  });
+  return {reserve:lastAlloc.reserve, savings:lastAlloc.savings, fund:lastAlloc.fund, invest:lastAlloc.invest, debtPaid};
+}
+function financeDebtTotalInit(){
+  return ['A1','A2','A3','A4','A5'].reduce((s,k)=> s+(data.finance.debts[k].total||0), 0);
+}
+function financeDebtPaidTotal(k){
+  let sum = 0;
+  Object.keys(data.finance.months).forEach(mk=>{
+    const m = data.finance.months[mk];
+    sum += (m.fixed && m.fixed[k]) || 0;
+  });
+  return sum;
+}
+function financeDebtRemainPerItem(k){
+  return (data.finance.debts[k].total||0) - financeDebtPaidTotal(k);
+}
+function financeSummaryUpTo(mKey){
+  const cum = financeCumulativeUpTo(mKey);
+  const debtRemaining = financeDebtTotalInit() - cum.debtPaid;
+  const totalAssets = cum.reserve+cum.savings+cum.fund+cum.invest - debtRemaining;
+  return {...cum, debtRemaining, totalAssets};
+}
+function fmtMoney(n){
+  n = Math.round(n||0);
+  const sign = n<0 ? '-' : '';
+  return sign + '$' + Math.abs(n).toLocaleString('en-US');
+}
+function fmtNum(n){
+  n = Math.round(n||0);
+  const sign = n<0 ? '-' : '';
+  return sign + Math.abs(n).toLocaleString('en-US');
+}
+
+function renderMonthView(){
+  let html = '';
+  const cats = orderedCategories();
+  cats.forEach((cat)=>{
+    const isOpen = openState[cat.id] !== false; // default open
+    const items = itemsForCategoryMonth(cat.id, curMonth);
+    const {total, done} = catTotals(cat, curMonth);
+    html += `<div class="card ${isOpen?'open':''}" data-cat="${cat.id}">
+      <div class="cat-head" data-toggle="${cat.id}">
+        <div class="cat-name" data-editname="${cat.id}">${catNameHtml(cat)}</div>
+        <div class="cat-right">
+          <span class="cat-count">${done}/${total}</span>
+          <div class="drag-handle" data-drag="${cat.id}"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div>
+          <span class="chev">▶</span>
+        </div>
+      </div>
+      <div class="cat-body"><div class="cat-inner">`;
+
+    if(cat.recurringCount){
+      const key = cat.recurringCount.key+':'+cat.id;
+      const c = getCount(key, curMonth), t = cat.recurringCount.target;
+      const pct = Math.min(100, Math.round(c/t*100));
+      html += `<div class="counter-row">
+        <div class="counter-name ${c>=t?'done':''}">${cat.recurringCount.key}</div>
+        <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
+        <div class="stepper">
+          <button class="stbtn" data-bump="${key}|-1">−</button>
+          <div class="stval">${c}/${t}</div>
+          <button class="stbtn" data-bump="${key}|1">+</button>
+        </div>
+      </div>`;
+    }
+    if(cat.recurringCheck){
+      const key = cat.recurringCheck.key+':'+cat.id;
+      const on = getCheck(key, curMonth);
+      html += `<div class="item-row">
+        <div class="check ${on?'done':''}" data-checkrec="${key}">${checkIcon()}</div>
+        <div class="item-name ${on?'done':''}">${cat.recurringCheck.key}（每月）</div>
+      </div>`;
+    }
+    if(cat.financeLink){
+      const filled = !!data.finance.months[curMonth];
+      const preview = filled ? fmtMoney(financeMonthCalc(curMonth).remain)+' 可分配' : '尚未填寫本月資料';
+      html += `<div class="finance-row" data-openfinance="1">
+        <div class="finance-row-text">
+          <div class="item-name ${filled?'done':''}">${cat.financeLink.name}</div>
+          <div class="finance-row-preview">${preview}</div>
+        </div>
+        <div class="finance-row-arrow">›</div>
+      </div>`;
+    }
+    if(items.length===0 && !cat.recurringCount && !cat.recurringCheck && !cat.financeLink){
+      html += `<div class="empty-state" style="padding:16px 0 4px;">尚無項目</div>`;
+    }
+    items.forEach(it=>{
+      const on = it.completedMonth===curMonth;
+      html += `<div class="item-row">
+        <div class="check ${on?'done':''}" data-check="${it.id}">${checkIcon()}</div>
+        <div class="item-name ${on?'done':''}" data-edititem="${it.id}">${escapeHtml(it.name)}</div>
+        <div class="del" data-del="${it.id}">×</div>
+      </div>`;
+    });
+
+    html += `<div class="add-row">
+      <input class="add-input" placeholder="新增項目…" data-input="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="add-btn" data-add="${cat.id}">＋</button>
+    </div>`;
+    html += `</div></div></div>`;
+  });
+  return html;
+}
+
+function monthsCheckedInYear(key, year){
+  let n=0;
+  for(let m=1;m<=12;m++){ if(getCheck(key, year+'-'+pad(m))) n++; }
+  return n;
+}
+
+function renderYearView(){
+  const year = yearOf(curMonth);
+  let html = '';
+  yearBlocksOrder().forEach(block=>{
+    if(block.type==='goal'){
+      const goalText = data.yearGoals[year] || '';
+      html += `<div class="goal-card" data-cat="yeargoal">
+        <div class="goal-title-row"><span class="goal-title">${year} 年度目標</span><div class="drag-handle" data-drag="yeargoal"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div></div>
+        <textarea class="goal-input" id="goalInput" placeholder="寫下這一年想達成的目標…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">${escapeHtml(goalText)}</textarea>
+        <div class="goal-saved" id="goalSaved"></div>
+      </div>`;
+      return;
+    }
+
+    const cat = block.cat;
+    // items completed sometime within this year
+    const doneItems = data.items.filter(it=>it.category===cat.id && it.completedMonth && it.completedMonth.slice(0,4)===year);
+    // items still open right now (regardless of year), that already existed by this year
+    const undoneItems = data.items.filter(it=>it.category===cat.id && it.completedMonth===null && it.createdMonth.slice(0,4)<=year);
+
+    let total = doneItems.length + undoneItems.length;
+    let done = doneItems.length;
+    if(cat.recurringCount) total += 1;
+    if(cat.recurringCheck) total += 1;
+    let recurringDoneBonus = 0;
+    if(cat.recurringCount){
+      const key = cat.recurringCount.key+':'+cat.id;
+      if(annualCount(key, year) >= 12*cat.recurringCount.target) recurringDoneBonus++;
+    }
+    if(cat.recurringCheck){
+      const key = cat.recurringCheck.key+':'+cat.id;
+      if(monthsCheckedInYear(key, year)===12) recurringDoneBonus++;
+    }
+    done += recurringDoneBonus;
+
+    html += `<div class="yr-card" data-cat="${cat.id}">
+      <div class="yr-title"><span class="yr-cat-name" data-editname="${cat.id}">${catNameHtml(cat)}</span><div class="yr-title-right"><span class="yr-sub">${done}/${total}（年度）</span><div class="drag-handle" data-drag="${cat.id}"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div></div></div>
+
+      <div class="yr-col-label">已完成項目</div>
+      <div class="yr-tags">`;
+    if(doneItems.length===0) html += `<span class="tag empty">—</span>`;
+    doneItems.forEach(it=>{
+      html += `<span class="tag done">✓ ${escapeHtml(it.name)}</span>`;
+    });
+    html += `</div>
+
+      <div class="yr-col-label">尚未完成項目</div>
+      <div class="yr-tags">`;
+    if(undoneItems.length===0) html += `<span class="tag empty">—</span>`;
+    undoneItems.forEach(it=>{
+      html += `<span class="tag">${escapeHtml(it.name)}</span>`;
+    });
+    html += `</div>`;
+
+    if(cat.recurringCount){
+      const key = cat.recurringCount.key+':'+cat.id;
+      const ac = annualCount(key, year);
+      html += `<div class="run-note">${cat.recurringCount.key}年度累計：<b>${ac} / ${12*cat.recurringCount.target}</b></div>`;
+    }
+    if(cat.recurringCheck){
+      const key = cat.recurringCheck.key+':'+cat.id;
+      const mc = monthsCheckedInYear(key, year);
+      html += `<div class="run-note">${cat.recurringCheck.key}完成月數：<b>${mc} / 12</b></div>`;
+    }
+    html += `</div>`;
+  });
+
+  return html;
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+const FIN_INCOME_LABELS = {work:'工作', project:'案子', side:'副業'};
+const FIN_FIXED_LABELS = {rent:'房租／租金', transport:'交通', food:'伙食', utilities:'水電／網路／電話', insurance:'健保／勞保', software:'軟件（網站/Google）', other:'其他支出'};
+const FIN_PCT_LABELS = {reserve:'備用金（緊急預備金）', savings:'存款（長期不動用）', fund:'基金（作品/專業資格）', invest:'投資'};
+const FIN_SUMMARY_LABELS = {reserve:'備用金累積', savings:'存款累積', fund:'基金累積', invest:'投資金累積', debt:'項目餘額', total:'總資產', other:'其他項目'};
+const FIN_DEFAULT_LABELS = {income:FIN_INCOME_LABELS, fixed:FIN_FIXED_LABELS, pct:FIN_PCT_LABELS, summary:FIN_SUMMARY_LABELS};
+
+function finLabel(type, key){
+  const override = data.finance.labels && data.finance.labels[type] && data.finance.labels[type][key];
+  return override || FIN_DEFAULT_LABELS[type][key];
+}
+
+function financeMonthLabel(mKey){
+  const [y,m] = mKey.split('-');
+  return y+'年'+parseInt(m)+'月';
+}
+
+function renderFinancePage(){
+  const mKey = curMonth;
+  document.getElementById('financeHeaderTitle').textContent = financeMonthLabel(mKey)+' 理財管理';
+  const fm = getFinanceMonth(mKey);
+  const debts = data.finance.debts;
+
+  let html = '';
+
+  // combined asset tracking + debt items (topmost section)
+  html += `<div class="fin-section">
+    <div class="fin-section-title fin-title-editable" id="financeDebtSectionTitle">${data.finance.debtSectionTitle ? escapeHtml(data.finance.debtSectionTitle) : '<span class="name-placeholder">點此命名</span>'}</div>
+    <div class="fin-total-assets fin-total-assets-top"><span class="fin-title-editable" id="finLabelText_summary_total" data-finlabel="summary:total">${escapeHtml(finLabel('summary','total'))}</span><span id="finSummaryVal_total">$0</span></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_reserve" data-finlabel="summary:reserve">${escapeHtml(finLabel('summary','reserve'))}</span><b id="finSummaryVal_reserve">$0 <span id="finReserveGapNote" class="fin-summary-note"></span></b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_savings" data-finlabel="summary:savings">${escapeHtml(finLabel('summary','savings'))}</span><b id="finSummaryVal_savings">$0</b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_fund" data-finlabel="summary:fund">${escapeHtml(finLabel('summary','fund'))}</span><b id="finSummaryVal_fund">$0</b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_invest" data-finlabel="summary:invest">${escapeHtml(finLabel('summary','invest'))}</span><b id="finSummaryVal_invest">$0</b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_other" data-finlabel="summary:other">${escapeHtml(finLabel('summary','other'))}</span></div>`;
+  const visibleDebtKeys = activeDebtKeys();
+  visibleDebtKeys.forEach(k=>{
+    html += `<div class="fin-row">
+      <input class="fin-name-input" data-fin-debtname="${k}" value="${escapeHtml(debts[k].name)}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <div class="fin-debt-simple">
+        <span id="finDebtRemainNum_${k}" class="fin-debt-paid-num">0</span> / <input class="fin-total-inline" type="number" inputmode="decimal" data-fin-debttotal="${k}" value="${debts[k].total||0}">
+      </div>
+    </div>`;
+  });
+  const hiddenCount = 5 - visibleDebtKeys.length;
+  html += (showAllDebts || hiddenCount>0)
+    ? `<div class="fin-debt-toggle" id="finDebtToggleBtn">${showAllDebts ? '▲' : '▼'}</div>`
+    : '';
+  html += `</div>`;
+
+  // income
+  html += `<div class="fin-section">
+    <div class="fin-section-title">① 收入</div>`;
+  Object.keys(FIN_INCOME_LABELS).forEach(k=>{
+    html += `<div class="fin-row">
+      <div class="fin-row-label fin-title-editable" id="finLabelText_income_${k}" data-finlabel="income:${k}">${escapeHtml(finLabel('income',k))}</div>
+      <input class="fin-num-input" type="number" inputmode="decimal" data-fin-income="${k}" value="${fm.income[k]||0}">
+    </div>`;
+  });
+  (data.finance.customIncome||[]).forEach(c=>{
+    html += `<div class="fin-row">
+      <div class="fin-row-label fin-title-editable" id="finLabelText_customincome_${c.id}" data-finlabel="customincome:${c.id}">${escapeHtml(c.name)}</div>
+      <div style="display:flex;align-items:center;">
+        <input class="fin-num-input" type="number" inputmode="decimal" data-fin-income="${c.id}" value="${fm.income[c.id]||0}">
+        <div class="fin-del-custom" data-fin-delcustomincome="${c.id}">×</div>
+      </div>
+    </div>`;
+  });
+  html += `<div class="fin-add-row">
+    <input class="fin-add-input" id="finAddIncomeName" placeholder="新增收入項目…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="fin-add-btn" id="finAddIncomeBtn">＋</button>
+  </div>`;
+  html += `<div class="fin-subtotal"><span>收入小計</span><span id="finIncomeTotal">$0</span></div></div>`;
+
+  // fixed expenses
+  const manualOn = !!fm.manualMode;
+  html += `<div class="fin-section">
+    <div class="fin-section-title">② 支出</div>`;
+  activeDebtKeys().forEach(k=>{
+    html += `<div class="fin-row">
+      <div class="fin-row-label-wrap">
+        <span id="finDebtLabel_${k}" style="font-size:13.5px;color:var(--sub);flex:0 0 auto;">${escapeHtml(debts[k].name)}</span>
+        <input class="fin-note-mini" type="text" data-fin-debtnote="${k}" value="${escapeHtml(debts[k].note||'')}" placeholder="備註" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <input class="fin-num-input" type="number" inputmode="decimal" data-fin-fixed="${k}" value="${fm.fixed[k]||0}">
+    </div>`;
+  });
+  html += `<div class="fin-manual-toggle-row">
+    <label class="fin-toggle-label">
+      <input type="checkbox" id="finManualModeToggle" ${manualOn?'checked':''}>
+      簡易模式：直接輸入戶口目前總餘額，App 自動算出跟上個月的差額
+    </label>
+  </div>`;
+  html += `<div id="fixedDetailRows" style="${manualOn?'display:none;':''}">`;
+  Object.keys(FIN_FIXED_LABELS).forEach(k=>{
+    html += `<div class="fin-row">
+      <div class="fin-row-label fin-title-editable" id="finLabelText_fixed_${k}" data-finlabel="fixed:${k}">${escapeHtml(finLabel('fixed',k))}</div>
+      <input class="fin-num-input" type="number" inputmode="decimal" data-fin-fixed="${k}" value="${fm.fixed[k]||0}">
+    </div>`;
+  });
+  (data.finance.customFixed||[]).forEach(c=>{
+    html += `<div class="fin-row">
+      <div class="fin-row-label fin-title-editable" id="finLabelText_customfixed_${c.id}" data-finlabel="customfixed:${c.id}">${escapeHtml(c.name)}</div>
+      <div style="display:flex;align-items:center;">
+        <input class="fin-num-input" type="number" inputmode="decimal" data-fin-fixed="${c.id}" value="${fm.fixed[c.id]||0}">
+        <div class="fin-del-custom" data-fin-delcustom="${c.id}">×</div>
+      </div>
+    </div>`;
+  });
+  html += `<div class="fin-add-row">
+    <input class="fin-add-input" id="finAddFixedName" placeholder="新增固定支出項目…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="fin-add-btn" id="finAddFixedBtn">＋</button>
+  </div>`;
+  html += `</div>`;
+  html += `<div id="manualExpenseRow" class="fin-row" style="${manualOn?'':'display:none;'}">
+    <div class="fin-row-label">本月底戶口總餘額（看戶口填）</div>
+    <input class="fin-num-input" type="number" inputmode="decimal" id="finAccountBalanceInput" value="${fm.accountBalance||0}">
+  </div>`;
+  if(manualOn){
+    const beforeBalance = financeStateBefore(mKey).lastBalance;
+    html += `<div class="fin-hint">上個月記錄的餘額是 ${fmtMoney(beforeBalance)}，這個月分配的金額 = 你填的總餘額 − 這個數字，已經扣過的錢不會被重複分配。</div>`;
+  }
+  html += `<div class="fin-subtotal"><span id="finFixedTotalLabel">支出小計</span><span id="finFixedTotal">$0</span></div></div>`;
+
+  // remain
+  html += `<div class="fin-remain">
+    <div class="fin-remain-label">剩餘可分配金額</div>
+    <div class="fin-remain-value" id="finRemainValue">$0</div>
+  </div>`;
+
+  // allocation
+  html += `<div class="fin-section">
+    <div class="fin-section-title">③ 資產分配（分配剩餘金額）</div>
+    <div class="fin-row">
+      <div class="fin-row-label">備用金目標金額</div>
+      <input class="fin-num-input" type="number" inputmode="decimal" id="finReserveTargetInput" value="${data.finance.reserveTarget}">
+    </div>
+    <div class="fin-gate-status" id="finGateStatus"></div>`;
+  Object.keys(FIN_PCT_LABELS).forEach(k=>{
+    html += `<div class="fin-row">
+      <div class="fin-row-label fin-title-editable" id="finLabelText_pct_${k}" data-finlabel="pct:${k}">${escapeHtml(finLabel('pct',k))}</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <input class="fin-pct-input" type="number" inputmode="decimal" data-fin-pct="${k}" value="${fm.pct[k]}">
+        <span style="font-size:13px;color:var(--faint);">%</span>
+      </div>
+    </div>
+    <div class="fin-alloc-row"><span>分配金額</span><b id="finAlloc_${k}">$0</b></div>`;
+  });
+  html += `<div class="fin-pct-warn" id="finPctWarn"></div>
+  </div>`;
+
+  // note
+  html += `<div class="fin-section">
+    <div class="fin-section-title">本月備註</div>
+    <textarea class="fin-note-input" id="financeNoteInput" placeholder="這個月的理財筆記…">${escapeHtml(fm.note||'')}</textarea>
+  </div>`;
+
+  html += `<button class="fin-save-btn" id="financeSaveBtn">儲存本月資料</button>
+  <div class="fin-saved-note" id="financeSavedNote"></div>`;
+
+  html += `<button class="fin-reset-btn" id="financeResetBtn">重設所有理財設定與數字為預設值</button>`;
+
+  document.getElementById('financeBody').innerHTML = html;
+  bindFinanceEvents();
+  recalcFinanceLive();
+  updateFinanceTrackingValues();
+}
+
+function updateFinanceTrackingValues(){
+  const s = financeSummaryUpTo(curMonth);
+  const setTxt = (id, val)=>{ const el = document.getElementById(id); if(el) el.textContent = val; };
+  setTxt('finSummaryVal_reserve', fmtMoney(s.reserve));
+  const gap = getReserveTarget() - s.reserve;
+  setTxt('finReserveGapNote', gap>0 ? `（距離 ${fmtMoney(getReserveTarget())} 還差 ${fmtMoney(gap)}）` : '（已達標）');
+  setTxt('finSummaryVal_savings', fmtMoney(s.savings));
+  setTxt('finSummaryVal_fund', fmtMoney(s.fund));
+  setTxt('finSummaryVal_invest', fmtMoney(s.invest));
+  setTxt('finSummaryVal_total', fmtMoney(s.totalAssets));
+  updateDebtPaidDisplays();
+}
+function updateDebtPaidDisplays(){
+  ['A1','A2','A3','A4','A5'].forEach(k=>{
+    const el = document.getElementById('finDebtRemainNum_'+k);
+    if(el){
+      const paid = financeDebtPaidTotal(k);
+      el.textContent = fmtNum(paid);
+    }
+  });
+}
+
+function readFinanceDraftFromDOM(){
+  const income = {};
+  document.querySelectorAll('[data-fin-income]').forEach(el=>{
+    income[el.getAttribute('data-fin-income')] = parseFloat(el.value)||0;
+  });
+  const fixed = {};
+  document.querySelectorAll('[data-fin-fixed]').forEach(el=>{
+    fixed[el.getAttribute('data-fin-fixed')] = parseFloat(el.value)||0;
+  });
+  const pct = {};
+  document.querySelectorAll('[data-fin-pct]').forEach(el=>{
+    pct[el.getAttribute('data-fin-pct')] = parseFloat(el.value)||0;
+  });
+  const manualToggle = document.getElementById('finManualModeToggle');
+  const manualInput = document.getElementById('finAccountBalanceInput');
+  const manualMode = manualToggle ? manualToggle.checked : false;
+  const accountBalance = manualInput ? (parseFloat(manualInput.value)||0) : 0;
+  return {income, fixed, pct, manualMode, accountBalance};
+}
+
+function recalcFinanceLive(){
+  const draft = readFinanceDraftFromDOM();
+  const before = financeStateBefore(curMonth);
+  const incomeTotal = Object.values(draft.income).reduce((a,b)=>a+b, 0);
+  const debtPaid = ['A1','A2','A3','A4','A5'].reduce((s,k)=> s+(draft.fixed[k]||0), 0);
+  let fixedTotal, remain, runningBalance;
+  if(draft.manualMode){
+    runningBalance = draft.accountBalance||0;
+    remain = runningBalance - before.lastBalance;
+    fixedTotal = null; // not meaningful in balance mode
+  }else{
+    const otherExpense = Object.keys(draft.fixed).filter(k=>!['A1','A2','A3','A4','A5'].includes(k)).reduce((s,k)=> s+(draft.fixed[k]||0), 0);
+    fixedTotal = debtPaid + otherExpense;
+    remain = incomeTotal - fixedTotal;
+    runningBalance = before.lastBalance + remain;
+  }
+  const incEl = document.getElementById('finIncomeTotal'); if(incEl) incEl.textContent = fmtMoney(incomeTotal);
+  const fixEl = document.getElementById('finFixedTotal');
+  const fixLabelEl = document.getElementById('finFixedTotalLabel');
+  if(draft.manualMode){
+    if(fixLabelEl) fixLabelEl.textContent = '上月底餘額';
+    if(fixEl) fixEl.textContent = fmtMoney(before.lastBalance);
+  }else{
+    if(fixLabelEl) fixLabelEl.textContent = '支出小計';
+    if(fixEl) fixEl.textContent = fmtMoney(fixedTotal);
+  }
+  const remEl = document.getElementById('finRemainValue'); if(remEl) remEl.textContent = fmtMoney(remain);
+
+  const target = getReserveTarget();
+  const gateEl = document.getElementById('finGateStatus');
+  let pctSum = 0;
+  Object.keys(FIN_PCT_LABELS).forEach(k=>{ pctSum += (draft.pct[k]||0); });
+
+  if(!before.unlocked){
+    const gap = Math.max(0, target - runningBalance);
+    if(gateEl) gateEl.innerHTML = gap>0
+      ? `尚未達 ${fmtMoney(target)}（目前戶口總額 ${fmtMoney(runningBalance)}，還差 ${fmtMoney(gap)}）— 這個月新增的金額會 100% 進備用金，比例分配下方僅供參考，達標下個月才會啟用。`
+      : `這個月戶口總額達到 ${fmtMoney(runningBalance)}，已達備用金目標 ${fmtMoney(target)}！這個月仍 100% 算進備用金，下個月開始，超過 ${fmtMoney(target)} 的部分才會依比例分配。`;
+    ['reserve','savings','fund','invest'].forEach(k=>{
+      const allocEl = document.getElementById('finAlloc_'+k);
+      if(allocEl) allocEl.textContent = k==='reserve' ? fmtMoney(runningBalance-before.reserve) : fmtMoney(0);
+    });
+  }else{
+    const excess = Math.max(0, runningBalance - target);
+    if(gateEl) gateEl.innerHTML = `備用金固定維持 ${fmtMoney(target)} 為基礎，目前戶口總額 ${fmtMoney(runningBalance)}，超過基礎的 ${fmtMoney(excess)} 依下方比例分配。`;
+    const newAlloc = {
+      reserve: target + Math.round(excess*(draft.pct.reserve||0)/100),
+      savings: Math.round(excess*(draft.pct.savings||0)/100),
+      fund: Math.round(excess*(draft.pct.fund||0)/100),
+      invest: Math.round(excess*(draft.pct.invest||0)/100)
+    };
+    ['reserve','savings','fund','invest'].forEach(k=>{
+      const allocEl = document.getElementById('finAlloc_'+k);
+      if(allocEl) allocEl.textContent = fmtMoney(newAlloc[k]-before[k]);
+    });
+  }
+  const warnEl = document.getElementById('finPctWarn');
+  if(warnEl){
+    warnEl.textContent = Math.round(pctSum)===100 ? '' : ('分配比例合計 '+pctSum+'%（建議合計為 100%）');
+  }
+}
+
+function bindFinLabelClicks(root){
+  root.querySelectorAll('[data-finlabel]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [type, key] = el.getAttribute('data-finlabel').split(':');
+      const current = type==='customfixed'
+        ? (data.finance.customFixed.find(c=>c.id===key)||{name:''}).name
+        : type==='customincome'
+        ? (data.finance.customIncome.find(c=>c.id===key)||{name:''}).name
+        : finLabel(type, key);
+      openRenameFor('finlabel:'+type+':'+key, current);
+    };
+  });
+}
+
+function bindFinanceEvents(){
+  document.getElementById('financeDebtSectionTitle').onclick = ()=>{
+    openRenameFor('financeDebtTitle', data.finance.debtSectionTitle);
+  };
+  const debtToggleBtn = document.getElementById('finDebtToggleBtn');
+  if(debtToggleBtn){
+    debtToggleBtn.onclick = ()=>{
+      showAllDebts = !showAllDebts;
+      refreshFinancePagePreserveDraft();
+    };
+  }
+  bindFinLabelClicks(document.getElementById('financeBody'));
+  document.querySelectorAll('[data-fin-income],[data-fin-fixed],[data-fin-pct]').forEach(el=>{
+    el.oninput = recalcFinanceLive;
+  });
+  document.querySelectorAll('[data-fin-debtname]').forEach(el=>{
+    el.onchange = (e)=>{
+      const k = el.getAttribute('data-fin-debtname');
+      data.finance.debts[k].name = el.value.trim() || k;
+      const label = document.getElementById('finDebtLabel_'+k);
+      if(label) label.textContent = data.finance.debts[k].name;
+      save();
+      updateFinanceTrackingValues();
+    };
+  });
+  document.querySelectorAll('[data-fin-debttotal]').forEach(el=>{
+    el.oninput = (e)=>{
+      const k = el.getAttribute('data-fin-debttotal');
+      data.finance.debts[k].total = parseFloat(el.value)||0;
+      save();
+      updateFinanceTrackingValues();
+    };
+  });
+  document.querySelectorAll('[data-fin-debtnote]').forEach(el=>{
+    el.oninput = (e)=>{
+      const k = el.getAttribute('data-fin-debtnote');
+      data.finance.debts[k].note = el.value;
+      save();
+    };
+  });
+  document.getElementById('finReserveTargetInput').oninput = (e)=>{
+    data.finance.reserveTarget = parseFloat(e.target.value)||200000;
+    save();
+    recalcFinanceLive();
+    updateFinanceTrackingValues();
+  };
+  document.getElementById('finManualModeToggle').onchange = (e)=>{
+    const detailRows = document.getElementById('fixedDetailRows');
+    const manualRow = document.getElementById('manualExpenseRow');
+    if(e.target.checked){
+      detailRows.style.display = 'none';
+      manualRow.style.display = '';
+    }else{
+      detailRows.style.display = '';
+      manualRow.style.display = 'none';
+    }
+    recalcFinanceLive();
+  };
+  const manualExpenseInput = document.getElementById('finAccountBalanceInput');
+  if(manualExpenseInput) manualExpenseInput.oninput = recalcFinanceLive;
+  document.querySelectorAll('[data-fin-delcustom]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-fin-delcustom');
+      data.finance.customFixed = data.finance.customFixed.filter(c=>c.id!==id);
+      save();
+      refreshFinancePagePreserveDraft();
+    };
+  });
+  document.getElementById('finAddFixedBtn').onclick = addCustomFixedItemFromInput;
+  document.getElementById('finAddFixedName').onkeydown = (e)=>{
+    if(e.key==='Enter') addCustomFixedItemFromInput();
+  };
+  document.querySelectorAll('[data-fin-delcustomincome]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-fin-delcustomincome');
+      data.finance.customIncome = data.finance.customIncome.filter(c=>c.id!==id);
+      save();
+      refreshFinancePagePreserveDraft();
+    };
+  });
+  document.getElementById('finAddIncomeBtn').onclick = addCustomIncomeItemFromInput;
+  document.getElementById('finAddIncomeName').onkeydown = (e)=>{
+    if(e.key==='Enter') addCustomIncomeItemFromInput();
+  };
+  document.getElementById('financeSaveBtn').onclick = saveFinanceMonth;
+  document.getElementById('financeResetBtn').onclick = handleFinanceResetClick;
+}
+
+function addCustomFixedItemFromInput(){
+  const input = document.getElementById('finAddFixedName');
+  const name = input.value.trim();
+  if(!name) return;
+  data.finance.customFixed.push({id:uid(), name});
+  save();
+  input.value = '';
+  refreshFinancePagePreserveDraft();
+}
+
+function addCustomIncomeItemFromInput(){
+  const input = document.getElementById('finAddIncomeName');
+  const name = input.value.trim();
+  if(!name) return;
+  data.finance.customIncome.push({id:uid(), name});
+  save();
+  input.value = '';
+  refreshFinancePagePreserveDraft();
+}
+
+function refreshFinancePagePreserveDraft(){
+  const draft = readFinanceDraftFromDOM();
+  const noteInput = document.getElementById('financeNoteInput');
+  const note = noteInput ? noteInput.value : '';
+  renderFinancePage();
+  Object.keys(draft.income).forEach(k=>{
+    const el = document.querySelector('[data-fin-income="'+k+'"]'); if(el) el.value = draft.income[k];
+  });
+  Object.keys(draft.fixed).forEach(k=>{
+    const el = document.querySelector('[data-fin-fixed="'+k+'"]'); if(el) el.value = draft.fixed[k];
+  });
+  Object.keys(draft.pct).forEach(k=>{
+    const el = document.querySelector('[data-fin-pct="'+k+'"]'); if(el) el.value = draft.pct[k];
+  });
+  const toggle = document.getElementById('finManualModeToggle');
+  if(toggle){
+    toggle.checked = draft.manualMode;
+    const detailRows = document.getElementById('fixedDetailRows');
+    const manualRow = document.getElementById('manualExpenseRow');
+    if(draft.manualMode){ detailRows.style.display='none'; manualRow.style.display=''; }
+    else{ detailRows.style.display=''; manualRow.style.display='none'; }
+  }
+  const manualInput = document.getElementById('finAccountBalanceInput');
+  if(manualInput) manualInput.value = draft.accountBalance;
+  const noteEl = document.getElementById('financeNoteInput'); if(noteEl) noteEl.value = note;
+  recalcFinanceLive();
+}
+
+let financeResetArmed = false;
+let financeResetTimer = null;
+function handleFinanceResetClick(){
+  const btn = document.getElementById('financeResetBtn');
+  if(!financeResetArmed){
+    financeResetArmed = true;
+    btn.textContent = '再按一次確認重設（會清空所有理財資料）';
+    btn.classList.add('armed');
+    clearTimeout(financeResetTimer);
+    financeResetTimer = setTimeout(()=>{
+      financeResetArmed = false;
+      if(btn){ btn.textContent = '重設所有理財設定與數字為預設值'; btn.classList.remove('armed'); }
+    }, 4000);
+  }else{
+    clearTimeout(financeResetTimer);
+    financeResetArmed = false;
+    data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+    data.finance.labels = {income:{}, fixed:{}, pct:{}, summary:{}};
+    data.finance.reserveTarget = 200000;
+    data.finance.debtSectionTitle = '總資產追蹤';
+    data.finance.customFixed = [];
+    data.finance.customIncome = [];
+    save();
+    renderFinancePage();
+    render();
+  }
+}
+
+function saveFinanceMonth(){
+  const draft = readFinanceDraftFromDOM();
+  const note = document.getElementById('financeNoteInput').value;
+  data.finance.months[curMonth] = {
+    income:draft.income, fixed:draft.fixed, pct:draft.pct,
+    manualMode:draft.manualMode, accountBalance:draft.accountBalance,
+    note
+  };
+  save();
+  const noteEl = document.getElementById('financeSavedNote');
+  if(noteEl){
+    noteEl.textContent = '已儲存';
+    setTimeout(()=>{ if(noteEl) noteEl.textContent=''; }, 1500);
+  }
+  updateFinanceTrackingValues();
+  render();
+}
+
+function openFinancePage(){
+  document.getElementById('financeOverlay').classList.add('open');
+  renderFinancePage();
+}
+function closeFinancePage(){
+  document.getElementById('financeOverlay').classList.remove('open');
+}
+
+function render(){
+  document.getElementById('appTitleEl').innerHTML = appTitleHtml();
+  document.title = getAppTitle() || 'Professsor Wong';
+  document.getElementById('navLabel').textContent = view==='month' ? monthLabel(curMonth) : (yearOf(curMonth)+'年');
+  const main = document.getElementById('main');
+  main.innerHTML = view==='month' ? renderMonthView() : renderYearView();
+  bindEvents();
+}
+
+function initDragHandle(handle){
+  const LONG_PRESS_MS = 320;
+  const MOVE_CANCEL_PX = 8;
+  let pressTimer = null;
+  let startX=0, startY=0;
+  let dragging = false;
+  let card = null, placeholder = null, container = null;
+  let cardTop=0, cardLeft=0, cardWidth=0, cardHeight=0;
+
+  function cleanup(){
+    dragging = false;
+    if(card){
+      card.classList.remove('dragging');
+      card.style.position='';
+      card.style.top='';
+      card.style.left='';
+      card.style.width='';
+      card.style.margin='';
+    }
+    if(placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+    card = null; placeholder = null; container = null;
+  }
+
+  function onMove(e){
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    if(!dragging){
+      if(Math.abs(y-startY) > MOVE_CANCEL_PX || Math.abs(x-startX) > MOVE_CANCEL_PX){
+        clearTimeout(pressTimer);
+      }
+      return;
+    }
+    e.preventDefault();
+    const dy = y - startY;
+    card.style.top = (cardTop + dy) + 'px';
+
+    const centerY = cardTop + dy + cardHeight/2;
+    const siblings = Array.from(container.querySelectorAll('[data-cat]')).filter(c=>c!==card);
+    for(const sib of siblings){
+      const r = sib.getBoundingClientRect();
+      const sibCenter = r.top + r.height/2;
+      if(centerY < sibCenter && sib.compareDocumentPosition(placeholder) & Node.DOCUMENT_POSITION_FOLLOWING){
+        container.insertBefore(placeholder, sib);
+        break;
+      }
+      if(centerY > sibCenter && sib.compareDocumentPosition(placeholder) & Node.DOCUMENT_POSITION_PRECEDING){
+        container.insertBefore(placeholder, sib.nextSibling);
+        break;
+      }
+    }
+  }
+
+  function onUp(){
+    clearTimeout(pressTimer);
+    window.removeEventListener('pointermove', onMove);
+    window.removeEventListener('pointerup', onUp);
+    window.removeEventListener('pointercancel', onUp);
+    if(!dragging){ cleanup(); return; }
+
+    container.insertBefore(card, placeholder);
+    const newOrder = Array.from(container.querySelectorAll('[data-cat]')).map(c=>c.getAttribute('data-cat'));
+    cleanup();
+    data.categoryOrder = newOrder;
+    save(); render();
+  }
+
+  handle.addEventListener('pointerdown', (e)=>{
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    startX = e.clientX; startY = e.clientY;
+    card = handle.closest('[data-cat]');
+    container = card.parentElement;
+    clearTimeout(pressTimer);
+    pressTimer = setTimeout(()=>{
+      dragging = true;
+      const r = card.getBoundingClientRect();
+      cardTop = r.top; cardLeft = r.left; cardWidth = r.width; cardHeight = r.height;
+      placeholder = document.createElement('div');
+      placeholder.className = 'drop-placeholder';
+      placeholder.style.height = cardHeight + 'px';
+      container.insertBefore(placeholder, card);
+      card.classList.add('dragging');
+      card.style.position='fixed';
+      card.style.top = cardTop+'px';
+      card.style.left = cardLeft+'px';
+      card.style.width = cardWidth+'px';
+      card.style.margin = '0';
+      if(navigator.vibrate) navigator.vibrate(8);
+    }, LONG_PRESS_MS);
+    window.addEventListener('pointermove', onMove, {passive:false});
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+  });
+}
+
+function bindEvents(){
+  document.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-toggle');
+      openState[id] = !(openState[id] !== false);
+      render();
+    };
+  });
+  document.querySelectorAll('[data-drag]').forEach(el=>{
+    initDragHandle(el);
+  });
+  document.querySelectorAll('[data-editname]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); renameCategory(el.getAttribute('data-editname')); };
+  });
+  document.querySelectorAll('[data-check]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); toggleItem(el.getAttribute('data-check')); };
+  });
+  document.querySelectorAll('[data-checkrec]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); toggleCheck(el.getAttribute('data-checkrec'), curMonth); };
+  });
+  document.querySelectorAll('[data-openfinance]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); openFinancePage(); };
+  });
+  document.querySelectorAll('[data-del]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); deleteItem(el.getAttribute('data-del')); };
+  });
+  document.querySelectorAll('[data-edititem]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const id = el.getAttribute('data-edititem');
+      const it = data.items.find(i=>i.id===id);
+      if(it) openRenameFor('item:'+id, it.name);
+    };
+  });
+  document.querySelectorAll('[data-bump]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [key, d] = el.getAttribute('data-bump').split('|');
+      bumpCount(key, curMonth, parseInt(d));
+    };
+  });
+  document.querySelectorAll('[data-add]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const catId = el.getAttribute('data-add');
+      const input = document.querySelector(`[data-input="${catId}"]`);
+      addItem(catId, input.value);
+      input.value='';
+    };
+  });
+  document.querySelectorAll('[data-input]').forEach(el=>{
+    el.onclick = (e)=>e.stopPropagation();
+    el.onkeydown = (e)=>{
+      if(e.key==='Enter'){
+        const catId = el.getAttribute('data-input');
+        addItem(catId, el.value);
+        el.value='';
+      }
+    };
+  });
+
+  const goalInput = document.getElementById('goalInput');
+  if(goalInput){
+    let t;
+    goalInput.oninput = ()=>{
+      const year = yearOf(curMonth);
+      data.yearGoals[year] = goalInput.value;
+      clearTimeout(t);
+      const saved = document.getElementById('goalSaved');
+      t = setTimeout(async ()=>{
+        await save();
+        if(saved) saved.textContent = '已儲存';
+        setTimeout(()=>{ if(saved) saved.textContent=''; }, 1500);
+      }, 500);
+    };
+  }
+}
+
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    view = t.getAttribute('data-view');
+    render();
+  };
+});
+document.getElementById('prevBtn').onclick = ()=>{
+  curMonth = view==='month' ? shiftMonthKey(curMonth,-1) : shiftYearKey(curMonth,-1);
+  render();
+};
+document.getElementById('nextBtn').onclick = ()=>{
+  curMonth = view==='month' ? shiftMonthKey(curMonth,1) : shiftYearKey(curMonth,1);
+  render();
+};
+
+document.getElementById('renameCancelBtn').onclick = closeRenameModal;
+document.getElementById('renameSaveBtn').onclick = confirmRename;
+document.getElementById('renameOverlay').onclick = (e)=>{
+  if(e.target.id==='renameOverlay') closeRenameModal();
+};
+document.getElementById('renameInput').onkeydown = (e)=>{
+  if(e.key==='Enter'){ confirmRename(); }
+};
+
+document.getElementById('appTitleEl').onclick = renameAppTitle;
+document.getElementById('settingsBtn').onclick = openSettingsModal;
+document.getElementById('financeCloseBtn').onclick = closeFinancePage;
+document.getElementById('settingsOverlay').onclick = (e)=>{
+  if(e.target.id==='settingsOverlay'){ applyTheme(data.theme); closeSettingsModal(); }
+};
+document.getElementById('bgColorInput').oninput = (e)=>{
+  draftTheme.bg = e.target.value;
+  applyTheme(draftTheme);
+};
+document.getElementById('accentColorInput').oninput = (e)=>{
+  draftTheme.accent = e.target.value;
+  applyTheme(draftTheme);
+};
+document.getElementById('headerColorInput').oninput = (e)=>{
+  draftTheme.headerColor = e.target.value;
+  applyTheme(draftTheme);
+};
+document.getElementById('bgPhotoInput').onchange = (e)=>{
+  const file = e.target.files && e.target.files[0];
+  if(file) handlePhotoFile(file);
+};
+document.getElementById('bgPhotoRemove').onclick = ()=>{
+  draftTheme.bgImage = null;
+  applyTheme(draftTheme);
+  updatePhotoPreviewUI();
+};
+document.getElementById('settingsResetBtn').onclick = ()=>{
+  draftTheme = {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null};
+  document.getElementById('bgColorInput').value = draftTheme.bg;
+  document.getElementById('accentColorInput').value = draftTheme.accent;
+  document.getElementById('headerColorInput').value = draftTheme.headerColor;
+  updatePhotoPreviewUI();
+  applyTheme(draftTheme);
+};
+document.getElementById('settingsCancelBtn').onclick = ()=>{
+  applyTheme(data.theme);
+  closeSettingsModal();
+};
+document.getElementById('settingsSaveBtn').onclick = ()=>{
+  data.theme = draftTheme;
+  save();
+  applyTheme(data.theme);
+  closeSettingsModal();
+};
+
+load();
+</script>
+</body>
+</html>
