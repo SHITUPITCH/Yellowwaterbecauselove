@@ -1570,10 +1570,12 @@ function renderMonthView(){
       </div>`;
     });
 
-    html += `<div class="add-row">
-      <input class="add-input" placeholder="新增項目…" data-input="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button class="add-btn" data-add="${cat.id}">＋</button>
-    </div>`;
+    if(cat.id!==ONCE_COUNTER_CAT){
+      html += `<div class="add-row">
+        <input class="add-input" placeholder="新增項目…" data-input="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="add-btn" data-add="${cat.id}">＋</button>
+      </div>`;
+    }
     html += `</div></div></div>`;
   });
   return html;
