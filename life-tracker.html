@@ -23,6 +23,7 @@
     --cathead:#DFFF00;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  input, textarea{-webkit-touch-callout:default;-webkit-user-select:text;user-select:text;}
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
   input[type=number]{-moz-appearance:textfield;appearance:textfield;}
@@ -54,7 +55,8 @@
 
   main{padding:14px 16px 0;}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;
+    -webkit-touch-callout:none;}
   .cat-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--cathead);}
   .cat-name{font-size:15.5px;font-weight:600;color:var(--text);cursor:pointer;min-width:60px;min-height:20px;display:inline-block;}
   .cat-name:active{opacity:.6;}
@@ -67,6 +69,7 @@
   .chev{font-size:11px;color:rgba(0,0,0,.4);transition:transform .2s;}
   .card.open .chev{transform:rotate(90deg);}
   .drag-handle{width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+    -webkit-touch-callout:none;-webkit-user-select:none;
     color:var(--faint);cursor:grab;touch-action:none;user-select:none;flex:0 0 auto;}
   .cat-head .drag-handle{color:rgba(0,0,0,.4);}
   .dragging{opacity:.92;box-shadow:0 10px 26px rgba(0,0,0,.18);z-index:50;}
@@ -115,7 +118,8 @@
   .add-btn{width:34px;height:34px;border-radius:8px;border:none;background:#111;color:#fff;font-size:16px;cursor:pointer;}
 
   /* year view */
-  .yr-card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:14px 16px;}
+  .yr-card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:14px 16px;
+    -webkit-touch-callout:none;}
   .yr-title{font-size:15.5px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
   .yr-title-right{display:flex;align-items:center;gap:4px;}
   .yr-sub{font-size:11.5px;color:var(--faint);font-weight:400;}
@@ -237,13 +241,72 @@
   .fin-toggle-label{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
   .fin-toggle-label input{width:16px;height:16px;flex:0 0 auto;}
 
-  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;
+    -webkit-touch-callout:none;}
   .goal-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
   .goal-title{font-size:15.5px;font-weight:600;}
   .goal-input{width:100%;min-height:80px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;
     font-size:14px;color:var(--text);background:var(--accent);font-family:inherit;resize:vertical;outline:none;}
   .goal-input:focus{border-color:var(--accent-dark);}
   .goal-saved{font-size:11px;color:var(--faint);margin-top:6px;height:14px;}
+
+  /* schedule (日程) page */
+  .sch-cal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    padding:12px;margin-bottom:12px;}
+  .sch-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px;}
+  .sch-wd{text-align:center;font-size:11px;color:var(--faint);font-weight:600;}
+  .sch-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .sch-cell{border:1px solid var(--line);border-radius:8px;padding:3px;min-height:56px;
+    display:flex;flex-direction:column;align-items:center;}
+  .sch-cell-empty{border:none;min-height:56px;}
+  .sch-daynum{font-size:11px;color:var(--sub);font-weight:600;margin-bottom:2px;}
+  .sch-slots{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;}
+  .sch-slot{width:15px;height:15px;border-radius:4px;border:1px dashed var(--line);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;
+    display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--faint);
+    cursor:pointer;}
+  .sch-slot-filled{border:1px solid var(--cathead);background:var(--cathead);color:rgba(0,0,0,.75);
+    font-weight:700;}
+  .sch-slot-fin{border:1px solid var(--accent);background:var(--accent);}
+
+  .sch-bottom{display:flex;gap:10px;}
+  .sch-col{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    padding:12px;}
+  .sch-col-title{font-size:14.5px;font-weight:700;margin-bottom:8px;}
+  .sch-pick-title{font-size:11px;color:var(--faint);margin-bottom:5px;}
+  .sch-pick-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+  .sch-pick-chip{font-size:11.5px;padding:4px 8px;border-radius:14px;background:#f2f2f4;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:none;
+    color:var(--sub);cursor:pointer;border:1px solid transparent;}
+  .sch-pick-chip.on{background:var(--cathead);color:rgba(0,0,0,.8);font-weight:600;
+    border-color:rgba(0,0,0,.1);}
+  .sch-bucket-title{font-size:11px;color:var(--faint);margin:8px 0 4px;}
+  .sch-bucket{min-height:34px;border:1px dashed var(--line);border-radius:10px;padding:6px;
+    display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;}
+  .sch-bucket-empty{font-size:11px;color:var(--faint);padding:4px 2px;}
+  .sch-chip{font-size:12px;padding:5px 9px;border-radius:12px;background:var(--card);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;
+    border:1px solid var(--line);color:var(--sub);touch-action:none;user-select:none;cursor:grab;}
+  .sch-chip.dragging{box-shadow:0 8px 20px rgba(0,0,0,.18);opacity:.9;background:#fff;}
+  .sch-chip.done{background:rgba(0,197,239,.12);border-color:#00c5ef;color:#00849e;}
+  .sch-fixed-exercise{font-size:12.5px;font-weight:600;color:var(--accent-dark);
+    background:rgba(0,0,0,.04);border-radius:10px;padding:8px 10px;margin-bottom:8px;}
+  .sched-picker-list{display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto;}
+  .sched-picker-item{padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;color:var(--text);cursor:pointer;}
+  .sched-picker-item:active{background:#f2f2f4;}
+
+  .step-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:12px;margin-bottom:10px;-webkit-touch-callout:none;}
+  .step-row-top{display:flex;align-items:flex-start;gap:10px;}
+  .step-drag{width:22px;height:22px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    color:var(--faint);cursor:grab;touch-action:none;user-select:none;margin-top:2px;}
+  .step-card.dragging{opacity:.92;box-shadow:0 10px 26px rgba(0,0,0,.18);z-index:999;}
+  .step-text{flex:1;border:none;background:none;outline:none;font-size:14px;color:var(--text);
+    font-family:inherit;resize:none;min-height:22px;padding:2px 0;overflow:hidden;}
+  .step-del{color:var(--faint);font-size:16px;cursor:pointer;padding:0 2px;flex:0 0 auto;}
+  .step-img{width:100%;border-radius:10px;margin-top:8px;display:block;}
+  .step-photo-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+  .step-photo-remove{font-size:12px;color:var(--faint);text-decoration:underline;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -260,6 +323,8 @@
       </button>
     </div>
     <div class="tabs">
+      <div class="tab" data-view="items">項目</div>
+      <div class="tab" data-view="schedule">日程</div>
       <div class="tab active" data-view="month">月程</div>
       <div class="tab" data-view="year">年程</div>
     </div>
@@ -326,6 +391,24 @@
   <div class="finance-body" id="financeBody"></div>
 </div>
 
+<div class="modal-overlay" id="schedPickerOverlay">
+  <div class="modal-box">
+    <div class="modal-title">選擇項目</div>
+    <div id="schedPickerList" class="sched-picker-list"></div>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="schedPickerCancelBtn">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="finance-overlay" id="itemDetailOverlay">
+  <div class="finance-header">
+    <div class="finance-header-title" id="itemDetailTitle">項目步驟</div>
+    <button class="finance-close" id="itemDetailCloseBtn">✕</button>
+  </div>
+  <div class="finance-body" id="itemDetailBody"></div>
+</div>
+
 <script>
 const CATEGORIES = [
   {id:'work', name:'工作'},
@@ -348,7 +431,7 @@ const FINANCE_DEFAULT = {
   months: {}
 };
 
-let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null};
+let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null, schedule:null, itemSteps:null};
 let draftTheme = null;
 let view = 'month';
 let curMonth = monthKeyFromDate(new Date());
@@ -399,6 +482,9 @@ function ensureDefaults(){
   if(!data.theme) data.theme = {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null};
   if(!data.theme.headerColor) data.theme.headerColor = '#DFFF00';
   if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.schedule) data.schedule = {months:{}};
+  if(!data.schedule.months) data.schedule.months = {};
+  if(!data.itemSteps) data.itemSteps = {};
   if(!data.finance.debts) data.finance.debts = JSON.parse(JSON.stringify(FINANCE_DEFAULT.debts));
   ['A1','A2','A3','A4','A5'].forEach(k=>{
     if(!data.finance.debts[k]) data.finance.debts[k] = {name:k, total:0, note:''};
@@ -804,6 +890,543 @@ function fmtNum(n){
   n = Math.round(n||0);
   const sign = n<0 ? '-' : '';
   return sign + Math.abs(n).toLocaleString('en-US');
+}
+
+const EXERCISE_KEY = '晨跑:sport';
+
+function emptySchedule(){ return {selected:[], priority:{}, calendar:{}}; }
+function getSchedule(mKey){
+  if(!data.schedule.months[mKey]) data.schedule.months[mKey] = emptySchedule();
+  const s = data.schedule.months[mKey];
+  if(!s.selected) s.selected = [];
+  if(!s.priority) s.priority = {};
+  if(!s.calendar) s.calendar = {};
+  return s;
+}
+function scheduleAvailableItems(mKey){
+  return data.items.filter(it => it.createdMonth<=mKey && (it.completedMonth===null || mKey<=it.completedMonth));
+}
+function daysInMonth(mKey){
+  const [y,m] = mKey.split('-').map(Number);
+  return new Date(y, m, 0).getDate();
+}
+function weekdayMon0(y,m,d){
+  const day = new Date(y, m-1, d).getDay();
+  return (day+6)%7;
+}
+function scheduleClearItemEverywhere(mKey, itemId){
+  const sched = getSchedule(mKey);
+  Object.keys(sched.calendar).forEach(dateStr=>{
+    const arr = sched.calendar[dateStr];
+    for(let i=0;i<arr.length;i++){ if(arr[i]===itemId) arr[i]=null; }
+  });
+}
+function toggleSchedulePick(itemId){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const idx = sched.selected.indexOf(itemId);
+  if(idx>=0){
+    sched.selected.splice(idx,1);
+    delete sched.priority[itemId];
+    scheduleClearItemEverywhere(mKey, itemId);
+  }else{
+    sched.selected.push(itemId);
+  }
+  save();
+  render();
+}
+function applyChipDrop(itemId, bucket){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const it = data.items.find(x=>x.id===itemId);
+  if(!it) return;
+  if(bucket==='done'){
+    it.completedMonth = mKey;
+  }else if(bucket==='unsorted'){
+    if(it.completedMonth===mKey) it.completedMonth = null;
+    delete sched.priority[itemId];
+  }else{
+    if(it.completedMonth===mKey) it.completedMonth = null;
+    sched.priority[itemId] = bucket;
+  }
+  save();
+  render();
+}
+
+let schedPickerCtx = null;
+function openDaySlotPicker(dateStr, slotIdx){
+  schedPickerCtx = {dateStr, slotIdx};
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const todayEntries = sched.calendar[dateStr] || [];
+  let html = '';
+  if(!todayEntries.includes('EXERCISE')){
+    html += `<div class="sched-picker-item" data-pickval="EXERCISE">🏃 運動（晨跑 +1）</div>`;
+  }
+  let selectableCount = 0;
+  sched.selected.forEach(id=>{
+    const it = data.items.find(x=>x.id===id);
+    if(!it) return;
+    if(it.completedMonth===mKey) return; // already done, skip
+    if(todayEntries.includes(id)) return; // already placed today, don't allow twice on the same day
+    html += `<div class="sched-picker-item" data-pickval="${id}">${escapeHtml(it.name)}</div>`;
+    selectableCount++;
+  });
+  if(sched.selected.length===0){
+    html += `<div class="fin-hint">先到下方「本月計劃」勾選項目，這裡才有得選。</div>`;
+  }else if(selectableCount===0){
+    html += `<div class="fin-hint">已勾選的項目今天都排進去了，同一天不會重複出現。</div>`;
+  }
+  document.getElementById('schedPickerList').innerHTML = html;
+  document.getElementById('schedPickerOverlay').style.display = 'flex';
+  document.querySelectorAll('[data-pickval]').forEach(el=>{
+    el.onclick = ()=>{
+      const val = el.getAttribute('data-pickval');
+      const s = getSchedule(curMonth);
+      if(!s.calendar[schedPickerCtx.dateStr]) s.calendar[schedPickerCtx.dateStr] = [];
+      s.calendar[schedPickerCtx.dateStr].push(val);
+      if(val==='EXERCISE'){ bumpCountSilent(EXERCISE_KEY, curMonth, 1); }
+      save();
+      closeDaySlotPicker();
+      render();
+    };
+  });
+}
+function closeDaySlotPicker(){
+  document.getElementById('schedPickerOverlay').style.display = 'none';
+  schedPickerCtx = null;
+}
+function bumpCountSilent(key, mKey, delta){
+  if(!data.recurringCounts[key]) data.recurringCounts[key]={};
+  let v = (data.recurringCounts[key][mKey]||0) + delta;
+  if(v<0) v=0;
+  data.recurringCounts[key][mKey]=v;
+}
+function onDaySlotTap(dateStr, slotIdx){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  if(!sched.calendar[dateStr]) sched.calendar[dateStr] = [];
+  const entries = sched.calendar[dateStr];
+  if(slotIdx < entries.length){
+    const cur = entries[slotIdx];
+    if(cur==='EXERCISE'){ bumpCountSilent(EXERCISE_KEY, mKey, -1); }
+    entries.splice(slotIdx, 1);
+    save();
+    render();
+  }else{
+    openDaySlotPicker(dateStr, entries.length);
+  }
+}
+
+function renderScheduleView(){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const [y,m] = mKey.split('-').map(Number);
+  const totalDays = daysInMonth(mKey);
+  const firstWeekday = weekdayMon0(y,m,1);
+
+  let html = '<div class="sch-cal-card"><div class="sch-weekdays">';
+  ['一','二','三','四','五','六','日'].forEach(w=>{ html += `<div class="sch-wd">${w}</div>`; });
+  html += '</div><div class="sch-grid">';
+  for(let i=0;i<firstWeekday;i++){ html += '<div class="sch-cell sch-cell-empty"></div>'; }
+  for(let d=1; d<=totalDays; d++){
+    const dateStr = mKey+'-'+pad(d);
+    const isLast = d===totalDays;
+    const entries = sched.calendar[dateStr] || [];
+    const slotCount = entries.length < 3 ? 3 : entries.length + 1;
+    html += `<div class="sch-cell"><div class="sch-daynum">${d}</div><div class="sch-slots">`;
+    for(let s=0; s<slotCount; s++){
+      if(s < entries.length){
+        const val = entries[s];
+        if(val==='EXERCISE'){
+          html += `<div class="sch-slot sch-slot-filled" data-daycell="${dateStr}|${s}">🏃</div>`;
+        }else{
+          const it = data.items.find(x=>x.id===val);
+          const label = it ? escapeHtml(it.name.slice(0,1)) : '?';
+          html += `<div class="sch-slot sch-slot-filled" data-daycell="${dateStr}|${s}" title="${it?escapeHtml(it.name):''}">${label}</div>`;
+        }
+      }else{
+        html += `<div class="sch-slot" data-daycell="${dateStr}|${s}">+</div>`;
+      }
+    }
+    if(isLast){
+      html += `<div class="sch-slot sch-slot-fin" data-openfinance="1">💰</div>`;
+    }
+    html += `</div></div>`;
+  }
+  html += '</div></div>';
+
+  html += '<div class="sch-bottom">';
+  html += renderMonthPlanColumn(mKey, sched);
+  html += renderCompletedColumn(mKey, sched);
+  html += '</div>';
+  return html;
+}
+
+function renderMonthPlanColumn(mKey, sched){
+  const available = scheduleAvailableItems(mKey);
+  const selectedActive = sched.selected.filter(id=>{
+    const it = data.items.find(x=>x.id===id);
+    return it && it.completedMonth!==mKey;
+  });
+  const buckets = {important:[], normal:[], notUrgent:[]};
+  selectedActive.forEach(id=>{
+    const p = sched.priority[id];
+    if(p) (buckets[p] || buckets.normal).push(id);
+  });
+
+  let html = '<div class="sch-col">';
+  html += '<div class="sch-col-title">本月計劃</div>';
+  html += '<div class="sch-pick-title">選擇項目（點選；長按已選項目可拖到分類）</div><div class="sch-pick-list">';
+  if(available.length===0){
+    html += '<div class="empty-state" style="padding:10px 0;">本月尚無項目</div>';
+  }
+  available.forEach(it=>{
+    const on = sched.selected.includes(it.id);
+    const dragAttr = on ? `data-schitem="${it.id}"` : '';
+    html += `<div class="sch-pick-chip ${on?'on':''}" data-schedpick="${it.id}" ${dragAttr}>${escapeHtml(it.name)}</div>`;
+  });
+  html += '</div>';
+
+  const bucketLabels = {important:'重要', normal:'一般', notUrgent:'不急'};
+  ['important','normal','notUrgent'].forEach(p=>{
+    html += `<div class="sch-bucket-title">${bucketLabels[p]}</div><div class="sch-bucket" data-bucket="${p}">`;
+    buckets[p].forEach(id=>{
+      const it = data.items.find(x=>x.id===id);
+      if(it) html += `<div class="sch-chip" data-schitem="${id}">${escapeHtml(it.name)}</div>`;
+    });
+    if(buckets[p].length===0) html += '<div class="sch-bucket-empty">長按項目拖到這裡</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderCompletedColumn(mKey, sched){
+  const completedIds = sched.selected.filter(id=>{
+    const it = data.items.find(x=>x.id===id);
+    return it && it.completedMonth===mKey;
+  });
+  const exCount = getCount(EXERCISE_KEY, mKey);
+
+  let html = '<div class="sch-col">';
+  html += '<div class="sch-col-title">已完成</div>';
+  html += `<div class="sch-fixed-exercise">運動：晨跑 x${exCount}</div>`;
+  html += '<div class="sch-bucket" data-bucket="done">';
+  completedIds.forEach(id=>{
+    const it = data.items.find(x=>x.id===id);
+    if(it) html += `<div class="sch-chip done" data-schitem="${id}">${escapeHtml(it.name)}</div>`;
+  });
+  if(completedIds.length===0) html += '<div class="sch-bucket-empty">長按項目拖到這裡完成</div>';
+  html += '</div></div>';
+  return html;
+}
+
+let scheduleDragCtx = null;
+let scheduleJustDragged = false;
+function scheduleDragPointerDown(e){
+  if(view!=='schedule') return;
+  const chip = e.target.closest('[data-schitem]');
+  if(!chip) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  scheduleDragCtx = {chip, startX:e.clientX, startY:e.clientY, dragging:false, pressTimer:null, w:0, h:0};
+  scheduleDragCtx.pressTimer = setTimeout(()=>{
+    if(!scheduleDragCtx) return;
+    scheduleDragCtx.dragging = true;
+    scheduleJustDragged = true;
+    const r = chip.getBoundingClientRect();
+    scheduleDragCtx.w = r.width; scheduleDragCtx.h = r.height;
+    chip.style.position='fixed';
+    chip.style.left=r.left+'px'; chip.style.top=r.top+'px';
+    chip.style.width=r.width+'px';
+    chip.style.zIndex=999;
+    chip.classList.add('dragging');
+    if(navigator.vibrate) navigator.vibrate(8);
+  }, 280);
+}
+function scheduleDragPointerMove(e){
+  if(!scheduleDragCtx) return;
+  const x=e.clientX, y=e.clientY;
+  if(!scheduleDragCtx.dragging){
+    if(Math.abs(y-scheduleDragCtx.startY)>8 || Math.abs(x-scheduleDragCtx.startX)>8){
+      clearTimeout(scheduleDragCtx.pressTimer);
+      scheduleDragCtx = null;
+    }
+    return;
+  }
+  e.preventDefault();
+  scheduleDragCtx.chip.style.left = (x-scheduleDragCtx.w/2)+'px';
+  scheduleDragCtx.chip.style.top = (y-scheduleDragCtx.h/2)+'px';
+}
+function scheduleDragPointerUp(e){
+  if(!scheduleDragCtx) return;
+  clearTimeout(scheduleDragCtx.pressTimer);
+  if(!scheduleDragCtx.dragging){ scheduleDragCtx = null; return; }
+  const chip = scheduleDragCtx.chip;
+  const x = e.clientX, y = e.clientY;
+  chip.style.display = 'none';
+  const under = document.elementFromPoint(x,y);
+  chip.style.display = '';
+  chip.style.position=''; chip.style.left=''; chip.style.top=''; chip.style.width=''; chip.style.zIndex='';
+  chip.classList.remove('dragging');
+  const bucketEl = under ? under.closest('[data-bucket]') : null;
+  scheduleDragCtx = null;
+  setTimeout(()=>{ scheduleJustDragged = false; }, 50);
+  if(bucketEl){
+    applyChipDrop(chip.getAttribute('data-schitem'), bucketEl.getAttribute('data-bucket'));
+  }
+}
+
+let scheduleDelegationBound = false;
+function bindScheduleEvents(){
+  const main = document.getElementById('main');
+  if(main && !scheduleDelegationBound){
+    scheduleDelegationBound = true;
+    main.addEventListener('click', (e)=>{
+      if(view!=='schedule') return;
+      if(scheduleJustDragged){ scheduleJustDragged = false; return; }
+      const pick = e.target.closest('[data-schedpick]');
+      if(pick){ toggleSchedulePick(pick.getAttribute('data-schedpick')); return; }
+      const daycell = e.target.closest('[data-daycell]');
+      if(daycell){
+        const [dateStr, slotIdx] = daycell.getAttribute('data-daycell').split('|');
+        onDaySlotTap(dateStr, parseInt(slotIdx));
+        return;
+      }
+    });
+  }
+}
+
+function getItemSteps(itemId){
+  if(!data.itemSteps[itemId]) data.itemSteps[itemId] = [];
+  return data.itemSteps[itemId];
+}
+
+function renderItemsListView(){
+  const items = scheduleAvailableItems(curMonth);
+  let html = '<div class="fin-section"><div class="fin-section-title">本月項目</div>';
+  if(items.length===0){
+    html += '<div class="empty-state" style="padding:16px 0;">本月尚無項目，先到月程新增</div>';
+  }
+  items.forEach(it=>{
+    const steps = getItemSteps(it.id);
+    const doneCount = steps.filter(s=>s.done).length;
+    const preview = steps.length===0 ? '尚無步驟' : `${doneCount}/${steps.length} 個步驟完成`;
+    html += `<div class="finance-row" data-openitem="${it.id}">
+      <div class="finance-row-text">
+        <div class="item-name">${escapeHtml(it.name)}</div>
+        <div class="finance-row-preview">${preview}</div>
+      </div>
+      <div class="finance-row-arrow">›</div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+let stepDragCtx = null;
+function stepDragPointerDown(e){
+  const handle = e.target.closest('[data-stepdrag]');
+  if(!handle) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  const card = handle.closest('[data-stepid]');
+  const container = document.getElementById('stepsListContainer');
+  if(!card || !container) return;
+  stepDragCtx = {card, container, startX:e.clientX, startY:e.clientY, dragging:false, pressTimer:null,
+    cardTop:0, cardHeight:0, placeholder:null};
+  stepDragCtx.pressTimer = setTimeout(()=>{
+    if(!stepDragCtx) return;
+    stepDragCtx.dragging = true;
+    const r = card.getBoundingClientRect();
+    stepDragCtx.cardTop = r.top; stepDragCtx.cardHeight = r.height;
+    const placeholder = document.createElement('div');
+    placeholder.className = 'drop-placeholder';
+    placeholder.style.height = r.height+'px';
+    container.insertBefore(placeholder, card);
+    stepDragCtx.placeholder = placeholder;
+    card.classList.add('dragging');
+    card.style.position='fixed';
+    card.style.top=r.top+'px'; card.style.left=r.left+'px'; card.style.width=r.width+'px';
+    card.style.margin='0';
+    if(navigator.vibrate) navigator.vibrate(8);
+  }, 320);
+}
+function stepDragPointerMove(e){
+  if(!stepDragCtx) return;
+  const x=e.clientX, y=e.clientY;
+  if(!stepDragCtx.dragging){
+    if(Math.abs(y-stepDragCtx.startY)>8 || Math.abs(x-stepDragCtx.startX)>8){
+      clearTimeout(stepDragCtx.pressTimer);
+      stepDragCtx = null;
+    }
+    return;
+  }
+  e.preventDefault();
+  const dy = y - stepDragCtx.startY;
+  stepDragCtx.card.style.top = (stepDragCtx.cardTop+dy)+'px';
+  const centerY = stepDragCtx.cardTop + dy + stepDragCtx.cardHeight/2;
+  const siblings = Array.from(stepDragCtx.container.querySelectorAll('[data-stepid]')).filter(c=>c!==stepDragCtx.card);
+  for(const sib of siblings){
+    const r = sib.getBoundingClientRect();
+    const sibCenter = r.top + r.height/2;
+    if(centerY < sibCenter && sib.compareDocumentPosition(stepDragCtx.placeholder) & Node.DOCUMENT_POSITION_FOLLOWING){
+      stepDragCtx.container.insertBefore(stepDragCtx.placeholder, sib);
+      break;
+    }
+    if(centerY > sibCenter && sib.compareDocumentPosition(stepDragCtx.placeholder) & Node.DOCUMENT_POSITION_PRECEDING){
+      stepDragCtx.container.insertBefore(stepDragCtx.placeholder, sib.nextSibling);
+      break;
+    }
+  }
+}
+function stepDragPointerUp(e){
+  if(!stepDragCtx) return;
+  clearTimeout(stepDragCtx.pressTimer);
+  if(!stepDragCtx.dragging){ stepDragCtx = null; return; }
+  const {card, container, placeholder} = stepDragCtx;
+  container.insertBefore(card, placeholder);
+  if(placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+  card.classList.remove('dragging');
+  card.style.position=''; card.style.top=''; card.style.left=''; card.style.width=''; card.style.margin='';
+  const newOrderIds = Array.from(container.querySelectorAll('[data-stepid]')).map(c=>c.getAttribute('data-stepid'));
+  stepDragCtx = null;
+  const steps = getItemSteps(currentDetailItemId);
+  const reordered = newOrderIds.map(id=> steps.find(s=>s.id===id)).filter(Boolean);
+  data.itemSteps[currentDetailItemId] = reordered;
+  save();
+  renderItemDetailPage();
+}
+
+let currentDetailItemId = null;
+function openItemDetailPage(itemId){
+  currentDetailItemId = itemId;
+  document.getElementById('itemDetailOverlay').classList.add('open');
+  renderItemDetailPage();
+}
+function closeItemDetailPage(){
+  document.getElementById('itemDetailOverlay').classList.remove('open');
+  currentDetailItemId = null;
+}
+function renderItemDetailPage(){
+  const it = data.items.find(x=>x.id===currentDetailItemId);
+  if(!it){ closeItemDetailPage(); return; }
+  document.getElementById('itemDetailTitle').textContent = it.name;
+  const steps = getItemSteps(it.id);
+  let html = '<div id="stepsListContainer">';
+  steps.forEach(s=>{
+    html += `<div class="step-card" data-stepid="${s.id}">
+      <div class="step-row-top">
+        <div class="step-drag" data-stepdrag="${s.id}"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div>
+        <div class="check ${s.done?'done':''}" data-stepcheck="${s.id}">${checkIcon()}</div>
+        <textarea class="step-text" data-steptext="${s.id}" placeholder="這步驟要做什麼…">${escapeHtml(s.text||'')}</textarea>
+        <div class="step-del" data-stepdel="${s.id}">×</div>
+      </div>`;
+    if(s.image){
+      html += `<img class="step-img" src="${s.image}">`;
+    }
+    html += `<div class="step-photo-row">
+      <label class="photo-btn" for="stepPhoto_${s.id}">${s.image?'更換照片':'新增照片'}</label>
+      <input type="file" id="stepPhoto_${s.id}" accept="image/*" style="display:none;" data-stepphoto="${s.id}">`;
+    if(s.image) html += `<span class="step-photo-remove" data-stepphotoremove="${s.id}">移除照片</span>`;
+    html += `</div></div>`;
+  });
+  html += '</div>';
+  if(steps.length===0) html += '<div class="empty-state" style="padding:16px 0;">還沒有步驟，新增一個吧</div>';
+
+  html += `<div class="fin-add-row">
+    <input class="fin-add-input" id="newStepInput" placeholder="新增步驟…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="fin-add-btn" id="addStepBtn">＋</button>
+  </div>`;
+
+  document.getElementById('itemDetailBody').innerHTML = html;
+  bindItemDetailEvents();
+}
+function addStep(){
+  const input = document.getElementById('newStepInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const steps = getItemSteps(currentDetailItemId);
+  steps.push({id:uid(), text, image:null, done:false});
+  save();
+  input.value = '';
+  renderItemDetailPage();
+}
+function handleStepPhotoFile(stepId, file){
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const maxDim = 1000;
+      let w = img.width, h = img.height;
+      if(w>h){ if(w>maxDim){ h = Math.round(h*maxDim/w); w = maxDim; } }
+      else{ if(h>maxDim){ w = Math.round(w*maxDim/h); h = maxDim; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===stepId);
+      if(step) step.image = dataUrl;
+      save();
+      renderItemDetailPage();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function autoGrowTextarea(el){
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+function bindItemDetailEvents(){
+  document.querySelectorAll('[data-stepcheck]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-stepcheck');
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===id);
+      if(step){ step.done = !step.done; save(); renderItemDetailPage(); }
+    };
+  });
+  document.querySelectorAll('[data-steptext]').forEach(el=>{
+    autoGrowTextarea(el);
+    el.oninput = ()=>{
+      const id = el.getAttribute('data-steptext');
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===id);
+      if(step){ step.text = el.value; save(); }
+      autoGrowTextarea(el);
+    };
+  });
+  document.querySelectorAll('[data-stepdel]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-stepdel');
+      data.itemSteps[currentDetailItemId] = getItemSteps(currentDetailItemId).filter(s=>s.id!==id);
+      save();
+      renderItemDetailPage();
+    };
+  });
+  document.querySelectorAll('[data-stepphoto]').forEach(el=>{
+    el.onchange = (e)=>{
+      const id = el.getAttribute('data-stepphoto');
+      const file = e.target.files && e.target.files[0];
+      if(file) handleStepPhotoFile(id, file);
+    };
+  });
+  document.querySelectorAll('[data-stepphotoremove]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-stepphotoremove');
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===id);
+      if(step){ step.image = null; save(); renderItemDetailPage(); }
+    };
+  });
+  const addBtn = document.getElementById('addStepBtn');
+  if(addBtn) addBtn.onclick = addStep;
+  const newStepInput = document.getElementById('newStepInput');
+  if(newStepInput) newStepInput.onkeydown = (e)=>{ if(e.key==='Enter') addStep(); };
 }
 
 function renderMonthView(){
@@ -1436,10 +2059,11 @@ function closeFinancePage(){
 function render(){
   document.getElementById('appTitleEl').innerHTML = appTitleHtml();
   document.title = getAppTitle() || 'Professsor Wong';
-  document.getElementById('navLabel').textContent = view==='month' ? monthLabel(curMonth) : (yearOf(curMonth)+'年');
+  document.getElementById('navLabel').textContent = view==='year' ? (yearOf(curMonth)+'年') : monthLabel(curMonth);
   const main = document.getElementById('main');
-  main.innerHTML = view==='month' ? renderMonthView() : renderYearView();
+  main.innerHTML = view==='month' ? renderMonthView() : view==='year' ? renderYearView() : view==='schedule' ? renderScheduleView() : renderItemsListView();
   bindEvents();
+  bindScheduleEvents();
 }
 
 function initDragHandle(handle){
@@ -1559,6 +2183,9 @@ function bindEvents(){
   document.querySelectorAll('[data-openfinance]').forEach(el=>{
     el.onclick = (e)=>{ e.stopPropagation(); openFinancePage(); };
   });
+  document.querySelectorAll('[data-openitem]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); openItemDetailPage(el.getAttribute('data-openitem')); };
+  });
   document.querySelectorAll('[data-del]').forEach(el=>{
     el.onclick = (e)=>{ e.stopPropagation(); deleteItem(el.getAttribute('data-del')); };
   });
@@ -1623,11 +2250,11 @@ document.querySelectorAll('.tab').forEach(t=>{
   };
 });
 document.getElementById('prevBtn').onclick = ()=>{
-  curMonth = view==='month' ? shiftMonthKey(curMonth,-1) : shiftYearKey(curMonth,-1);
+  curMonth = view==='year' ? shiftYearKey(curMonth,-1) : shiftMonthKey(curMonth,-1);
   render();
 };
 document.getElementById('nextBtn').onclick = ()=>{
-  curMonth = view==='month' ? shiftMonthKey(curMonth,1) : shiftYearKey(curMonth,1);
+  curMonth = view==='year' ? shiftYearKey(curMonth,1) : shiftMonthKey(curMonth,1);
   render();
 };
 
@@ -1643,6 +2270,11 @@ document.getElementById('renameInput').onkeydown = (e)=>{
 document.getElementById('appTitleEl').onclick = renameAppTitle;
 document.getElementById('settingsBtn').onclick = openSettingsModal;
 document.getElementById('financeCloseBtn').onclick = closeFinancePage;
+document.getElementById('itemDetailCloseBtn').onclick = closeItemDetailPage;
+document.getElementById('schedPickerCancelBtn').onclick = closeDaySlotPicker;
+document.getElementById('schedPickerOverlay').onclick = (e)=>{
+  if(e.target.id==='schedPickerOverlay') closeDaySlotPicker();
+};
 document.getElementById('settingsOverlay').onclick = (e)=>{
   if(e.target.id==='settingsOverlay'){ applyTheme(data.theme); closeSettingsModal(); }
 };
@@ -1685,6 +2317,14 @@ document.getElementById('settingsSaveBtn').onclick = ()=>{
   applyTheme(data.theme);
   closeSettingsModal();
 };
+
+document.addEventListener('pointerdown', scheduleDragPointerDown);
+document.addEventListener('pointermove', scheduleDragPointerMove, {passive:false});
+document.addEventListener('pointerup', scheduleDragPointerUp);
+
+document.addEventListener('pointerdown', stepDragPointerDown);
+document.addEventListener('pointermove', stepDragPointerMove, {passive:false});
+document.addEventListener('pointerup', stepDragPointerUp);
 
 load();
 </script>
