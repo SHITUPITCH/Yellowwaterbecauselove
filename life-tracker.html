@@ -414,6 +414,7 @@ const CATEGORIES = [
   {id:'work', name:'工作'},
   {id:'sh', name:'SH 研究'},
   {id:'sport', name:'運動', recurringCount:{key:'晨跑', target:16}},
+  {id:'contrib', name:'公益', onceCounters:true},
   {id:'finance', name:'理財管理', financeLink:{name:'月底理財管理'}},
   {id:'social', name:'娛樂'},
   {id:'shopping', name:'購買清單', defaultItems:[]},
@@ -431,7 +432,7 @@ const FINANCE_DEFAULT = {
   months: {}
 };
 
-let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null, schedule:null, itemSteps:null};
+let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null, schedule:null, itemSteps:null, onceCounters:null};
 let draftTheme = null;
 let view = 'month';
 let curMonth = monthKeyFromDate(new Date());
@@ -485,6 +486,8 @@ function ensureDefaults(){
   if(!data.schedule) data.schedule = {months:{}};
   if(!data.schedule.months) data.schedule.months = {};
   if(!data.itemSteps) data.itemSteps = {};
+  if(!data.onceCounters) data.onceCounters = {};
+  if(!data.onceCounters[ONCE_COUNTER_CAT]) data.onceCounters[ONCE_COUNTER_CAT] = [];
   if(!data.finance.debts) data.finance.debts = JSON.parse(JSON.stringify(FINANCE_DEFAULT.debts));
   ['A1','A2','A3','A4','A5'].forEach(k=>{
     if(!data.finance.debts[k]) data.finance.debts[k] = {name:k, total:0, note:''};
@@ -758,6 +761,12 @@ function catTotals(cat, mKey){
   if(cat.recurringCount){ total+=1; if(getCount(cat.recurringCount.key+':'+cat.id, mKey)>=cat.recurringCount.target) done+=1; }
   if(cat.recurringCheck){ total+=1; if(getCheck(cat.recurringCheck.key+':'+cat.id, mKey)) done+=1; }
   if(cat.financeLink){ total+=1; if(data.finance.months[mKey]) done+=1; }
+  if(cat.id===ONCE_COUNTER_CAT){
+    getOnceCounters(cat.id).forEach(oc=>{
+      total+=1;
+      if(getCount(onceCounterKey(oc,cat.id), mKey)>=1) done+=1;
+    });
+  }
   return {total, done};
 }
 
@@ -893,6 +902,32 @@ function fmtNum(n){
 }
 
 const EXERCISE_KEY = '晨跑:sport';
+const ONCE_COUNTER_CAT = 'contrib';
+
+function getOnceCounters(catId){
+  if(!data.onceCounters[catId]) data.onceCounters[catId] = [];
+  return data.onceCounters[catId];
+}
+function onceCounterKey(oc, catId){ return oc.name+':'+catId+':once:'+oc.id; }
+function addOnceCounter(catId, name){
+  const trimmed = name.trim();
+  if(!trimmed) return;
+  getOnceCounters(catId).push({id:uid(), name:trimmed});
+  save(); render();
+}
+function deleteOnceCounter(catId, ocId){
+  data.onceCounters[catId] = getOnceCounters(catId).filter(o=>o.id!==ocId);
+  save(); render();
+}
+function bumpOnceCounter(key, mKey, delta){
+  const cur = getCount(key, mKey);
+  let v = cur + delta;
+  if(v<0) v=0;
+  if(v>1) v=1;
+  if(!data.recurringCounts[key]) data.recurringCounts[key]={};
+  data.recurringCounts[key][mKey] = v;
+  save(); render();
+}
 
 function emptySchedule(){ return {selected:[], priority:{}, calendar:{}}; }
 function getSchedule(mKey){
@@ -963,6 +998,12 @@ function openDaySlotPicker(dateStr, slotIdx){
   if(!todayEntries.includes('EXERCISE')){
     html += `<div class="sched-picker-item" data-pickval="EXERCISE">🏃 運動（晨跑 +1）</div>`;
   }
+  getOnceCounters(ONCE_COUNTER_CAT).forEach(oc=>{
+    const key = onceCounterKey(oc, ONCE_COUNTER_CAT);
+    if(getCount(key, mKey) < 1){
+      html += `<div class="sched-picker-item" data-pickval="ONCE:${oc.id}">🎯 ${escapeHtml(oc.name)}</div>`;
+    }
+  });
   let selectableCount = 0;
   sched.selected.forEach(id=>{
     const it = data.items.find(x=>x.id===id);
@@ -985,7 +1026,12 @@ function openDaySlotPicker(dateStr, slotIdx){
       const s = getSchedule(curMonth);
       if(!s.calendar[schedPickerCtx.dateStr]) s.calendar[schedPickerCtx.dateStr] = [];
       s.calendar[schedPickerCtx.dateStr].push(val);
-      if(val==='EXERCISE'){ bumpCountSilent(EXERCISE_KEY, curMonth, 1); }
+      if(val==='EXERCISE'){
+        bumpCountSilent(EXERCISE_KEY, curMonth, 1);
+      }else if(val.indexOf('ONCE:')===0){
+        const oc = getOnceCounters(ONCE_COUNTER_CAT).find(o=>o.id===val.slice(5));
+        if(oc) bumpCountSilent(onceCounterKey(oc, ONCE_COUNTER_CAT), curMonth, 1);
+      }
       save();
       closeDaySlotPicker();
       render();
@@ -1009,7 +1055,12 @@ function onDaySlotTap(dateStr, slotIdx){
   const entries = sched.calendar[dateStr];
   if(slotIdx < entries.length){
     const cur = entries[slotIdx];
-    if(cur==='EXERCISE'){ bumpCountSilent(EXERCISE_KEY, mKey, -1); }
+    if(cur==='EXERCISE'){
+      bumpCountSilent(EXERCISE_KEY, mKey, -1);
+    }else if(typeof cur==='string' && cur.indexOf('ONCE:')===0){
+      const oc = getOnceCounters(ONCE_COUNTER_CAT).find(o=>o.id===cur.slice(5));
+      if(oc) bumpCountSilent(onceCounterKey(oc, ONCE_COUNTER_CAT), mKey, -1);
+    }
     entries.splice(slotIdx, 1);
     save();
     render();
@@ -1040,6 +1091,10 @@ function renderScheduleView(){
         const val = entries[s];
         if(val==='EXERCISE'){
           html += `<div class="sch-slot sch-slot-filled" data-daycell="${dateStr}|${s}">🏃</div>`;
+        }else if(typeof val==='string' && val.indexOf('ONCE:')===0){
+          const oc = getOnceCounters(ONCE_COUNTER_CAT).find(o=>o.id===val.slice(5));
+          const label = oc ? escapeHtml(oc.name.slice(0,1)) : '?';
+          html += `<div class="sch-slot sch-slot-filled" data-daycell="${dateStr}|${s}" title="${oc?escapeHtml(oc.name):''}">${label}</div>`;
         }else{
           const it = data.items.find(x=>x.id===val);
           const label = it ? escapeHtml(it.name.slice(0,1)) : '?';
@@ -1112,6 +1167,10 @@ function renderCompletedColumn(mKey, sched){
   let html = '<div class="sch-col">';
   html += '<div class="sch-col-title">已完成</div>';
   html += `<div class="sch-fixed-exercise">運動：晨跑 x${exCount}</div>`;
+  getOnceCounters(ONCE_COUNTER_CAT).forEach(oc=>{
+    const c = getCount(onceCounterKey(oc, ONCE_COUNTER_CAT), mKey);
+    html += `<div class="sch-fixed-exercise">${escapeHtml(oc.name)} x${c}</div>`;
+  });
   html += '<div class="sch-bucket" data-bucket="done">';
   completedIds.forEach(id=>{
     const it = data.items.find(x=>x.id===id);
@@ -1461,6 +1520,25 @@ function renderMonthView(){
         </div>
       </div>`;
     }
+    if(cat.id===ONCE_COUNTER_CAT){
+      getOnceCounters(cat.id).forEach(oc=>{
+        const key = onceCounterKey(oc, cat.id);
+        const c = getCount(key, curMonth);
+        html += `<div class="counter-row">
+          <div class="counter-name ${c>=1?'done':''}">${escapeHtml(oc.name)}</div>
+          <div class="stepper">
+            <button class="stbtn" data-oncebump="${key}|-1">−</button>
+            <div class="stval">${c}/1</div>
+            <button class="stbtn" data-oncebump="${key}|1">+</button>
+          </div>
+          <div class="del" data-delonce="${cat.id}|${oc.id}">×</div>
+        </div>`;
+      });
+      html += `<div class="add-row">
+        <input class="add-input" placeholder="新增累積項目（如捐血、志工）…" data-onceinput="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="add-btn" data-onceadd="${cat.id}">＋</button>
+      </div>`;
+    }
     if(cat.recurringCheck){
       const key = cat.recurringCheck.key+':'+cat.id;
       const on = getCheck(key, curMonth);
@@ -1480,7 +1558,7 @@ function renderMonthView(){
         <div class="finance-row-arrow">›</div>
       </div>`;
     }
-    if(items.length===0 && !cat.recurringCount && !cat.recurringCheck && !cat.financeLink){
+    if(items.length===0 && !cat.recurringCount && !cat.recurringCheck && !cat.financeLink && cat.id!==ONCE_COUNTER_CAT){
       html += `<div class="empty-state" style="padding:16px 0 4px;">尚無項目</div>`;
     }
     items.forEach(it=>{
@@ -1540,6 +1618,13 @@ function renderYearView(){
       const key = cat.recurringCheck.key+':'+cat.id;
       if(monthsCheckedInYear(key, year)===12) recurringDoneBonus++;
     }
+    if(cat.id===ONCE_COUNTER_CAT){
+      getOnceCounters(cat.id).forEach(oc=>{
+        total += 1;
+        const key = onceCounterKey(oc, cat.id);
+        if(annualCount(key, year) >= 1) recurringDoneBonus++;
+      });
+    }
     done += recurringDoneBonus;
 
     html += `<div class="yr-card" data-cat="${cat.id}">
@@ -1570,6 +1655,13 @@ function renderYearView(){
       const key = cat.recurringCheck.key+':'+cat.id;
       const mc = monthsCheckedInYear(key, year);
       html += `<div class="run-note">${cat.recurringCheck.key}完成月數：<b>${mc} / 12</b></div>`;
+    }
+    if(cat.id===ONCE_COUNTER_CAT){
+      getOnceCounters(cat.id).forEach(oc=>{
+        const key = onceCounterKey(oc, cat.id);
+        const ac = annualCount(key, year);
+        html += `<div class="run-note">${escapeHtml(oc.name)}年度累計：<b>${ac} / 12</b></div>`;
+      });
     }
     html += `</div>`;
   });
@@ -2202,6 +2294,39 @@ function bindEvents(){
       e.stopPropagation();
       const [key, d] = el.getAttribute('data-bump').split('|');
       bumpCount(key, curMonth, parseInt(d));
+    };
+  });
+  document.querySelectorAll('[data-oncebump]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [key, d] = el.getAttribute('data-oncebump').split('|');
+      bumpOnceCounter(key, curMonth, parseInt(d));
+    };
+  });
+  document.querySelectorAll('[data-delonce]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [catId, ocId] = el.getAttribute('data-delonce').split('|');
+      deleteOnceCounter(catId, ocId);
+    };
+  });
+  document.querySelectorAll('[data-onceadd]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const catId = el.getAttribute('data-onceadd');
+      const input = document.querySelector(`[data-onceinput="${catId}"]`);
+      addOnceCounter(catId, input.value);
+      input.value='';
+    };
+  });
+  document.querySelectorAll('[data-onceinput]').forEach(el=>{
+    el.onclick = (e)=>e.stopPropagation();
+    el.onkeydown = (e)=>{
+      if(e.key==='Enter'){
+        const catId = el.getAttribute('data-onceinput');
+        addOnceCounter(catId, el.value);
+        el.value='';
+      }
     };
   });
   document.querySelectorAll('[data-add]').forEach(el=>{
