@@ -21,8 +21,12 @@
     --accent:#DFFF00;
     --accent-dark:#8fa300;
     --cathead:#DFFF00;
+    --incomplete-color:#e2e2e5;
+    --complete-color:#8fa300;
+    --day-confirmed-color:#DFFF00;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  input, textarea{-webkit-touch-callout:default;-webkit-user-select:text;user-select:text;}
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
   input[type=number]{-moz-appearance:textfield;appearance:textfield;}
@@ -38,8 +42,11 @@
   .title{font-size:20px;font-weight:600;letter-spacing:.2px;margin:0 0 12px;cursor:pointer;min-height:26px;display:block;}
   .title:active{opacity:.6;}
   .title-row{display:flex;align-items:center;justify-content:space-between;}
+  .header-btns{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
   .settings-btn{width:32px;height:32px;margin-bottom:12px;border:none;border-radius:50%;
     background:#f2f2f4;color:var(--sub);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .header-btns .settings-btn{margin-bottom:0;}
+  .undo-btn{font-size:19px;font-weight:600;line-height:1;}
   .settings-btn:active{background:#e6e6e8;}
   .tabs{display:flex;background:#f2f2f4;border-radius:10px;padding:3px;gap:3px;margin-bottom:12px;}
   .tab{flex:1;text-align:center;padding:8px 0;font-size:14px;border-radius:8px;color:var(--sub);
@@ -54,8 +61,9 @@
 
   main{padding:14px 16px 0;}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;}
-  .cat-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--cathead);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;
+    -webkit-touch-callout:none;}
+  .cat-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--cathead);touch-action:pan-y;}
   .cat-name{font-size:15.5px;font-weight:600;color:var(--text);cursor:pointer;min-width:60px;min-height:20px;display:inline-block;}
   .cat-name:active{opacity:.6;}
   .yr-cat-name{cursor:pointer;min-width:60px;min-height:18px;display:inline-block;}
@@ -67,6 +75,7 @@
   .chev{font-size:11px;color:rgba(0,0,0,.4);transition:transform .2s;}
   .card.open .chev{transform:rotate(90deg);}
   .drag-handle{width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+    -webkit-touch-callout:none;-webkit-user-select:none;
     color:var(--faint);cursor:grab;touch-action:none;user-select:none;flex:0 0 auto;}
   .cat-head .drag-handle{color:rgba(0,0,0,.4);}
   .dragging{opacity:.92;box-shadow:0 10px 26px rgba(0,0,0,.18);z-index:50;}
@@ -78,6 +87,19 @@
   .cat-inner{padding:0 16px 14px;}
 
   .item-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--cathead);}
+  .item-row-wrap:first-child .item-row{border-top:none;}
+  .item-drag-handle{width:18px;height:18px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    color:var(--faint);cursor:grab;touch-action:none;-webkit-touch-callout:none;user-select:none;}
+  .item-drag-ghost{background:var(--card);border:1px solid var(--cathead);border-radius:10px;
+    padding:8px 14px;font-size:14px;color:var(--text);box-shadow:0 8px 20px rgba(0,0,0,.18);
+    pointer-events:none;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .item-progress-row{display:flex;align-items:center;gap:8px;padding:0 0 8px 30px;}
+  .item-progress-bar{flex:1;height:6px;background:var(--incomplete-color);border-radius:4px;overflow:hidden;}
+  .item-progress-fill{height:100%;background:var(--complete-color);border-radius:4px;}
+  .progbtn{width:20px;height:20px;border-radius:6px;border:1px solid var(--line);background:var(--card);
+    color:var(--sub);font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;-webkit-touch-callout:none;user-select:none;}
+  .progval{font-size:11px;color:var(--faint);min-width:30px;text-align:center;flex:0 0 auto;}
   .item-row:first-child{border-top:none;}
   .check{width:20px;height:20px;border-radius:6px;border:1.6px solid #d5d5d8;flex:0 0 20px;
     display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;}
@@ -98,30 +120,37 @@
   .finance-row-arrow{color:var(--faint);font-size:18px;}
   .finance-row:active{opacity:.6;}
   .counter-row:first-child{border-top:none;}
-  .counter-name{flex:1;font-size:14.5px;color:var(--sub);}
+  .counter-name{flex:1;font-size:14.5px;color:var(--sub);touch-action:manipulation;cursor:pointer;-webkit-touch-callout:none;user-select:none;}
   .counter-name.done{color:var(--accent-dark);font-weight:600;}
   .stepper{display:flex;align-items:center;gap:8px;}
   .stbtn{width:24px;height:24px;border-radius:50%;border:1px solid #d5d5d8;background:#fff;
     display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text);cursor:pointer;}
   .stbtn:active{background:#f0f0f0;}
   .stval{min-width:44px;text-align:center;font-size:13px;color:var(--sub);font-variant-numeric:tabular-nums;}
+  .edit-target{text-decoration:underline dotted;text-underline-offset:2px;touch-action:manipulation;cursor:pointer;-webkit-touch-callout:none;user-select:none;}
   .bar{width:60px;height:5px;border-radius:3px;background:#ececec;overflow:hidden;margin-left:2px;}
-  .bar-fill{height:100%;background:var(--accent);}
+  .bar-fill{height:100%;background:var(--cathead);}
 
   .add-row{display:flex;gap:8px;padding:10px 0 2px;border-top:1px solid var(--line);margin-top:2px;}
+  .add-category-btn{background:var(--text);color:#fff;font-size:14px;font-weight:700;
+    text-align:center;padding:13px 0;border-radius:14px;margin-bottom:10px;cursor:pointer;}
+  .add-category-btn:active{opacity:.8;}
+  .del-category-row{font-size:12px;color:#c94040;text-align:center;padding:10px 0 2px;cursor:pointer;}
   .add-input{flex:1;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;
     background:#fff;color:var(--text);outline:none;}
   .add-input:focus{border-color:#c9c9cc;}
   .add-btn{width:34px;height:34px;border-radius:8px;border:none;background:#111;color:#fff;font-size:16px;cursor:pointer;}
 
   /* year view */
-  .yr-card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:14px 16px;}
+  .yr-card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:14px 16px;
+    -webkit-touch-callout:none;}
   .yr-title{font-size:15.5px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
   .yr-title-right{display:flex;align-items:center;gap:4px;}
   .yr-sub{font-size:11.5px;color:var(--faint);font-weight:400;}
   .yr-col-label{font-size:11px;color:var(--sub);margin:8px 0 4px;text-transform:none;}
   .yr-tags{display:flex;flex-wrap:wrap;gap:6px;}
   .tag{font-size:12.5px;padding:4px 9px;border-radius:20px;background:#f2f2f4;color:var(--sub);}
+  .tag-progress{color:#1a1a1a;font-weight:600;text-shadow:0 1px 1px rgba(255,255,255,.5);}
   .tag.done{background:#f4ffd6;color:var(--accent-dark);}
   .tag.empty{color:var(--faint);font-size:12.5px;background:none;padding:0;}
   .run-note{font-size:12.5px;color:var(--sub);margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
@@ -131,7 +160,20 @@
 
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);
     z-index:2100;align-items:center;justify-content:center;padding:24px;}
-  .modal-box{background:#fff;border-radius:14px;padding:18px;width:100%;max-width:340px;}
+  .modal-box{background:#fff;border-radius:14px;padding:18px;width:100%;max-width:340px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .export-section{border-bottom:1px solid var(--line);margin:0 0 6px;padding-bottom:14px;}
+  .export-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+  .export-hint{font-size:11px;color:var(--faint);margin-bottom:8px;line-height:1.5;}
+  .export-years{display:flex;flex-wrap:wrap;gap:8px;}
+  .export-year-btn{padding:8px 14px;border-radius:10px;background:#f2f2f4;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;-webkit-touch-callout:none;user-select:none;}
+  .export-year-btn:active{background:#e2e2e5;}
+  .cat-type-row{display:flex;gap:8px;margin-bottom:16px;}
+  .cat-type-btn{flex:1;border:1.5px solid var(--line);border-radius:12px;padding:12px 8px;
+    text-align:center;font-size:14px;font-weight:600;color:var(--sub);cursor:pointer;
+    display:flex;flex-direction:column;gap:4px;}
+  .cat-type-btn.selected{border-color:var(--accent-dark);background:rgba(143,163,0,.08);color:var(--text);}
+  .cat-type-desc{font-size:11px;font-weight:400;color:var(--faint);}
+  .cat-type-btn.disabled{opacity:.4;pointer-events:none;}
   .modal-title{font-size:15px;font-weight:600;margin-bottom:10px;}
   .modal-input{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;
     font-size:15px;color:var(--text);background:#fff;font-family:inherit;outline:none;box-sizing:border-box;}
@@ -176,7 +218,7 @@
   .fin-title-editable:active{opacity:.6;}
   .fin-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;
     border-top:1px solid var(--cathead);}
-  .fin-row:first-child, .fin-section-title + .fin-row{border-top:none;}
+  .fin-row:first-child, .fin-section-title + .fin-row, .fin-subheading + .fin-row{border-top:none;}
   .fin-row-label{font-size:13.5px;color:var(--sub);flex:1;}
   .fin-name-input{font-size:13.5px;color:var(--text);border:1px solid var(--line);border-radius:8px;
     padding:6px 8px;width:88px;background:#fff;font-family:inherit;}
@@ -186,7 +228,7 @@
     padding:7px 8px;width:60px;text-align:right;background:#fff;font-family:inherit;}
   .fin-subtotal{display:flex;justify-content:space-between;padding-top:10px;margin-top:8px;
     border-top:1px solid var(--line);font-size:14px;font-weight:700;}
-  .fin-remain{background:var(--card);border:1.5px solid var(--accent);border-radius:12px;
+  .fin-remain{background:var(--card);border:1.5px solid var(--cathead);border-radius:12px;
     padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
   .fin-remain-label{font-size:14px;font-weight:600;}
   .fin-remain-value{font-size:19px;font-weight:800;}
@@ -197,6 +239,10 @@
   .fin-total-inline{border:none;background:none;outline:none;color:#5f5f5f;font-weight:600;
     font-size:13px;font-family:inherit;width:56px;text-align:left;padding:0;}
   .fin-total-inline:focus{color:var(--text);}
+  .fin-row-label-wrap{display:flex;align-items:center;gap:6px;flex:1;min-width:0;}
+  .fin-note-mini{border:none;background:none;outline:none;color:var(--accent-dark);font-size:11.5px;
+    font-family:inherit;font-style:italic;flex:1;min-width:0;padding:0;}
+  .fin-note-mini::placeholder{color:var(--faint);font-style:italic;}
   .fin-alloc-row b{color:var(--text);}
   .fin-pct-warn{font-size:12px;color:var(--accent-dark);margin-top:4px;}
   .fin-gate-status{font-size:12.5px;color:var(--accent-dark);background:rgba(0,0,0,.04);
@@ -216,21 +262,120 @@
   .fin-summary-row b{color:var(--text);}
   .fin-total-assets{display:flex;justify-content:space-between;align-items:center;padding-top:10px;
     margin-top:6px;border-top:1.5px solid var(--line);font-size:15px;font-weight:800;}
+  .fin-total-assets-top{border-top:none;margin-top:0;padding-top:0;padding-bottom:10px;
+    border-bottom:1.5px solid var(--line);margin-bottom:4px;}
   .fin-hint{font-size:11.5px;color:var(--faint);margin-top:8px;line-height:1.5;}
+  .fin-subheading{font-size:11.5px;color:var(--faint);font-weight:600;margin:12px 0 2px;
+    padding-top:8px;border-top:1px solid var(--cathead);}
+  .fin-debt-toggle{font-size:13px;color:var(--faint);cursor:pointer;text-align:center;padding-top:6px;}
+  .fin-debt-toggle:active{color:var(--text);}
   .fin-del-custom{color:var(--faint);font-size:16px;padding:0 2px 0 8px;cursor:pointer;flex:0 0 auto;}
   .fin-add-row{display:flex;gap:8px;padding:8px 0 2px;}
   .fin-add-input{flex:1;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13.5px;
     background:#fff;color:var(--text);outline:none;font-family:inherit;}
   .fin-add-btn{width:32px;height:32px;border-radius:8px;border:none;background:var(--text);
     color:#fff;font-size:15px;cursor:pointer;flex:0 0 auto;}
+  .fin-manual-toggle-row{padding:8px 0;border-top:1px solid var(--cathead);}
+  .fin-toggle-label{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--sub);cursor:pointer;}
+  .fin-toggle-label input{width:16px;height:16px;flex:0 0 auto;}
 
-  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+  .goal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;
+    -webkit-touch-callout:none;}
   .goal-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
   .goal-title{font-size:15.5px;font-weight:600;}
   .goal-input{width:100%;min-height:80px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;
-    font-size:14px;color:var(--text);background:var(--accent);font-family:inherit;resize:vertical;outline:none;}
+    font-size:14px;color:var(--text);background:var(--accent);font-family:inherit;resize:none;overflow:hidden;outline:none;}
   .goal-input:focus{border-color:var(--accent-dark);}
   .goal-saved{font-size:11px;color:var(--faint);margin-top:6px;height:14px;}
+
+  /* schedule (日程) page */
+  .sch-cal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    padding:12px;margin-bottom:12px;}
+  .sch-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px;}
+  .sch-wd{text-align:center;font-size:11px;color:var(--faint);font-weight:600;}
+  .sch-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;align-items:start;}
+  .sch-cell{border:1px solid var(--line);border-radius:8px;padding:3px;min-height:56px;
+    display:flex;flex-direction:column;align-items:stretch;}
+  .sch-cell-empty{border:none;min-height:56px;}
+  .sch-daynum{font-size:11px;color:var(--sub);font-weight:600;margin-bottom:2px;text-align:center;}
+  .sch-emoji-palette{display:flex;flex-wrap:wrap;gap:8px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:10px 12px;margin-bottom:10px;}
+  .sch-emoji-chip{font-size:20px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    background:#f2f2f4;border-radius:10px;cursor:grab;touch-action:none;-webkit-touch-callout:none;user-select:none;}
+  .sch-emoji-chip.dragging{opacity:.35;}
+  .sch-emoji-chip.armed{box-shadow:0 0 0 3px var(--accent-dark);}
+  .sch-armed-hint{background:rgba(0,0,0,.06);border-radius:10px;padding:8px 10px;margin:-4px 0 8px;font-weight:600;}
+  .sch-slots{display:flex;flex-direction:column;gap:2px;width:100%;}
+  .sch-slot{width:100%;min-height:14px;border-radius:4px;border:1px dashed var(--line);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:none;
+    display:flex;align-items:center;justify-content:center;font-size:8px;line-height:1.15;color:var(--faint);
+    cursor:pointer;padding:2px 1px;text-align:center;word-break:break-word;box-sizing:border-box;}
+  .sch-slot:empty::before,.sch-slot-empty-plus{font-size:11px;font-weight:800;color:var(--faint);}
+  .sch-slot-filled{border:1px solid var(--cathead);color:rgba(0,0,0,.75);font-weight:700;}
+  .sch-slot-planned{background:none;border:1.5px dashed var(--cathead);color:var(--sub);font-weight:600;}
+  .sch-slot-confirmed{background:var(--day-confirmed-color);}
+  .sch-slot-truedone{background:#14dad7;border-color:#14dad7;color:rgba(0,0,0,.75);}
+  .sch-slot{position:relative;}
+  .sch-slot-badge{position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+    width:14px;height:14px;border-radius:50%;background:#fff;border:1px solid #fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;
+    overflow:hidden;z-index:2;}
+  .sch-slot-badge img{width:100%;height:100%;object-fit:cover;display:block;
+    -webkit-user-drag:none;user-drag:none;pointer-events:none;}
+  .sch-slot-badge-emoji{font-size:10px;background:#fff;}
+  .sch-sticker-chip img{width:100%;height:100%;object-fit:cover;border-radius:10px;
+    -webkit-user-drag:none;user-drag:none;pointer-events:none;}
+  .sch-sticker-chip{padding:0;overflow:visible;position:relative;}
+  .sch-sticker-del{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;
+    background:#333;color:#fff;font-size:11px;line-height:16px;text-align:center;font-weight:700;
+    z-index:3;-webkit-touch-callout:none;user-select:none;}
+  .sch-sticker-upload{border:1.5px dashed var(--faint);background:none;color:var(--faint);
+    font-size:18px;font-weight:600;cursor:pointer;}
+  .sch-slot-fin{}
+
+  .sch-daynote-wrap{margin-bottom:10px;}
+  .sch-daynote-input{width:100%;min-height:38px;border:1px solid var(--line);border-radius:10px;
+    padding:8px 10px;font-size:13px;color:var(--text);background:var(--card);font-family:inherit;
+    resize:none;overflow:hidden;outline:none;box-sizing:border-box;}
+  .sch-bottom{display:flex;gap:10px;}
+  .sch-col{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    padding:12px;}
+  .sch-col-title{font-size:14.5px;font-weight:700;margin-bottom:8px;}
+  .sch-pick-title{font-size:11px;color:var(--faint);margin-bottom:5px;}
+  .sch-pick-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+  .sch-pick-chip{font-size:11.5px;padding:4px 8px;border-radius:14px;background:#f2f2f4;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:none;
+    color:var(--sub);cursor:pointer;border:1px solid transparent;}
+  .sch-pick-chip.on{background:var(--cathead);color:rgba(0,0,0,.8);font-weight:600;
+    border-color:rgba(0,0,0,.1);}
+  .sch-bucket-title{font-size:11px;color:var(--faint);margin:8px 0 4px;}
+  .sch-bucket{min-height:34px;border:1px dashed var(--line);border-radius:10px;padding:6px;
+    display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;}
+  .sch-bucket-readonly{border-style:solid;}
+  .sch-bucket-empty{font-size:11px;color:var(--faint);padding:4px 2px;}
+  .sch-chip{font-size:12px;padding:5px 9px;border-radius:12px;background:var(--card);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;
+    border:1px solid var(--line);color:var(--sub);touch-action:none;cursor:grab;}
+  .sch-chip.dragging{box-shadow:0 8px 20px rgba(0,0,0,.18);opacity:.9;background:#fff;}
+  .sch-chip.done{background:rgba(0,197,239,.12);border-color:#00c5ef;color:#00849e;cursor:default;touch-action:auto;}
+  .sch-fixed-exercise{font-size:12.5px;font-weight:600;color:var(--accent-dark);
+    background:rgba(0,0,0,.04);border-radius:10px;padding:8px 10px;margin-bottom:8px;}
+  .sched-picker-list{display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto;}
+  .sched-picker-item{padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;color:var(--text);cursor:pointer;}
+  .sched-picker-item:active{background:#f2f2f4;}
+
+  .step-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:12px;margin-bottom:10px;-webkit-touch-callout:none;}
+  .step-row-top{display:flex;align-items:flex-start;gap:10px;}
+  .step-drag{width:22px;height:22px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    color:var(--faint);cursor:grab;touch-action:none;user-select:none;margin-top:2px;}
+  .step-card.dragging{opacity:.92;box-shadow:0 10px 26px rgba(0,0,0,.18);z-index:999;}
+  .step-text{flex:1;border:none;background:none;outline:none;font-size:14px;color:var(--text);
+    font-family:inherit;resize:none;min-height:22px;padding:2px 0;overflow:hidden;}
+  .step-del{color:var(--faint);font-size:16px;cursor:pointer;padding:0 2px;flex:0 0 auto;}
+  .step-img{width:100%;border-radius:10px;margin-top:8px;display:block;}
+  .step-photo-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+  .step-photo-remove{font-size:12px;color:var(--faint);text-decoration:underline;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -239,14 +384,19 @@
   <header class="top">
     <div class="title-row">
       <div class="title" id="appTitleEl"></div>
-      <button class="settings-btn" id="settingsBtn" aria-label="外觀設定">
+      <div class="header-btns">
+        <button class="settings-btn undo-btn" id="undoBtn" aria-label="復原上一步">↺</button>
+        <button class="settings-btn" id="settingsBtn" aria-label="外觀設定">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
         </svg>
-      </button>
+        </button>
+      </div>
     </div>
     <div class="tabs">
+      <div class="tab" data-view="items">項目</div>
+      <div class="tab" data-view="schedule">日程</div>
       <div class="tab active" data-view="month">月程</div>
       <div class="tab" data-view="year">年程</div>
     </div>
@@ -272,19 +422,42 @@
 
 <div class="modal-overlay" id="settingsOverlay">
   <div class="modal-box settings-box">
-    <div class="modal-title">外觀設定</div>
+    <div class="modal-title">設定</div>
+
+    <div class="export-section">
+      <div class="export-title">年度報表匯出</div>
+      <div class="export-hint">點選年份，下載該年度的完整報表（年度目標、已完成／未完成項目與進度、累計型項目次數、年度資產）。</div>
+      <div class="export-years" id="exportYearList"></div>
+    </div>
+
 
     <div class="settings-row">
       <span class="settings-label">背景顏色</span>
       <input type="color" id="bgColorInput" class="color-input" value="#ffffff">
     </div>
     <div class="settings-row">
-      <span class="settings-label">打勾／強調色</span>
+      <span class="settings-label">打勾／年度目標框顏色</span>
       <input type="color" id="accentColorInput" class="color-input" value="#DFFF00">
     </div>
     <div class="settings-row">
       <span class="settings-label">主題標題底色</span>
       <input type="color" id="headerColorInput" class="color-input" value="#DFFF00">
+    </div>
+    <div class="settings-row">
+      <span class="settings-label">文字顏色</span>
+      <input type="color" id="textColorInput" class="color-input" value="#111111">
+    </div>
+    <div class="settings-row">
+      <span class="settings-label">未完成顏色（進度%）</span>
+      <input type="color" id="incompleteColorInput" class="color-input" value="#e2e2e5">
+    </div>
+    <div class="settings-row">
+      <span class="settings-label">已完成顏色（進度%）</span>
+      <input type="color" id="completeColorInput" class="color-input" value="#8fa300">
+    </div>
+    <div class="settings-row">
+      <span class="settings-label">日程右滑完成色（已執行但未全完成）</span>
+      <input type="color" id="dayConfirmedColorInput" class="color-input" value="#DFFF00">
     </div>
 
     <div class="settings-row settings-row-photo">
@@ -295,6 +468,11 @@
     <div id="bgPhotoPreviewWrap" class="photo-preview-wrap" style="display:none;">
       <img id="bgPhotoPreview" class="photo-preview">
       <span class="photo-remove" id="bgPhotoRemove">移除照片</span>
+    </div>
+
+    <div class="settings-row">
+      <span class="settings-label">年度目標文字與各處標題</span>
+      <button class="photo-btn" id="resetTitlesBtn" type="button" style="border:0;font:inherit;">還原預設</button>
     </div>
 
     <div class="modal-actions settings-actions">
@@ -313,11 +491,89 @@
   <div class="finance-body" id="financeBody"></div>
 </div>
 
+<div class="modal-overlay" id="schedPickerOverlay">
+  <div class="modal-box">
+    <div class="modal-title">選擇項目</div>
+    <div id="schedPickerList" class="sched-picker-list"></div>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="schedPickerCancelBtn">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="finance-overlay" id="itemDetailOverlay">
+  <div class="finance-header">
+    <div class="finance-header-title" id="itemDetailTitle">項目步驟</div>
+    <button class="finance-close" id="itemDetailCloseBtn">✕</button>
+  </div>
+  <div class="finance-body" id="itemDetailBody"></div>
+</div>
+
+<div class="modal-overlay" id="addCategoryModalOverlay">
+  <div class="modal-box">
+    <div class="modal-title">新增主題</div>
+    <input type="text" id="newCategoryNameInput" class="modal-input" placeholder="主題名稱" style="margin-bottom:12px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div class="cat-type-row">
+      <div class="cat-type-btn selected" data-cattype="normal">一般型<span class="cat-type-desc">打勾式項目</span></div>
+      <div class="cat-type-btn" data-cattype="counter">累計型<span class="cat-type-desc">進度條計數項目</span></div>
+      <div class="cat-type-btn" data-cattype="finance" id="catTypeFinanceBtn">財務管理型<span class="cat-type-desc">含月底理財管理</span></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="addCategoryCancelBtn">取消</button>
+      <button class="modal-btn save" id="addCategoryConfirmBtn">新增</button>
+    </div>
+  </div>
+</div>
+
 <script>
+let recurringLabelTapCtx = null;
+document.addEventListener('pointerdown', (e)=>{
+  try{
+    const el = e.target.closest('[data-editrecurringlabel], [data-edittarget], [data-editccname], [data-editoncename]');
+    if(!el) return;
+    recurringLabelTapCtx = {el, startX:e.clientX, startY:e.clientY};
+  }catch(err){}
+});
+document.addEventListener('pointerup', (e)=>{
+  try{
+    if(!recurringLabelTapCtx) return;
+    const {el, startX, startY} = recurringLabelTapCtx;
+    recurringLabelTapCtx = null;
+    if(Math.abs(e.clientX-startX)>10 || Math.abs(e.clientY-startY)>10) return;
+    if(el.hasAttribute('data-editrecurringlabel')){
+      const catId = el.getAttribute('data-editrecurringlabel');
+      const cat = allCategories().find(c=>c.id===catId);
+      if(!cat || !cat.recurringCount) return;
+      const cur = getRecurringLabel(cat);
+      const next = prompt('項目名稱：', cur);
+      if(next!==null) setRecurringLabel(cat, next);
+    }else if(el.hasAttribute('data-edittarget')){
+      const catId = el.getAttribute('data-edittarget');
+      const cat = allCategories().find(c=>c.id===catId);
+      if(!cat || !cat.recurringCount) return;
+      const cur = getRecurringTarget(cat);
+      const next = prompt('設定目標次數：', cur);
+      if(next!==null) setRecurringTarget(cat, next);
+    }else if(el.hasAttribute('data-editccname')){
+      const [catId, ccId] = el.getAttribute('data-editccname').split('|');
+      const cc = getCustomCounters(catId).find(c=>c.id===ccId);
+      if(!cc) return;
+      const next = prompt('項目名稱：', cc.name);
+      if(next!==null) renameCustomCounter(catId, ccId, next);
+    }else if(el.hasAttribute('data-editoncename')){
+      const [catId, ocId] = el.getAttribute('data-editoncename').split('|');
+      const oc = getOnceCounters(catId).find(o=>o.id===ocId);
+      if(!oc) return;
+      const next = prompt('項目名稱：', oc.name);
+      if(next!==null) renameOnceCounter(catId, ocId, next);
+    }
+  }catch(err){}
+});
+
 const CATEGORIES = [
   {id:'work', name:'工作'},
   {id:'sh', name:'SH 研究'},
-  {id:'sport', name:'運動', recurringCount:{key:'晨跑', target:16}},
+  {id:'sport', name:'運動', customCounters:true, countersResetMonthly:true},
   {id:'finance', name:'理財管理', financeLink:{name:'月底理財管理'}},
   {id:'social', name:'娛樂'},
   {id:'shopping', name:'購買清單', defaultItems:[]},
@@ -326,16 +582,117 @@ const CATEGORIES = [
   {id:'todo', name:'代辦事項'},
   {id:'other', name:'其他'},
 ];
+function allCategories(){
+  const custom = (data.customCategories||[]).map(c=>({
+    id:c.id, name:c.name, custom:true,
+    customCounters: !!c.customCounters,
+    countersResetMonthly: !!c.countersResetMonthly,
+    financeLink: c.financeLink || undefined
+  }));
+  return CATEGORIES.concat(custom).filter(c=>!(data.hiddenCategories||[]).includes(c.id));
+}
+function hideCategory(id){
+  const cat = CATEGORIES.concat(data.customCategories||[]).find(c=>c.id===id);
+  if(!cat) return;
+  if(data.customCategories.some(c=>c.id===id)){
+    deleteCustomCategory(id);
+  }else{
+    if(!data.hiddenCategories) data.hiddenCategories = [];
+    if(!data.hiddenCategories.includes(id)) data.hiddenCategories.push(id);
+    data.categoryOrder = data.categoryOrder.filter(cid=>cid!==id);
+    data.items = data.items.filter(it=>it.category!==id);
+    save();
+    render();
+  }
+}
+function getRecurringTarget(cat){
+  const key = cat.recurringCount.key+':'+cat.id;
+  const override = data.recurringTargets[key];
+  return (typeof override==='number' && override>0) ? override : cat.recurringCount.target;
+}
+function setRecurringTarget(cat, newTarget){
+  const t = parseInt(newTarget);
+  if(!t || t<=0) return;
+  const key = cat.recurringCount.key+':'+cat.id;
+  data.recurringTargets[key] = t;
+  save(); render();
+}
+function getRecurringLabel(cat){
+  if(!data.recurringLabels) data.recurringLabels = {};
+  return data.recurringLabels[cat.id] || cat.recurringCount.key;
+}
+function setRecurringLabel(cat, newLabel){
+  if(!data.recurringLabels) data.recurringLabels = {};
+  const trimmed = (newLabel||'').trim();
+  if(!trimmed) return;
+  data.recurringLabels[cat.id] = trimmed;
+  save(); render();
+}
+function addCustomCategory(name, type){
+  const trimmed = (name||'').trim();
+  if(!trimmed) return;
+  const id = 'custom_'+uid();
+  const entry = {id, name:trimmed};
+  if(type==='counter'){
+    entry.customCounters = true;
+    entry.countersResetMonthly = true;
+  }else if(type==='finance'){
+    entry.financeLink = {name:'月底理財管理'};
+  }
+  data.customCategories.push(entry);
+  data.categoryNames[id] = trimmed;
+  data.categoryOrder.push(id);
+  if(entry.customCounters && !data.customCounters[id]) data.customCounters[id] = [];
+  save();
+  render();
+}
+function deleteCustomCategory(id){
+  data.customCategories = (data.customCategories||[]).filter(c=>c.id!==id);
+  data.categoryOrder = data.categoryOrder.filter(cid=>cid!==id);
+  data.items = data.items.filter(it=>it.category!==id);
+  delete data.categoryNames[id];
+  save();
+  render();
+}
+
+let newCategoryType = 'normal';
+function openAddCategoryModal(){
+  newCategoryType = 'normal';
+  const nameInput = document.getElementById('newCategoryNameInput');
+  if(nameInput) nameInput.value = '';
+  document.querySelectorAll('.cat-type-btn').forEach(b=>{
+    b.classList.toggle('selected', b.getAttribute('data-cattype')==='normal');
+  });
+  const finBtn = document.getElementById('catTypeFinanceBtn');
+  if(finBtn){
+    const exists = allCategories().some(c=>c.financeLink);
+    finBtn.classList.toggle('disabled', exists);
+    const d = finBtn.querySelector('.cat-type-desc');
+    if(d) d.textContent = exists ? '已建立' : '含月底理財管理';
+  }
+  document.getElementById('addCategoryModalOverlay').style.display = 'flex';
+}
+function closeAddCategoryModal(){
+  document.getElementById('addCategoryModalOverlay').style.display = 'none';
+}
+function confirmAddCategory(){
+  const nameInput = document.getElementById('newCategoryNameInput');
+  const name = nameInput ? nameInput.value : '';
+  if(!name || !name.trim()) return;
+  if(newCategoryType==='finance' && allCategories().some(c=>c.financeLink)) return;
+  addCustomCategory(name, newCategoryType);
+  closeAddCategoryModal();
+}
 
 const FINANCE_DEFAULT = {
   debts: {
-    A1:{name:'A1', total:0}, A2:{name:'A2', total:0}, A3:{name:'A3', total:0},
-    A4:{name:'A4', total:0}, A5:{name:'A5', total:0}
+    A1:{name:'A1', total:0, note:''}, A2:{name:'A2', total:0, note:''}, A3:{name:'A3', total:0, note:''},
+    A4:{name:'A4', total:0, note:''}, A5:{name:'A5', total:0, note:''}
   },
   months: {}
 };
 
-let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null};
+let data = {items:[], recurringChecks:{}, recurringCounts:{}, yearGoals:{}, categoryOrder:[], categoryNames:{}, theme:{bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}, appTitle:null, finance:null, schedule:null, itemSteps:null, onceCounters:null, customStickers:null, customCounters:null, financeChecked:null, dayNotes:null, customCategories:null, recurringTargets:null};
 let draftTheme = null;
 let view = 'month';
 let curMonth = monthKeyFromDate(new Date());
@@ -376,30 +733,65 @@ async function load(){
     }
   }catch(e){ /* no data yet */ }
   ensureDefaults();
+  lastSnapshot = JSON.stringify(data);
   applyTheme(data.theme);
   render();
+  updateUndoButtonState();
 }
 function ensureDefaults(){
+  if(data.blankStartDone===undefined){
+    const isFresh = (!data.categoryOrder || data.categoryOrder.length===0) && (!data.items || data.items.length===0);
+    if(isFresh) data.hiddenCategories = CATEGORIES.map(c=>c.id);
+    data.blankStartDone = true;
+  }
+  if(!data.items) data.items = [];
+  if(!data.recurringCounts) data.recurringCounts = {};
+  if(!data.recurringChecks) data.recurringChecks = {};
   if(!data.yearGoals) data.yearGoals = {};
   if(!data.categoryNames) data.categoryNames = {};
   CATEGORIES.forEach(c=>{ if(!(c.id in data.categoryNames)) data.categoryNames[c.id] = ''; });
   if(!data.theme) data.theme = {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null};
   if(!data.theme.headerColor) data.theme.headerColor = '#DFFF00';
   if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.schedule) data.schedule = {months:{}};
+  if(!data.schedule.months) data.schedule.months = {};
+  if(!data.itemSteps) data.itemSteps = {};
+  if(!data.onceCounters) data.onceCounters = {};
+  if(!data.customStickers) data.customStickers = [];
+  if(!data.dayNotes) data.dayNotes = {};
+  if(!data.customCategories) data.customCategories = [];
+  if(!data.hiddenCategories) data.hiddenCategories = [];
+  if(!data.recurringTargets) data.recurringTargets = {};
+  if(!data.recurringLabels) data.recurringLabels = {};
+  if(!data.financeChecked) data.financeChecked = {};
+  if(!data.customCounters) data.customCounters = {};
+  CATEGORIES.forEach(c=>{ if(c.customCounters && !data.customCounters[c.id]) data.customCounters[c.id] = []; });
+  if(data.customCounters.sport && data.customCounters.sport.length===0 && !data.sportDefaultSeeded){
+    const oldKey = '晨跑:sport';
+    const seedName = (data.recurringLabels && data.recurringLabels.sport) || '跑步';
+    const seedTarget = (data.recurringTargets && data.recurringTargets[oldKey]) || 31;
+    data.customCounters.sport.push({id:'sport_default_run', name:seedName, target:seedTarget, resetMonthly:true, count:0});
+    data.sportDefaultSeeded = true;
+  }
+  if(!data.onceCounters[ONCE_COUNTER_CAT]) data.onceCounters[ONCE_COUNTER_CAT] = [];
   if(!data.finance.debts) data.finance.debts = JSON.parse(JSON.stringify(FINANCE_DEFAULT.debts));
-  ['A1','A2','A3','A4','A5'].forEach(k=>{ if(!data.finance.debts[k]) data.finance.debts[k] = {name:k, total:0}; });
+  ['A1','A2','A3','A4','A5'].forEach(k=>{
+    if(!data.finance.debts[k]) data.finance.debts[k] = {name:k, total:0, note:''};
+    if(data.finance.debts[k].note===undefined) data.finance.debts[k].note = '';
+  });
   if(!data.finance.months) data.finance.months = {};
   if(!data.finance.reserveTarget) data.finance.reserveTarget = 200000;
-  if(!data.finance.debtSectionTitle) data.finance.debtSectionTitle = '項目設定';
-  if(data.finance.debtSectionTitle==='欠款項目設定（可隨時修改，一次性設定）') data.finance.debtSectionTitle = '項目設定';
+  if(!data.finance.debtSectionTitle) data.finance.debtSectionTitle = '總資產追蹤';
+  if(data.finance.debtSectionTitle==='欠款項目設定（可隨時修改，一次性設定）' || data.finance.debtSectionTitle==='項目設定') data.finance.debtSectionTitle = '總資產追蹤';
   if(!data.finance.customFixed) data.finance.customFixed = [];
   if(!data.finance.customIncome) data.finance.customIncome = [];
   if(!data.finance.labels) data.finance.labels = {income:{}, fixed:{}, pct:{}, summary:{}};
   ['income','fixed','pct','summary'].forEach(t=>{ if(!data.finance.labels[t]) data.finance.labels[t] = {}; });
   if(!data.categoryOrder) data.categoryOrder = [];
-  CATEGORIES.forEach(c=>{ if(!data.categoryOrder.includes(c.id)) data.categoryOrder.push(c.id); });
+  allCategories().forEach(c=>{ if(!data.categoryOrder.includes(c.id)) data.categoryOrder.push(c.id); });
   if(!data.categoryOrder.includes('yeargoal')) data.categoryOrder.unshift('yeargoal');
-  data.categoryOrder = data.categoryOrder.filter(id=>id==='yeargoal' || CATEGORIES.some(c=>c.id===id));
+  data.categoryOrder = data.categoryOrder.filter(id=>id==='yeargoal' || allCategories().some(c=>c.id===id));
+  data.items = data.items.filter(it=>it.category!=='contrib');
   const shop = CATEGORIES.find(c=>c.id==='shopping');
   const hasShop = data.items.some(it=>it.category==='shopping');
   if(!hasShop){
@@ -425,10 +817,18 @@ function applyTheme(theme){
   const bg = theme.bg || '#ffffff';
   const accent = theme.accent || '#DFFF00';
   const headerColor = theme.headerColor || '#DFFF00';
+  const textColor = theme.textColor || '#111111';
+  const incompleteColor = theme.incompleteColor || '#e2e2e5';
+  const completeColor = theme.completeColor || '#8fa300';
+  const dayConfirmedColor = theme.dayConfirmedColor || '#DFFF00';
   root.style.setProperty('--accent', accent);
   root.style.setProperty('--accent-dark', darkenColor(accent, 0.4));
   root.style.setProperty('--bg', bg);
   root.style.setProperty('--cathead', headerColor);
+  root.style.setProperty('--text', textColor);
+  root.style.setProperty('--incomplete-color', incompleteColor);
+  root.style.setProperty('--complete-color', completeColor);
+  root.style.setProperty('--day-confirmed-color', dayConfirmedColor);
   if(theme.bgImage){
     // keep cards opaque/white so text stays readable over a photo background
     root.style.setProperty('--card', '#ffffff');
@@ -449,12 +849,215 @@ function updatePhotoPreviewUI(){
     wrap.style.display = 'none';
   }
 }
+function collectDataYears(){
+  const ys = new Set();
+  ys.add(String(new Date().getFullYear()));
+  ys.add(String(yearOf(curMonth)));
+  (data.items||[]).forEach(it=>{
+    if(it.createdMonth) ys.add(it.createdMonth.slice(0,4));
+    if(it.completedMonth) ys.add(it.completedMonth.slice(0,4));
+  });
+  Object.keys(data.yearGoals||{}).forEach(y=>{ if(data.yearGoals[y]) ys.add(String(y)); });
+  Object.keys((data.finance&&data.finance.months)||{}).forEach(k=>ys.add(k.slice(0,4)));
+  Object.keys(data.recurringCounts||{}).forEach(key=>{
+    Object.keys(data.recurringCounts[key]||{}).forEach(mk=>ys.add(mk.slice(0,4)));
+  });
+  return Array.from(ys).filter(y=>/^\d{4}$/.test(y)).sort().reverse();
+}
+function renderExportYears(){
+  const el = document.getElementById('exportYearList');
+  if(!el) return;
+  el.innerHTML = collectDataYears().map(y=>`<div class="export-year-btn" data-exportyear="${y}">${y}</div>`).join('');
+}
+function buildYearReportHtml(year){
+  year = String(year);
+  const cats = allCategories();
+  const catLabel = id=>{
+    const c = cats.find(x=>x.id===id);
+    return c ? (catName(c) || c.name || '（未命名主題）') : '（已刪除的主題）';
+  };
+  const colDone = (data.theme && data.theme.completeColor) || '#8fa300';
+  const colTodo = (data.theme && data.theme.incompleteColor) || '#e2e2e5';
+  const goal = (data.yearGoals && data.yearGoals[year]) || '';
+  const doneItems = data.items.filter(it=>it.completedMonth && it.completedMonth.slice(0,4)===year);
+  const undoneItems = data.items.filter(it=>it.completedMonth===null && it.createdMonth && it.createdMonth.slice(0,4)<=year);
+  const bar = pct => `<div class="bar" style="background:${colTodo}"><div class="fill" style="width:${pct}%;background:${colDone}"></div></div>`;
+  const money = n => fmtMoney(n);
+  let h = '';
+  h += `<h1>${escapeHtml(year)} 年度報表</h1>`;
+  h += `<div class="sub">${escapeHtml(getAppTitle() || '行程工具')}　產生時間：${escapeHtml(new Date().toLocaleString())}</div>`;
+  h += `<div class="chips"><div class="chip"><b>${doneItems.length}</b>已完成項目</div><div class="chip"><b>${undoneItems.length}</b>未完成項目</div></div>`;
+
+  h += `<h2>1. 年度目標</h2>`;
+  h += `<div class="goal">${goal ? escapeHtml(goal).replace(/\n/g,'<br>') : '<span class="muted">（這一年還沒有寫年度目標）</span>'}</div>`;
+
+  h += `<h2>2. 已完成的項目（${doneItems.length}）</h2>`;
+  if(doneItems.length===0){
+    h += `<div class="muted">這一年還沒有完成的項目</div>`;
+  }else{
+    h += `<div class="scroll"><table><tr><th>主題</th><th>項目</th><th>完成月份</th></tr>`;
+    doneItems.slice().sort((a,b)=>a.completedMonth.localeCompare(b.completedMonth)).forEach(it=>{
+      h += `<tr><td>${escapeHtml(catLabel(it.category))}</td><td>${escapeHtml(it.name)}</td><td>${escapeHtml(it.completedMonth.slice(5))} 月</td></tr>`;
+    });
+    h += `</table></div>`;
+  }
+
+  h += `<h2>3. 還沒完成的項目與進度（${undoneItems.length}）</h2>`;
+  if(undoneItems.length===0){
+    h += `<div class="muted">沒有未完成的項目</div>`;
+  }else{
+    h += `<div class="scroll"><table><tr><th>主題</th><th>項目</th><th style="min-width:140px">完成進度</th></tr>`;
+    undoneItems.forEach(it=>{
+      const pct = typeof it.progress==='number' ? it.progress : 0;
+      h += `<tr><td>${escapeHtml(catLabel(it.category))}</td><td>${escapeHtml(it.name)}</td><td>${bar(pct)}<span class="pct">${pct}%</span></td></tr>`;
+    });
+    h += `</table></div>`;
+  }
+
+  h += `<h2>4. 累計型項目的次數</h2>`;
+  const monthlyRows = [], persistentRows = [];
+  cats.filter(c=>c.customCounters).forEach(cat=>{
+    getCustomCounters(cat.id).forEach(cc=>{
+      if(cc.resetMonthly){
+        const key = customCounterStorageKey(cc, cat.id);
+        const months = [];
+        let total = 0;
+        for(let m=1;m<=12;m++){
+          const v = (data.recurringCounts[key] && data.recurringCounts[key][year+'-'+pad(m)]) || 0;
+          months.push(v); total += v;
+        }
+        monthlyRows.push({cat:catLabel(cat.id), name:cc.name, months, total, target:cc.target});
+      }else{
+        persistentRows.push({cat:catLabel(cat.id), name:cc.name, count:cc.count||0, target:cc.target});
+      }
+    });
+  });
+  if(monthlyRows.length===0 && persistentRows.length===0){
+    h += `<div class="muted">沒有累計型項目</div>`;
+  }
+  if(monthlyRows.length>0){
+    h += `<div class="scroll"><table><tr><th>主題</th><th>項目</th><th>全年</th>`;
+    for(let m=1;m<=12;m++) h += `<th>${m}月</th>`;
+    h += `<th>每月目標</th></tr>`;
+    monthlyRows.forEach(r=>{
+      h += `<tr><td>${escapeHtml(r.cat)}</td><td>${escapeHtml(r.name)}</td><td><b>${r.total}</b></td>`;
+      r.months.forEach(v=>{ h += `<td>${v}</td>`; });
+      h += `<td>${r.target}</td></tr>`;
+    });
+    h += `</table></div>`;
+  }
+  if(persistentRows.length>0){
+    h += `<div class="muted" style="margin-top:10px">不分年、持續累計的項目（顯示截至匯出時的總數）</div>`;
+    h += `<div class="scroll"><table><tr><th>主題</th><th>項目</th><th>累計次數</th><th>目標</th></tr>`;
+    persistentRows.forEach(r=>{
+      h += `<tr><td>${escapeHtml(r.cat)}</td><td>${escapeHtml(r.name)}</td><td><b>${r.count}</b></td><td>${r.target}</td></tr>`;
+    });
+    h += `</table></div>`;
+  }
+
+  h += `<h2>5. 整年資產</h2>`;
+  const fm = (data.finance && data.finance.months) || {};
+  const endKey = year+'-12';
+  if(!Object.keys(fm).some(k=>k<=endKey)){
+    h += `<div class="muted">這一年還沒有財務資料</div>`;
+  }else{
+    const L = {
+      reserve:finLabel('summary','reserve'), savings:finLabel('summary','savings'),
+      fund:finLabel('summary','fund'), invest:finLabel('summary','invest'),
+      other:finLabel('summary','other'), total:finLabel('summary','total')
+    };
+    const end = financeSummaryUpTo(endKey);
+    h += `<div class="muted">年底（12 月底）狀態</div>`;
+    h += `<div class="chips">`;
+    h += `<div class="chip"><b>${money(end.reserve)}</b>${escapeHtml(L.reserve)}</div>`;
+    h += `<div class="chip"><b>${money(end.savings)}</b>${escapeHtml(L.savings)}</div>`;
+    h += `<div class="chip"><b>${money(end.fund)}</b>${escapeHtml(L.fund)}</div>`;
+    h += `<div class="chip"><b>${money(end.invest)}</b>${escapeHtml(L.invest)}</div>`;
+    h += `<div class="chip"><b>${money(end.debtRemaining)}</b>${escapeHtml(L.other)}（欠款剩餘）</div>`;
+    h += `<div class="chip strong"><b>${money(end.totalAssets)}</b>${escapeHtml(L.total)}</div>`;
+    h += `</div>`;
+
+    const yearMonths = Object.keys(fm).filter(k=>k.slice(0,4)===year).sort();
+    if(yearMonths.length>0){
+      h += `<div class="muted" style="margin-top:10px">每月月底累積</div>`;
+      h += `<div class="scroll"><table><tr><th>月份</th><th>${escapeHtml(L.reserve)}</th><th>${escapeHtml(L.savings)}</th><th>${escapeHtml(L.fund)}</th><th>${escapeHtml(L.invest)}</th><th>${escapeHtml(L.other)}（欠款剩餘）</th><th>${escapeHtml(L.total)}</th></tr>`;
+      yearMonths.forEach(mk=>{
+        const s = financeSummaryUpTo(mk);
+        h += `<tr><td>${escapeHtml(mk.slice(5))} 月</td><td>${money(s.reserve)}</td><td>${money(s.savings)}</td><td>${money(s.fund)}</td><td>${money(s.invest)}</td><td>${money(s.debtRemaining)}</td><td><b>${money(s.totalAssets)}</b></td></tr>`;
+      });
+      h += `</table></div>`;
+    }
+
+    const debtKeys = ['A1','A2','A3','A4','A5'];
+    const debtRows = [];
+    debtKeys.forEach(k=>{
+      const d = (data.finance.debts && data.finance.debts[k]) || {};
+      const paid = Object.keys(fm).filter(mk=>mk<=endKey).reduce((sum,mk)=>sum+((fm[mk].fixed && fm[mk].fixed[k])||0),0);
+      if((d.total||0)>0 || paid>0) debtRows.push({name:d.name||k, total:d.total||0, paid});
+    });
+    if(debtRows.length>0){
+      h += `<div class="muted" style="margin-top:10px">${escapeHtml(L.other)}（年底已還／總額）</div>`;
+      h += `<div class="scroll"><table><tr><th>項目</th><th>已還</th><th>總額</th><th>剩餘</th></tr>`;
+      debtRows.forEach(r=>{
+        h += `<tr><td>${escapeHtml(r.name)}</td><td>${money(r.paid)}</td><td>${money(r.total)}</td><td>${money(r.total-r.paid)}</td></tr>`;
+      });
+      h += `</table></div>`;
+    }
+  }
+
+  const css = 'body{margin:0;background:#f5f5f7;color:#111;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;line-height:1.6}'
+    + '.wrap{max-width:860px;margin:0 auto;padding:20px 16px 40px}'
+    + 'h1{font-size:24px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid #e2e2e5}'
+    + '.sub{color:#8a8a8e;font-size:12px;margin-bottom:14px}.muted{color:#8a8a8e;font-size:13px;margin:6px 0}'
+    + '.goal{background:#fff;border-radius:12px;padding:14px 16px;font-size:14px;white-space:normal}'
+    + '.chips{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0}'
+    + '.chip{background:#fff;border-radius:12px;padding:10px 14px;font-size:12px;color:#555;min-width:110px}'
+    + '.chip b{display:block;font-size:18px;color:#111}.chip.strong{background:#111;color:#ddd}.chip.strong b{color:#fff}'
+    + '.scroll{overflow-x:auto;background:#fff;border-radius:12px;margin:6px 0}'
+    + 'table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #eee;white-space:nowrap}'
+    + 'th{background:#fafafa;color:#666;font-weight:600}td:nth-child(2){white-space:normal;min-width:110px}'
+    + '.bar{display:inline-block;width:90px;height:8px;border-radius:5px;overflow:hidden;vertical-align:middle}.fill{height:100%}.pct{margin-left:8px;font-size:12px;color:#555}'
+    + '.foot{margin-top:30px;text-align:center}button{padding:10px 18px;border:none;border-radius:10px;background:#111;color:#fff;font-size:14px}'
+    + '@media print{body{background:#fff}.foot{display:none}.scroll{border:1px solid #ddd}}';
+  return '<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'
+    + escapeHtml(year) + ' 年度報表</title><style>' + css + '</style></head><body><div class="wrap">' + h
+    + '<div class="foot"><button onclick="window.print()">列印／存成 PDF</button></div></div></body></html>';
+}
+async function exportYearReport(year){
+  const html = buildYearReportHtml(year);
+  const filename = '年度報表_' + year + '.html';
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  try{
+    if(isIOS && navigator.canShare){
+      const file = new File([html], filename, {type:'text/html'});
+      if(navigator.canShare({files:[file]})){
+        await navigator.share({files:[file], title:filename});
+        return;
+      }
+    }
+  }catch(e){
+    if(e && e.name==='AbortError') return;
+  }
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1500);
+}
+
 function openSettingsModal(){
   draftTheme = JSON.parse(JSON.stringify(data.theme || {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null}));
   document.getElementById('bgColorInput').value = draftTheme.bg || '#ffffff';
   document.getElementById('accentColorInput').value = draftTheme.accent || '#DFFF00';
   document.getElementById('headerColorInput').value = draftTheme.headerColor || '#DFFF00';
+  document.getElementById('textColorInput').value = draftTheme.textColor || '#111111';
+  document.getElementById('incompleteColorInput').value = draftTheme.incompleteColor || '#e2e2e5';
+  document.getElementById('completeColorInput').value = draftTheme.completeColor || '#8fa300';
+  document.getElementById('dayConfirmedColorInput').value = draftTheme.dayConfirmedColor || '#DFFF00';
   updatePhotoPreviewUI();
+  renderExportYears();
   document.getElementById('settingsOverlay').style.display = 'flex';
 }
 function closeSettingsModal(){
@@ -484,14 +1087,45 @@ function handlePhotoFile(file){
   reader.readAsDataURL(file);
 }
 
+let undoStack = [];
+let lastSnapshot = null;
+function updateUndoButtonState(){
+  const btn = document.getElementById('undoBtn');
+  if(btn) btn.style.opacity = undoStack.length>0 ? '1' : '.35';
+}
 async function save(){
   try{
+    const cur = JSON.stringify(data);
+    if(lastSnapshot!==null && lastSnapshot!==cur){
+      undoStack.push(lastSnapshot);
+      if(undoStack.length>20) undoStack.shift();
+    }
+    lastSnapshot = cur;
     if(hasCloudStorage){
-      await window.storage.set('app-data-v2', JSON.stringify(data), false);
+      await window.storage.set('app-data-v2', cur, false);
     }else{
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+      localStorage.setItem(LOCAL_KEY, cur);
     }
   }catch(e){}
+  updateUndoButtonState();
+}
+async function undo(){
+  if(undoStack.length===0) return;
+  const prev = undoStack.pop();
+  try{
+    data = JSON.parse(prev);
+  }catch(e){ return; }
+  lastSnapshot = prev;
+  ensureDefaults();
+  try{
+    if(hasCloudStorage){
+      await window.storage.set('app-data-v2', prev, false);
+    }else{
+      localStorage.setItem(LOCAL_KEY, prev);
+    }
+  }catch(e){}
+  updateUndoButtonState();
+  render();
 }
 
 function catName(cat){
@@ -512,6 +1146,11 @@ function appTitleHtml(){
   return t ? escapeHtml(t) : '<span class="name-placeholder">點此命名</span>';
 }
 let renamingId = null;
+let showAllDebts = false;
+function activeDebtKeys(){
+  const all = ['A1','A2','A3','A4','A5'];
+  return showAllDebts ? all : all.filter(k=> financeDebtRemainPerItem(k) > 0);
+}
 function openRenameFor(id, currentName){
   renamingId = id;
   const overlay = document.getElementById('renameOverlay');
@@ -521,7 +1160,7 @@ function openRenameFor(id, currentName){
   setTimeout(()=>{ input.focus(); input.select(); }, 30);
 }
 function renameCategory(id){
-  const cat = CATEGORIES.find(c=>c.id===id);
+  const cat = allCategories().find(c=>c.id===id);
   if(!cat) return;
   openRenameFor(id, catName(cat));
 }
@@ -577,12 +1216,12 @@ function confirmRename(){
 }
 
 function orderedCategories(){
-  return data.categoryOrder.map(id=>CATEGORIES.find(c=>c.id===id)).filter(Boolean);
+  return data.categoryOrder.map(id=>allCategories().find(c=>c.id===id)).filter(Boolean);
 }
 function yearBlocksOrder(){
   return data.categoryOrder.map(id=>{
     if(id==='yeargoal') return {type:'goal', id:'yeargoal'};
-    const cat = CATEGORIES.find(c=>c.id===id);
+    const cat = allCategories().find(c=>c.id===id);
     return cat ? {type:'category', id:cat.id, cat} : null;
   }).filter(Boolean);
 }
@@ -601,13 +1240,24 @@ function itemsForCategoryMonth(catId, mKey){
 }
 function addItem(catId, name){
   if(!name.trim()) return;
-  data.items.push({id:uid(), category:catId, name:name.trim(), createdMonth:curMonth, completedMonth:null});
+  data.items.push({id:uid(), category:catId, name:name.trim(), createdMonth:curMonth, completedMonth:null, progress:0});
   save(); render();
 }
 function toggleItem(id){
   const it = data.items.find(i=>i.id===id);
   if(!it) return;
   it.completedMonth = (it.completedMonth===curMonth) ? null : curMonth;
+  it.progress = it.completedMonth ? 100 : 0;
+  save(); render();
+}
+function setItemProgress(id, delta){
+  const it = data.items.find(i=>i.id===id);
+  if(!it) return;
+  const cur = typeof it.progress==='number' ? it.progress : (it.completedMonth ? 100 : 0);
+  let next = Math.max(0, Math.min(100, cur + delta));
+  it.progress = next;
+  if(next>=100){ it.completedMonth = curMonth; }
+  else if(it.completedMonth===curMonth){ it.completedMonth = null; }
   save(); render();
 }
 function deleteItem(id){
@@ -648,9 +1298,21 @@ function checkIcon(){
 function catTotals(cat, mKey){
   const items = itemsForCategoryMonth(cat.id, mKey);
   let total = items.length, done = items.filter(i=>i.completedMonth===mKey).length;
-  if(cat.recurringCount){ total+=1; if(getCount(cat.recurringCount.key+':'+cat.id, mKey)>=cat.recurringCount.target) done+=1; }
+  if(cat.recurringCount){ total+=1; if(getCount(cat.recurringCount.key+':'+cat.id, mKey)>=getRecurringTarget(cat)) done+=1; }
   if(cat.recurringCheck){ total+=1; if(getCheck(cat.recurringCheck.key+':'+cat.id, mKey)) done+=1; }
   if(cat.financeLink){ total+=1; if(data.finance.months[mKey]) done+=1; }
+  if(cat.id===ONCE_COUNTER_CAT){
+    getOnceCounters(cat.id).forEach(oc=>{
+      total+=1;
+      if(getCount(onceCounterKey(oc,cat.id), mKey)>=1) done+=1;
+    });
+  }
+  if(cat.customCounters){
+    getCustomCounters(cat.id).forEach(cc=>{
+      total+=1;
+      if(customCounterValue(cc, cat.id, mKey)>=cc.target) done+=1;
+    });
+  }
   return {total, done};
 }
 
@@ -659,10 +1321,14 @@ function emptyFinanceMonth(){
     income:{work:0, project:0, side:0, other:0},
     fixed:{A1:0, A2:0, A3:0, A4:0, A5:0, rent:0, transport:0, food:0, utilities:0, insurance:0, software:0, other:0},
     pct:{reserve:30, savings:30, fund:35, invest:5},
+    manualMode:false,
+    accountBalance:0,
     note:''
   };
 }
 function getFinanceMonth(mKey){
+  if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.finance.months) data.finance.months = {};
   return data.finance.months[mKey] || emptyFinanceMonth();
 }
 const RESERVE_TARGET_DEFAULT = 200000;
@@ -670,65 +1336,99 @@ function getReserveTarget(){
   return (data.finance && data.finance.reserveTarget) || RESERVE_TARGET_DEFAULT;
 }
 
-function financeMonthCalc(mKey){
-  const m = getFinanceMonth(mKey);
+function financeMonthCalcItemized(m){
   const customIncomeIds = (data.finance.customIncome||[]).map(c=>c.id);
   const incomeTotal = ['work','project','side', ...customIncomeIds]
     .reduce((s,k)=> s+(m.income[k]||0), 0);
-  const customFixedIds = (data.finance.customFixed||[]).map(c=>c.id);
-  const fixedTotal = ['A1','A2','A3','A4','A5','rent','transport','food','utilities','insurance','software','other', ...customFixedIds]
-    .reduce((s,k)=> s+(m.fixed[k]||0), 0);
-  const remain = incomeTotal - fixedTotal;
   const debtPaid = (m.fixed.A1||0)+(m.fixed.A2||0)+(m.fixed.A3||0)+(m.fixed.A4||0)+(m.fixed.A5||0);
+  const customFixedIds = (data.finance.customFixed||[]).map(c=>c.id);
+  const otherExpense = ['rent','transport','food','utilities','insurance','software','other', ...customFixedIds]
+    .reduce((s,k)=> s+(m.fixed[k]||0), 0);
+  const fixedTotal = debtPaid + otherExpense;
+  const remain = incomeTotal - fixedTotal;
   return {incomeTotal, fixedTotal, remain, debtPaid};
 }
-// One step of the sequential walk: before the reserve fund reaches RESERVE_TARGET,
-// 100% of that month's remain goes to the reserve fund; once it has reached the target
-// (as of the END of a month), the percentage split (pct.reserve/savings/fund/invest) applies
-// starting the following month.
-function financeSeqStep(mKey, unlockedAtStart){
+// One step of the sequential walk.
+// runningBalance = the account's running total carried in from the previous month.
+//   - manual/balance-mode months set it directly to whatever total the person reads off their account.
+//   - itemized months add that month's flow (income - expenses) on top of the previous running total.
+// Before the reserve fund has ever reached the target, 100% of the running balance IS the reserve
+// (nothing else exists yet). Once unlocked (the target was reached at the end of some month),
+// every month from then on the reserve stays fixed at the target amount as a floor, and only the
+// EXCESS above that floor gets split by percentage into reserve/savings/fund/invest — so money that
+// was already counted as reserve is never re-split.
+function financeSeqStep(mKey, unlockedAtStart, runningBalanceIn){
   const m = getFinanceMonth(mKey);
-  const c = financeMonthCalc(mKey);
-  let alloc;
-  if(!unlockedAtStart){
-    alloc = {reserve:c.remain, savings:0, fund:0, invest:0};
+  const debtPaid = (m.fixed.A1||0)+(m.fixed.A2||0)+(m.fixed.A3||0)+(m.fixed.A4||0)+(m.fixed.A5||0);
+  let remain, incomeTotal=0, fixedTotal=0, runningBalance;
+  if(m.manualMode){
+    runningBalance = m.accountBalance||0;
+    remain = runningBalance - (runningBalanceIn||0);
   }else{
-    const p = m.pct;
-    alloc = {
-      reserve: Math.round(c.remain * (p.reserve||0)/100),
-      savings: Math.round(c.remain * (p.savings||0)/100),
-      fund: Math.round(c.remain * (p.fund||0)/100),
-      invest: Math.round(c.remain * (p.invest||0)/100)
-    };
+    const c = financeMonthCalcItemized(m);
+    incomeTotal = c.incomeTotal; fixedTotal = c.fixedTotal; remain = c.remain;
+    runningBalance = (runningBalanceIn||0) + remain;
   }
-  return {...c, alloc};
+  const target = getReserveTarget();
+  let alloc, unlockedOut;
+  const pr = m.pct || {};
+  if(runningBalance > target){
+    // above the reserve base: split immediately, in the same month
+    const excess = runningBalance - target;
+    alloc = {
+      reserve: target + Math.round(excess * (pr.reserve||0)/100),
+      savings: Math.round(excess * (pr.savings||0)/100),
+      fund: Math.round(excess * (pr.fund||0)/100),
+      invest: Math.round(excess * (pr.invest||0)/100)
+    };
+  }else{
+    // not above the base yet: everything stays in the reserve
+    alloc = {reserve:runningBalance, savings:0, fund:0, invest:0};
+  }
+  unlockedOut = !!unlockedAtStart || runningBalance > target;
+  return {incomeTotal, fixedTotal, remain, debtPaid, alloc, runningBalance, unlockedOut};
+}
+function financeMonthCalc(mKey){
+  const before = financeStateBefore(mKey);
+  const step = financeSeqStep(mKey, before.unlocked, before.lastBalance);
+  return {incomeTotal:step.incomeTotal, fixedTotal:step.fixedTotal, remain:step.remain, debtPaid:step.debtPaid};
 }
 function financeStateBefore(mKey){
+  if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.finance.months) data.finance.months = {};
   const keys = Object.keys(data.finance.months).filter(k=>k<mKey).sort();
-  let reserve=0, savings=0, fund=0, invest=0, debtPaid=0, unlocked=false;
+  let unlocked=false, runningBalance=0, debtPaid=0;
+  let lastAlloc = {reserve:0, savings:0, fund:0, invest:0};
   keys.forEach(k=>{
-    const c = financeSeqStep(k, unlocked);
-    reserve+=c.alloc.reserve; savings+=c.alloc.savings; fund+=c.alloc.fund; invest+=c.alloc.invest;
-    debtPaid+=c.debtPaid;
-    if(!unlocked && reserve>=getReserveTarget()) unlocked = true;
+    const step = financeSeqStep(k, unlocked, runningBalance);
+    unlocked = step.unlockedOut;
+    runningBalance = step.runningBalance;
+    debtPaid += step.debtPaid;
+    lastAlloc = step.alloc;
   });
-  return {reserve, savings, fund, invest, debtPaid, unlocked};
+  return {reserve:lastAlloc.reserve, savings:lastAlloc.savings, fund:lastAlloc.fund, invest:lastAlloc.invest, debtPaid, unlocked, lastBalance:runningBalance};
 }
 function financeCumulativeUpTo(mKey){
+  if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.finance.months) data.finance.months = {};
   const keys = Object.keys(data.finance.months).filter(k=>k<=mKey).sort();
-  let reserve=0, savings=0, fund=0, invest=0, debtPaid=0, unlocked=false;
+  let unlocked=false, runningBalance=0, debtPaid=0;
+  let lastAlloc = {reserve:0, savings:0, fund:0, invest:0};
   keys.forEach(k=>{
-    const c = financeSeqStep(k, unlocked);
-    reserve+=c.alloc.reserve; savings+=c.alloc.savings; fund+=c.alloc.fund; invest+=c.alloc.invest;
-    debtPaid+=c.debtPaid;
-    if(!unlocked && reserve>=getReserveTarget()) unlocked = true;
+    const step = financeSeqStep(k, unlocked, runningBalance);
+    unlocked = step.unlockedOut;
+    runningBalance = step.runningBalance;
+    debtPaid += step.debtPaid;
+    lastAlloc = step.alloc;
   });
-  return {reserve, savings, fund, invest, debtPaid};
+  return {reserve:lastAlloc.reserve, savings:lastAlloc.savings, fund:lastAlloc.fund, invest:lastAlloc.invest, debtPaid};
 }
 function financeDebtTotalInit(){
   return ['A1','A2','A3','A4','A5'].reduce((s,k)=> s+(data.finance.debts[k].total||0), 0);
 }
 function financeDebtPaidTotal(k){
+  if(!data.finance) data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
+  if(!data.finance.months) data.finance.months = {};
   let sum = 0;
   Object.keys(data.finance.months).forEach(mk=>{
     const m = data.finance.months[mk];
@@ -756,6 +1456,1082 @@ function fmtNum(n){
   return sign + Math.abs(n).toLocaleString('en-US');
 }
 
+const EXERCISE_KEY = '晨跑:sport';
+const ONCE_COUNTER_CAT = 'contrib';
+const CUSTOM_COUNTER_DEFAULT_TARGET = 31;
+
+function getCustomCounters(catId){
+  if(!data.customCounters[catId]) data.customCounters[catId] = [];
+  data.customCounters[catId].forEach(cc=>{ if(typeof cc.count!=='number') cc.count = 0; });
+  return data.customCounters[catId];
+}
+function addCustomCounter(catId, name, target, resetMonthly){
+  const trimmed = (name||'').trim();
+  if(!trimmed) return;
+  const t = parseInt(target) || CUSTOM_COUNTER_DEFAULT_TARGET;
+  getCustomCounters(catId).push({id:uid(), name:trimmed, target:t, resetMonthly:!!resetMonthly, count:0});
+  save(); render();
+}
+function deleteCustomCounter(catId, ccId){
+  data.customCounters[catId] = getCustomCounters(catId).filter(c=>c.id!==ccId);
+  save(); render();
+}
+function customCounterStorageKey(cc, catId){
+  if(cc.id==='sport_default_run') return EXERCISE_KEY;
+  return cc.name+':'+catId+':cc:'+cc.id;
+}
+function getExerciseLabel(){
+  const cc = (getCustomCounters('sport')||[]).find(c=>c.id==='sport_default_run');
+  return cc ? cc.name : '跑步';
+}
+function customCounterValue(cc, catId, mKey){
+  if(cc.resetMonthly){
+    return getCount(customCounterStorageKey(cc, catId), mKey);
+  }
+  return cc.count||0;
+}
+function bumpCustomCounter(catId, ccId, delta){
+  const cc = getCustomCounters(catId).find(c=>c.id===ccId);
+  if(!cc) return;
+  if(cc.resetMonthly){
+    bumpCountSilent(customCounterStorageKey(cc, catId), curMonth, delta);
+  }else{
+    cc.count = Math.max(0, (cc.count||0) + delta);
+  }
+  save(); render();
+}
+function renameCustomCounter(catId, ccId, newName){
+  const cc = getCustomCounters(catId).find(c=>c.id===ccId);
+  if(!cc) return;
+  const trimmed = (newName||'').trim();
+  if(!trimmed) return;
+  cc.name = trimmed;
+  save(); render();
+}
+
+function getOnceCounters(catId){
+  if(!data.onceCounters[catId]) data.onceCounters[catId] = [];
+  return data.onceCounters[catId];
+}
+function onceCounterKey(oc, catId){ return oc.name+':'+catId+':once:'+oc.id; }
+function addOnceCounter(catId, name){
+  const trimmed = name.trim();
+  if(!trimmed) return;
+  getOnceCounters(catId).push({id:uid(), name:trimmed});
+  save(); render();
+}
+function deleteOnceCounter(catId, ocId){
+  data.onceCounters[catId] = getOnceCounters(catId).filter(o=>o.id!==ocId);
+  save(); render();
+}
+function renameOnceCounter(catId, ocId, newName){
+  const oc = getOnceCounters(catId).find(o=>o.id===ocId);
+  if(!oc) return;
+  const trimmed = (newName||'').trim();
+  if(!trimmed) return;
+  oc.name = trimmed;
+  save(); render();
+}
+function bumpOnceCounter(key, mKey, delta){
+  const cur = getCount(key, mKey);
+  let v = cur + delta;
+  if(v<0) v=0;
+  if(v>1) v=1;
+  if(!data.recurringCounts[key]) data.recurringCounts[key]={};
+  data.recurringCounts[key][mKey] = v;
+  save(); render();
+}
+
+function emptySchedule(){ return {selected:[], priority:{}, calendar:{}, emojiTags:{}}; }
+function getSchedule(mKey){
+  if(!data.schedule.months[mKey]) data.schedule.months[mKey] = emptySchedule();
+  const s = data.schedule.months[mKey];
+  if(!s.selected) s.selected = [];
+  if(!s.priority) s.priority = {};
+  if(!s.calendar) s.calendar = {};
+  if(!s.emojiTags) s.emojiTags = {};
+  Object.keys(s.calendar).forEach(dateStr=>{
+    s.calendar[dateStr] = (s.calendar[dateStr]||[])
+      .filter(entry=> entry!==null && entry!==undefined)
+      .map(entry=> (typeof entry==='object' && 'v' in entry) ? entry : {v:entry, done:true});
+  });
+  return s;
+}
+function scheduleAvailableItems(mKey){
+  return data.items.filter(it => it.createdMonth<=mKey && (it.completedMonth===null || mKey<=it.completedMonth));
+}
+function daysInMonth(mKey){
+  const [y,m] = mKey.split('-').map(Number);
+  return new Date(y, m, 0).getDate();
+}
+function weekdayMon0(y,m,d){
+  const day = new Date(y, m-1, d).getDay();
+  return (day+6)%7;
+}
+function scheduleClearItemEverywhere(mKey, itemId){
+  const sched = getSchedule(mKey);
+  Object.keys(sched.calendar).forEach(dateStr=>{
+    const arr = sched.calendar[dateStr];
+    for(let i=0;i<arr.length;i++){ if(arr[i]===itemId) arr[i]=null; }
+  });
+}
+function toggleSchedulePick(itemId){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const idx = sched.selected.indexOf(itemId);
+  if(idx>=0){
+    sched.selected.splice(idx,1);
+    delete sched.priority[itemId];
+    scheduleClearItemEverywhere(mKey, itemId);
+  }else{
+    sched.selected.push(itemId);
+  }
+  save();
+  render();
+}
+function applyChipDrop(itemId, bucket){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const it = data.items.find(x=>x.id===itemId);
+  if(!it) return;
+  if(bucket==='unsorted'){
+    if(it.completedMonth===mKey){ it.completedMonth = null; it.progress = 0; }
+    delete sched.priority[itemId];
+  }else{
+    if(it.completedMonth===mKey){ it.completedMonth = null; it.progress = 0; }
+    sched.priority[itemId] = bucket;
+  }
+  save();
+  render();
+}
+
+let schedPickerCtx = null;
+function openDaySlotPicker(dateStr, slotIdx){
+  schedPickerCtx = {dateStr, slotIdx};
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const todayEntries = sched.calendar[dateStr] || [];
+  let html = '';
+  allCategories().filter(c=>c.customCounters).forEach(cat=>{
+    getCustomCounters(cat.id).forEach(cc=>{
+      const val = 'CC:'+cat.id+':'+cc.id;
+      if(!todayEntries.some(en=>en.v===val)){
+        html += `<div class="sched-picker-item" data-pickval="${val}">🎯 ${escapeHtml(cc.name)}</div>`;
+      }
+    });
+  });
+  let selectableCount = 0;
+  sched.selected.forEach(id=>{
+    const it = data.items.find(x=>x.id===id);
+    if(!it) return;
+    if(it.completedMonth===mKey) return; // already done, skip
+    if(todayEntries.some(en=>en.v===id)) return; // already placed today, don't allow twice on the same day
+    html += `<div class="sched-picker-item" data-pickval="${id}">${escapeHtml(it.name)}</div>`;
+    selectableCount++;
+  });
+  if(sched.selected.length===0){
+    html += `<div class="fin-hint">先到下方「本月計劃」勾選項目，這裡才有得選。</div>`;
+  }else if(selectableCount===0){
+    html += `<div class="fin-hint">已勾選的項目今天都排進去了，同一天不會重複出現。</div>`;
+  }
+  document.getElementById('schedPickerList').innerHTML = html;
+  document.getElementById('schedPickerOverlay').style.display = 'flex';
+  document.querySelectorAll('[data-pickval]').forEach(el=>{
+    el.onclick = ()=>{
+      const val = el.getAttribute('data-pickval');
+      const s = getSchedule(curMonth);
+      if(!s.calendar[schedPickerCtx.dateStr]) s.calendar[schedPickerCtx.dateStr] = [];
+      s.calendar[schedPickerCtx.dateStr].push({v:val, done:false});
+      save();
+      closeDaySlotPicker();
+      render();
+    };
+  });
+}
+function closeDaySlotPicker(){
+  document.getElementById('schedPickerOverlay').style.display = 'none';
+  schedPickerCtx = null;
+}
+function bumpCountSilent(key, mKey, delta){
+  if(!data.recurringCounts[key]) data.recurringCounts[key]={};
+  let v = (data.recurringCounts[key][mKey]||0) + delta;
+  if(v<0) v=0;
+  data.recurringCounts[key][mKey]=v;
+}
+function setDayEntryDone(dateStr, slotIdx, doneTarget){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const entries = sched.calendar[dateStr] || [];
+  const entry = entries[slotIdx];
+  if(!entry) return;
+  if(entry.done === doneTarget) return;
+  entry.done = doneTarget;
+  const val = entry.v;
+  if(typeof val==='string' && val.indexOf('CC:')===0){
+    const parts = val.split(':');
+    const catId = parts[1], ccId = parts[2];
+    const cc = getCustomCounters(catId).find(c=>c.id===ccId);
+    if(cc){
+      if(cc.resetMonthly){
+        bumpCountSilent(customCounterStorageKey(cc, catId), mKey, entry.done ? 1 : -1);
+      }else{
+        cc.count = Math.max(0, (cc.count||0) + (entry.done ? 1 : -1));
+      }
+    }
+  }else if(val==='EXERCISE'){
+    bumpCountSilent(EXERCISE_KEY, mKey, entry.done ? 1 : -1);
+  }else if(typeof val==='string' && val.indexOf('ONCE:')===0){
+    const oc = getOnceCounters(ONCE_COUNTER_CAT).find(o=>o.id===val.slice(5));
+    if(oc) bumpCountSilent(onceCounterKey(oc, ONCE_COUNTER_CAT), mKey, entry.done ? 1 : -1);
+  }
+  // regular items: entry.done just marks "did something that day", it does NOT
+  // mark the item itself as truly complete (that's the 4-second long-press instead).
+  save();
+  render();
+}
+function markItemTrulyComplete(dateStr, slotIdx){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const entries = sched.calendar[dateStr] || [];
+  const entry = entries[slotIdx];
+  if(!entry) return;
+  const it = data.items.find(x=>x.id===entry.v);
+  if(!it) return;
+  it.completedMonth = mKey;
+  it.progress = 100;
+  save();
+  render();
+}
+function isRegularItemEntry(entry){
+  if(!entry) return false;
+  const val = entry.v;
+  if(typeof val==='string' && val.indexOf('CC:')===0) return false;
+  return val!=='EXERCISE' && !(typeof val==='string' && val.indexOf('ONCE:')===0);
+}
+function onDaySlotTap(dateStr, slotIdx){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  if(!sched.calendar[dateStr]) sched.calendar[dateStr] = [];
+  const entries = sched.calendar[dateStr];
+  if(slotIdx < entries.length){
+    const entry = entries[slotIdx];
+    const val = entry.v;
+    if(typeof val==='string' && val.indexOf('CC:')===0){
+      if(entry.done){
+        const parts = val.split(':');
+        const catId = parts[1], ccId = parts[2];
+        const cc = getCustomCounters(catId).find(c=>c.id===ccId);
+        if(cc){
+          if(cc.resetMonthly){
+            bumpCountSilent(customCounterStorageKey(cc, catId), mKey, -1);
+          }else{
+            cc.count = Math.max(0, (cc.count||0) - 1);
+          }
+        }
+      }
+    }else if(val==='EXERCISE'){
+      if(entry.done) bumpCountSilent(EXERCISE_KEY, mKey, -1);
+    }else if(typeof val==='string' && val.indexOf('ONCE:')===0){
+      if(entry.done){
+        const oc = getOnceCounters(ONCE_COUNTER_CAT).find(o=>o.id===val.slice(5));
+        if(oc) bumpCountSilent(onceCounterKey(oc, ONCE_COUNTER_CAT), mKey, -1);
+      }
+    }else{
+      const it = data.items.find(x=>x.id===val);
+      if(it && it.completedMonth===mKey){ it.completedMonth = null; it.progress = 0; }
+    }
+    entries.splice(slotIdx, 1);
+    if(sched.emojiTags) delete sched.emojiTags[dateStr+'|'+val];
+    save();
+    render();
+  }else{
+    openDaySlotPicker(dateStr, entries.length);
+  }
+}
+
+function renderScheduleView(){
+  const mKey = curMonth;
+  const sched = getSchedule(mKey);
+  const [y,m] = mKey.split('-').map(Number);
+  const totalDays = daysInMonth(mKey);
+  const firstWeekday = weekdayMon0(y,m,1);
+
+  let html = `<div class="sch-emoji-palette">`;
+  (data.customStickers||[]).forEach((src, idx)=>{
+    const isArmed = armedSticker===src;
+    html += `<div class="sch-emoji-chip sch-sticker-chip ${isArmed?'armed':''}" data-imgdrag="${idx}"><img src="${src}" draggable="false"><span class="sch-sticker-del" data-delsticker="${idx}">×</span></div>`;
+  });
+  html += `<label class="sch-emoji-chip sch-sticker-upload" for="stickerUploadInput">＋</label>
+  <input type="file" id="stickerUploadInput" accept="image/*" style="display:none;">`;
+  html += `</div>`;
+  if(armedSticker){
+    html += `<div class="fin-hint sch-armed-hint">已選好圖案，點一下要貼的項目就會貼上去（再點一次圖案可以取消）。</div>`;
+  }
+  html += '<div class="sch-cal-card"><div class="sch-weekdays">';
+  ['一','二','三','四','五','六','日'].forEach(w=>{ html += `<div class="sch-wd">${w}</div>`; });
+  html += '</div><div class="sch-grid">';
+  for(let i=0;i<firstWeekday;i++){ html += '<div class="sch-cell sch-cell-empty"></div>'; }
+  for(let d=1; d<=totalDays; d++){
+    const dateStr = mKey+'-'+pad(d);
+    const isLast = d===totalDays;
+    const entries = sched.calendar[dateStr] || [];
+    const slotCount = entries.length < 3 ? 3 : entries.length + 1;
+    html += `<div class="sch-cell"><div class="sch-daynum">${d}</div>`;
+    html += `<div class="sch-slots">`;
+    for(let s=0; s<slotCount; s++){
+      if(s < entries.length){
+        const entry = entries[s];
+        const val = entry.v;
+        const confirmed = !!entry.done;
+        const tagVal = sched.emojiTags && sched.emojiTags[dateStr+'|'+val];
+        let badge = '';
+        if(tagVal){
+          badge = tagVal.indexOf('data:image')===0
+            ? `<span class="sch-slot-badge" data-removebadge="${dateStr}|${s}"><img src="${tagVal}" draggable="false"></span>`
+            : `<span class="sch-slot-badge sch-slot-badge-emoji" data-removebadge="${dateStr}|${s}">${tagVal}</span>`;
+        }
+        if(typeof val==='string' && val.indexOf('CC:')===0){
+          const stateClass = confirmed ? 'sch-slot-confirmed' : 'sch-slot-planned';
+          const parts = val.split(':');
+          const cc = getCustomCounters(parts[1]).find(c=>c.id===parts[2]);
+          html += `<div class="sch-slot sch-slot-filled ${stateClass}" data-daycell="${dateStr}|${s}">🎯 ${cc?escapeHtml(cc.name):'?'}${badge}</div>`;
+        }else if(val==='EXERCISE'){
+          const stateClass = confirmed ? 'sch-slot-confirmed' : 'sch-slot-planned';
+          html += `<div class="sch-slot sch-slot-filled ${stateClass}" data-daycell="${dateStr}|${s}">🏃 ${escapeHtml(getExerciseLabel())}${badge}</div>`;
+        }else if(typeof val==='string' && val.indexOf('ONCE:')===0){
+          const stateClass = confirmed ? 'sch-slot-confirmed' : 'sch-slot-planned';
+          const oc = getOnceCounters(ONCE_COUNTER_CAT).find(o=>o.id===val.slice(5));
+          html += `<div class="sch-slot sch-slot-filled ${stateClass}" data-daycell="${dateStr}|${s}">🎯 ${oc?escapeHtml(oc.name):'?'}${badge}</div>`;
+        }else{
+          const it = data.items.find(x=>x.id===val);
+          const trulyDone = it && it.completedMonth===mKey;
+          const stateClass = trulyDone ? 'sch-slot-truedone' : (confirmed ? 'sch-slot-confirmed' : 'sch-slot-planned');
+          html += `<div class="sch-slot sch-slot-filled ${stateClass}" data-daycell="${dateStr}|${s}">${it?escapeHtml(it.name):'?'}${badge}</div>`;
+        }
+      }else{
+        html += `<div class="sch-slot" data-daycell="${dateStr}|${s}"><span class="sch-slot-empty-plus">+</span></div>`;
+      }
+    }
+    if(isLast){
+      const finChecked = !!data.financeChecked[mKey];
+      html += `<div class="sch-slot sch-slot-fin ${finChecked?'sch-slot-confirmed':'sch-slot-planned'}" data-openfinance="1">💰 理財</div>`;
+    }
+    html += `</div></div>`;
+  }
+  html += '</div></div>';
+
+  const todayStr = monthKeyFromDate(new Date())+'-'+pad(new Date().getDate());
+  const todayLabel = todayStr.split('-').slice(1).join('/');
+  const noteText = data.dayNotes[todayStr] || '';
+  html += `<div class="sch-daynote-wrap">
+    <textarea class="sch-daynote-input" id="dayNoteInput" placeholder="今日備注（${todayLabel}）…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">${escapeHtml(noteText)}</textarea>
+    <div class="fin-saved-note" id="dayNoteSaved"></div>
+  </div>`;
+
+  html += '<div class="sch-bottom">';
+  html += renderMonthPlanColumn(mKey, sched);
+  html += renderCompletedColumn(mKey, sched);
+  html += '</div>';
+  return html;
+}
+
+function renderMonthPlanColumn(mKey, sched){
+  const available = scheduleAvailableItems(mKey);
+  const selectedActive = sched.selected.filter(id=>{
+    const it = data.items.find(x=>x.id===id);
+    return it && it.completedMonth!==mKey;
+  });
+  const buckets = {important:[], normal:[], notUrgent:[]};
+  selectedActive.forEach(id=>{
+    const p = sched.priority[id];
+    if(p) (buckets[p] || buckets.normal).push(id);
+  });
+
+  let html = '<div class="sch-col">';
+  html += '<div class="sch-col-title">本月計劃</div>';
+  html += '<div class="sch-pick-title">選擇項目（點選；長按已選項目可拖到分類）</div><div class="sch-pick-list">';
+  if(available.length===0){
+    html += '<div class="empty-state" style="padding:10px 0;">本月尚無項目</div>';
+  }
+  available.forEach(it=>{
+    const on = sched.selected.includes(it.id);
+    const dragAttr = on ? `data-schitem="${it.id}"` : '';
+    html += `<div class="sch-pick-chip ${on?'on':''}" data-schedpick="${it.id}" ${dragAttr}>${escapeHtml(it.name)}</div>`;
+  });
+  html += '</div>';
+
+  const bucketLabels = {important:'重要', normal:'一般', notUrgent:'不急'};
+  ['important','normal','notUrgent'].forEach(p=>{
+    html += `<div class="sch-bucket-title">${bucketLabels[p]}</div><div class="sch-bucket" data-bucket="${p}">`;
+    buckets[p].forEach(id=>{
+      const it = data.items.find(x=>x.id===id);
+      if(it) html += `<div class="sch-chip" data-schitem="${id}">${escapeHtml(it.name)}</div>`;
+    });
+    if(buckets[p].length===0) html += '<div class="sch-bucket-empty">長按項目拖到這裡</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderCompletedColumn(mKey, sched){
+  const completedIds = sched.selected.filter(id=>{
+    const it = data.items.find(x=>x.id===id);
+    return it && it.completedMonth===mKey;
+  });
+  const finChecked = !!data.financeChecked[mKey];
+
+  let html = '<div class="sch-col">';
+  html += '<div class="sch-col-title">已完成</div>';
+  html += `<div class="sch-fixed-exercise">財務check：${finChecked?'完成':'未完成'}</div>`;
+  getOnceCounters(ONCE_COUNTER_CAT).forEach(oc=>{
+    const c = getCount(onceCounterKey(oc, ONCE_COUNTER_CAT), mKey);
+    html += `<div class="sch-fixed-exercise">${escapeHtml(oc.name)} x${c}</div>`;
+  });
+  allCategories().filter(c=>c.customCounters).forEach(cc_cat=>{
+    getCustomCounters(cc_cat.id).forEach(cc=>{
+      const val = customCounterValue(cc, cc_cat.id, mKey);
+      html += `<div class="sch-fixed-exercise">${escapeHtml(cc.name)} x${val}</div>`;
+    });
+  });
+  html += '<div class="sch-bucket sch-bucket-readonly">';
+  completedIds.forEach(id=>{
+    const it = data.items.find(x=>x.id===id);
+    if(it) html += `<div class="sch-chip done">${escapeHtml(it.name)}</div>`;
+  });
+  if(completedIds.length===0) html += '<div class="sch-bucket-empty">日曆裡右滑項目完成後會顯示在這裡</div>';
+  html += '</div></div>';
+  return html;
+}
+
+let armedSticker = null;
+
+function moveItemTo(itemId, targetCatId, insertBeforeId){
+  const idx = data.items.findIndex(i=>i.id===itemId);
+  if(idx===-1) return;
+  const [item] = data.items.splice(idx, 1);
+  item.category = targetCatId;
+  if(insertBeforeId && insertBeforeId!==itemId){
+    const insertIdx = data.items.findIndex(i=>i.id===insertBeforeId);
+    if(insertIdx>=0){
+      data.items.splice(insertIdx, 0, item);
+      save(); render();
+      return;
+    }
+  }
+  data.items.push(item);
+  save(); render();
+}
+let itemDragCtx = null;
+function itemDragPointerDown(e){
+  const handle = e.target.closest('[data-itemdraghandle]');
+  if(!handle) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  const itemId = handle.getAttribute('data-itemdraghandle');
+  const row = handle.closest('[data-itemrow]');
+  if(!row) return;
+  itemDragCtx = {itemId, row, startX:e.clientX, startY:e.clientY, dragging:false, pressTimer:null, placeholder:null, rowHeight:0, rowLeft:0};
+  itemDragCtx.pressTimer = setTimeout(()=>{
+    if(!itemDragCtx) return;
+    itemDragCtx.dragging = true;
+    const r = row.getBoundingClientRect();
+    itemDragCtx.rowHeight = r.height;
+    itemDragCtx.rowLeft = r.left;
+    const placeholder = document.createElement('div');
+    placeholder.className = 'drop-placeholder';
+    placeholder.style.height = r.height+'px';
+    row.parentNode.insertBefore(placeholder, row);
+    itemDragCtx.placeholder = placeholder;
+    row.classList.add('dragging');
+    row.style.position = 'fixed';
+    row.style.top = r.top+'px';
+    row.style.left = r.left+'px';
+    row.style.width = r.width+'px';
+    row.style.margin = '0';
+    row.style.zIndex = '999';
+    if(navigator.vibrate) navigator.vibrate(8);
+  }, 320);
+}
+function itemDragPointerMove(e){
+  if(!itemDragCtx) return;
+  const x=e.clientX, y=e.clientY;
+  if(!itemDragCtx.dragging){
+    if(Math.abs(x-itemDragCtx.startX)>8 || Math.abs(y-itemDragCtx.startY)>8){
+      clearTimeout(itemDragCtx.pressTimer);
+      itemDragCtx = null;
+    }
+    return;
+  }
+  e.preventDefault();
+  const row = itemDragCtx.row;
+  row.style.top = (y - itemDragCtx.rowHeight/2) + 'px';
+  row.style.left = itemDragCtx.rowLeft + 'px';
+
+  row.style.display = 'none';
+  const under = document.elementFromPoint(x, y);
+  row.style.display = '';
+  if(!under) return;
+  const overRow = under.closest('[data-itemrow]');
+  if(overRow && overRow!==row){
+    const rect = overRow.getBoundingClientRect();
+    const before = y < rect.top + rect.height/2;
+    overRow.parentNode.insertBefore(itemDragCtx.placeholder, before ? overRow : overRow.nextSibling);
+    return;
+  }
+  const catCard = under.closest('[data-cat]');
+  if(catCard){
+    const inner = catCard.querySelector('.cat-inner');
+    if(inner && !inner.contains(itemDragCtx.placeholder)){
+      const addRow = inner.querySelector('.add-row');
+      if(addRow) inner.insertBefore(itemDragCtx.placeholder, addRow);
+      else inner.appendChild(itemDragCtx.placeholder);
+    }
+  }
+}
+function itemDragPointerUp(e){
+  if(!itemDragCtx) return;
+  clearTimeout(itemDragCtx.pressTimer);
+  if(!itemDragCtx.dragging){ itemDragCtx = null; return; }
+  const {row, placeholder, itemId} = itemDragCtx;
+  const parent = placeholder.parentNode;
+  if(parent){
+    parent.insertBefore(row, placeholder);
+    parent.removeChild(placeholder);
+  }
+  row.classList.remove('dragging');
+  row.style.position=''; row.style.top=''; row.style.left=''; row.style.width=''; row.style.margin=''; row.style.zIndex='';
+  const catCard = row.closest('[data-cat]');
+  const targetCatId = catCard ? catCard.getAttribute('data-cat') : null;
+  let nextRow = row.nextElementSibling;
+  while(nextRow && !nextRow.hasAttribute('data-itemrow')) nextRow = nextRow.nextElementSibling;
+  const insertBeforeId = nextRow ? nextRow.getAttribute('data-itemrow') : null;
+  itemDragCtx = null;
+  if(targetCatId){
+    moveItemTo(itemId, targetCatId, insertBeforeId);
+  }else{
+    render();
+  }
+}
+
+let catSwipeCtx = null;
+let catJustSwiped = false;
+function catHeadSwipeDown(e){
+  if(view!=='month') return;
+  const head = e.target.closest('.cat-head[data-toggle]');
+  if(!head) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  const card = head.closest('.card[data-cat]');
+  if(!card) return;
+  catSwipeCtx = {card, startX:e.clientX, startY:e.clientY, dragging:false};
+}
+function catHeadSwipeMove(e){
+  if(!catSwipeCtx) return;
+  const dx = e.clientX - catSwipeCtx.startX;
+  const dy = e.clientY - catSwipeCtx.startY;
+  if(!catSwipeCtx.dragging){
+    if(Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)){
+      catSwipeCtx.dragging = true;
+      catSwipeCtx.card.style.transition = 'none';
+    }else if(Math.abs(dy) > 10){
+      catSwipeCtx = null;
+      return;
+    }else{
+      return;
+    }
+  }
+  e.preventDefault();
+  const clamped = Math.min(0, dx);
+  catSwipeCtx.moved = clamped;
+  catSwipeCtx.card.style.transform = `translateX(${clamped}px)`;
+  catSwipeCtx.card.style.opacity = String(Math.max(0.3, 1 + clamped/300));
+}
+function catHeadSwipeUp(e){
+  if(!catSwipeCtx) return;
+  const {card, dragging, moved} = catSwipeCtx;
+  catSwipeCtx = null;
+  if(!dragging) return;
+  card.style.transition = 'transform .2s ease, opacity .2s ease';
+  if(moved < -120){
+    catJustSwiped = true;
+    setTimeout(()=>{ catJustSwiped = false; }, 50);
+    const catId = card.getAttribute('data-cat');
+    card.style.transform = 'translateX(-100%)';
+    card.style.opacity = '0';
+    setTimeout(()=>{ hideCategory(catId); }, 180);
+  }else{
+    card.style.transform = 'translateX(0)';
+    card.style.opacity = '1';
+  }
+}
+
+let swipeCtx = null;
+function slotSwipePointerDown(e){
+  if(view!=='schedule') return;
+  if(e.target.closest('[data-removebadge]')) return;
+  const slot = e.target.closest('.sch-slot-filled[data-daycell], .sch-slot-fin[data-openfinance]');
+  if(!slot) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  swipeCtx = {slot, startX:e.clientX, startY:e.clientY, longPressFired:false, longPressTimer:null};
+
+  if(slot.hasAttribute('data-daycell') && !slot.hasAttribute('data-openfinance')){
+    const [dateStr, slotIdxStr] = slot.getAttribute('data-daycell').split('|');
+    const sched = getSchedule(curMonth);
+    const entries = sched.calendar[dateStr] || [];
+    const entry = entries[parseInt(slotIdxStr)];
+    if(isRegularItemEntry(entry)){
+      swipeCtx.longPressTimer = setTimeout(()=>{
+        if(!swipeCtx) return;
+        swipeCtx.longPressFired = true;
+        if(navigator.vibrate) navigator.vibrate([10,30,10]);
+        markItemTrulyComplete(dateStr, parseInt(slotIdxStr));
+      }, 1200);
+    }
+  }
+}
+function slotSwipePointerMove(e){
+  if(!swipeCtx) return;
+  const dx = e.clientX - swipeCtx.startX;
+  const dy = e.clientY - swipeCtx.startY;
+  if((Math.abs(dx) > 12 || Math.abs(dy) > 12) && swipeCtx.longPressTimer){
+    clearTimeout(swipeCtx.longPressTimer);
+    swipeCtx.longPressTimer = null;
+  }
+}
+function slotSwipePointerUp(e){
+  if(!swipeCtx) return;
+  if(swipeCtx.longPressTimer) clearTimeout(swipeCtx.longPressTimer);
+  const {slot, startX, startY, longPressFired} = swipeCtx;
+  swipeCtx = null;
+  if(longPressFired){
+    scheduleJustDragged = true;
+    setTimeout(()=>{ scheduleJustDragged = false; }, 50);
+    return;
+  }
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+  if(Math.abs(dx) > 28 && Math.abs(dy) < 22){
+    scheduleJustDragged = true;
+    setTimeout(()=>{ scheduleJustDragged = false; }, 50);
+    if(slot.hasAttribute('data-openfinance')){
+      setFinanceChecked(curMonth, dx > 0);
+    }else{
+      const [dateStr, slotIdxStr] = slot.getAttribute('data-daycell').split('|');
+      setDayEntryDone(dateStr, parseInt(slotIdxStr), dx > 0);
+    }
+  }
+}
+function setFinanceChecked(mKey, checked){
+  if(!data.financeChecked) data.financeChecked = {};
+  data.financeChecked[mKey] = checked;
+  save();
+  render();
+}
+
+let scheduleDragCtx = null;
+let scheduleJustDragged = false;
+function scheduleDragPointerDown(e){
+  if(view!=='schedule') return;
+  const chip = e.target.closest('[data-schitem]');
+  if(!chip) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  scheduleDragCtx = {chip, startX:e.clientX, startY:e.clientY, dragging:false, pressTimer:null, w:0, h:0};
+  scheduleDragCtx.pressTimer = setTimeout(()=>{
+    if(!scheduleDragCtx) return;
+    scheduleDragCtx.dragging = true;
+    scheduleJustDragged = true;
+    const r = chip.getBoundingClientRect();
+    scheduleDragCtx.w = r.width; scheduleDragCtx.h = r.height;
+    chip.style.position='fixed';
+    chip.style.left=r.left+'px'; chip.style.top=r.top+'px';
+    chip.style.width=r.width+'px';
+    chip.style.zIndex=999;
+    chip.classList.add('dragging');
+    if(navigator.vibrate) navigator.vibrate(8);
+  }, 280);
+}
+function scheduleDragPointerMove(e){
+  if(!scheduleDragCtx) return;
+  const x=e.clientX, y=e.clientY;
+  if(!scheduleDragCtx.dragging){
+    if(Math.abs(y-scheduleDragCtx.startY)>8 || Math.abs(x-scheduleDragCtx.startX)>8){
+      clearTimeout(scheduleDragCtx.pressTimer);
+      scheduleDragCtx = null;
+    }
+    return;
+  }
+  e.preventDefault();
+  scheduleDragCtx.chip.style.left = (x-scheduleDragCtx.w/2)+'px';
+  scheduleDragCtx.chip.style.top = (y-scheduleDragCtx.h/2)+'px';
+}
+function scheduleDragPointerUp(e){
+  if(!scheduleDragCtx) return;
+  clearTimeout(scheduleDragCtx.pressTimer);
+  if(!scheduleDragCtx.dragging){ scheduleDragCtx = null; return; }
+  const chip = scheduleDragCtx.chip;
+  const x = e.clientX, y = e.clientY;
+  chip.style.display = 'none';
+  const under = document.elementFromPoint(x,y);
+  chip.style.display = '';
+  chip.style.position=''; chip.style.left=''; chip.style.top=''; chip.style.width=''; chip.style.zIndex='';
+  chip.classList.remove('dragging');
+  const bucketEl = under ? under.closest('[data-bucket]') : null;
+  scheduleDragCtx = null;
+  setTimeout(()=>{ scheduleJustDragged = false; }, 50);
+  if(bucketEl){
+    applyChipDrop(chip.getAttribute('data-schitem'), bucketEl.getAttribute('data-bucket'));
+  }
+}
+
+let scheduleDelegationBound = false;
+function bindScheduleEvents(){
+  const main = document.getElementById('main');
+  if(main && !scheduleDelegationBound){
+    scheduleDelegationBound = true;
+    main.addEventListener('click', (e)=>{
+      if(view!=='schedule') return;
+      if(scheduleJustDragged){ scheduleJustDragged = false; return; }
+      const pick = e.target.closest('[data-schedpick]');
+      if(pick){ toggleSchedulePick(pick.getAttribute('data-schedpick')); return; }
+      const delSticker = e.target.closest('[data-delsticker]');
+      if(delSticker){
+        const idx = parseInt(delSticker.getAttribute('data-delsticker'));
+        const removed = (data.customStickers||[])[idx];
+        data.customStickers.splice(idx, 1);
+        if(armedSticker===removed) armedSticker = null;
+        save();
+        render();
+        return;
+      }
+      const stickerChip = e.target.closest('[data-emojidrag], [data-imgdrag]');
+      if(stickerChip){
+        let payload;
+        if(stickerChip.hasAttribute('data-imgdrag')){
+          payload = (data.customStickers||[])[parseInt(stickerChip.getAttribute('data-imgdrag'))];
+        }else{
+          payload = stickerChip.getAttribute('data-emojidrag');
+        }
+        if(!payload) return;
+        armedSticker = (armedSticker===payload) ? null : payload;
+        render();
+        return;
+      }
+      const badge = e.target.closest('[data-removebadge]');
+      if(badge){
+        const [dateStr, slotIdxStr] = badge.getAttribute('data-removebadge').split('|');
+        const sched = getSchedule(curMonth);
+        const entries = sched.calendar[dateStr] || [];
+        const entry = entries[parseInt(slotIdxStr)];
+        const val = entry && entry.v;
+        if(val && sched.emojiTags){
+          delete sched.emojiTags[dateStr+'|'+val];
+          save();
+          render();
+        }
+        return;
+      }
+      const daycell = e.target.closest('[data-daycell]');
+      if(daycell){
+        const [dateStr, slotIdxStr] = daycell.getAttribute('data-daycell').split('|');
+        const slotIdx = parseInt(slotIdxStr);
+        const sched = getSchedule(curMonth);
+        const entries = sched.calendar[dateStr] || [];
+        const entry = entries[slotIdx];
+        if(armedSticker && entry){
+          const val = entry.v;
+          if(!sched.emojiTags) sched.emojiTags = {};
+          sched.emojiTags[dateStr+'|'+val] = armedSticker;
+          armedSticker = null;
+          save();
+          render();
+          return;
+        }
+        onDaySlotTap(dateStr, slotIdx);
+        return;
+      }
+    });
+  }
+  const uploadInput = document.getElementById('stickerUploadInput');
+  if(uploadInput){
+    uploadInput.onchange = (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if(file) handleStickerUpload(file);
+    };
+  }
+  const dayNoteInput = document.getElementById('dayNoteInput');
+  if(dayNoteInput){
+    autoGrowTextarea(dayNoteInput);
+    let noteTimer;
+    dayNoteInput.oninput = ()=>{
+      const todayStr = monthKeyFromDate(new Date())+'-'+pad(new Date().getDate());
+      data.dayNotes[todayStr] = dayNoteInput.value;
+      autoGrowTextarea(dayNoteInput);
+      clearTimeout(noteTimer);
+      const saved = document.getElementById('dayNoteSaved');
+      noteTimer = setTimeout(async ()=>{
+        await save();
+        if(saved) saved.textContent = '已儲存';
+        setTimeout(()=>{ if(saved) saved.textContent=''; }, 1500);
+      }, 500);
+    };
+  }
+}
+
+function getItemSteps(itemId){
+  if(!data.itemSteps[itemId]) data.itemSteps[itemId] = [];
+  return data.itemSteps[itemId];
+}
+
+function renderItemsListView(){
+  const items = scheduleAvailableItems(curMonth);
+  let html = '<div class="fin-section"><div class="fin-section-title">本月項目</div>';
+  if(items.length===0){
+    html += '<div class="empty-state" style="padding:16px 0;">本月尚無項目，先到月程新增</div>';
+  }
+  items.forEach(it=>{
+    const steps = getItemSteps(it.id);
+    const doneCount = steps.filter(s=>s.done).length;
+    const preview = steps.length===0 ? '尚無步驟' : `${doneCount}/${steps.length} 個步驟完成`;
+    html += `<div class="finance-row" data-openitem="${it.id}">
+      <div class="finance-row-text">
+        <div class="item-name">${escapeHtml(it.name)}</div>
+        <div class="finance-row-preview">${preview}</div>
+      </div>
+      <div class="finance-row-arrow">›</div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+let stepDragCtx = null;
+function stepDragPointerDown(e){
+  const handle = e.target.closest('[data-stepdrag]');
+  if(!handle) return;
+  if(e.pointerType==='mouse' && e.button!==0) return;
+  const card = handle.closest('[data-stepid]');
+  const container = document.getElementById('stepsListContainer');
+  if(!card || !container) return;
+  stepDragCtx = {card, container, startX:e.clientX, startY:e.clientY, dragging:false, pressTimer:null,
+    cardTop:0, cardHeight:0, placeholder:null};
+  stepDragCtx.pressTimer = setTimeout(()=>{
+    if(!stepDragCtx) return;
+    stepDragCtx.dragging = true;
+    const r = card.getBoundingClientRect();
+    stepDragCtx.cardTop = r.top; stepDragCtx.cardHeight = r.height;
+    const placeholder = document.createElement('div');
+    placeholder.className = 'drop-placeholder';
+    placeholder.style.height = r.height+'px';
+    container.insertBefore(placeholder, card);
+    stepDragCtx.placeholder = placeholder;
+    card.classList.add('dragging');
+    card.style.position='fixed';
+    card.style.top=r.top+'px'; card.style.left=r.left+'px'; card.style.width=r.width+'px';
+    card.style.margin='0';
+    if(navigator.vibrate) navigator.vibrate(8);
+  }, 320);
+}
+function stepDragPointerMove(e){
+  if(!stepDragCtx) return;
+  const x=e.clientX, y=e.clientY;
+  if(!stepDragCtx.dragging){
+    if(Math.abs(y-stepDragCtx.startY)>8 || Math.abs(x-stepDragCtx.startX)>8){
+      clearTimeout(stepDragCtx.pressTimer);
+      stepDragCtx = null;
+    }
+    return;
+  }
+  e.preventDefault();
+  const dy = y - stepDragCtx.startY;
+  stepDragCtx.card.style.top = (stepDragCtx.cardTop+dy)+'px';
+  const centerY = stepDragCtx.cardTop + dy + stepDragCtx.cardHeight/2;
+  const siblings = Array.from(stepDragCtx.container.querySelectorAll('[data-stepid]')).filter(c=>c!==stepDragCtx.card);
+  for(const sib of siblings){
+    const r = sib.getBoundingClientRect();
+    const sibCenter = r.top + r.height/2;
+    if(centerY < sibCenter && sib.compareDocumentPosition(stepDragCtx.placeholder) & Node.DOCUMENT_POSITION_FOLLOWING){
+      stepDragCtx.container.insertBefore(stepDragCtx.placeholder, sib);
+      break;
+    }
+    if(centerY > sibCenter && sib.compareDocumentPosition(stepDragCtx.placeholder) & Node.DOCUMENT_POSITION_PRECEDING){
+      stepDragCtx.container.insertBefore(stepDragCtx.placeholder, sib.nextSibling);
+      break;
+    }
+  }
+}
+function stepDragPointerUp(e){
+  if(!stepDragCtx) return;
+  clearTimeout(stepDragCtx.pressTimer);
+  if(!stepDragCtx.dragging){ stepDragCtx = null; return; }
+  const {card, container, placeholder} = stepDragCtx;
+  container.insertBefore(card, placeholder);
+  if(placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+  card.classList.remove('dragging');
+  card.style.position=''; card.style.top=''; card.style.left=''; card.style.width=''; card.style.margin='';
+  const newOrderIds = Array.from(container.querySelectorAll('[data-stepid]')).map(c=>c.getAttribute('data-stepid'));
+  stepDragCtx = null;
+  const steps = getItemSteps(currentDetailItemId);
+  const reordered = newOrderIds.map(id=> steps.find(s=>s.id===id)).filter(Boolean);
+  data.itemSteps[currentDetailItemId] = reordered;
+  save();
+  renderItemDetailPage();
+}
+
+let currentDetailItemId = null;
+function openItemDetailPage(itemId){
+  currentDetailItemId = itemId;
+  document.getElementById('itemDetailOverlay').classList.add('open');
+  renderItemDetailPage();
+}
+function closeItemDetailPage(){
+  document.getElementById('itemDetailOverlay').classList.remove('open');
+  currentDetailItemId = null;
+}
+function renderItemDetailPage(){
+  const it = data.items.find(x=>x.id===currentDetailItemId);
+  if(!it){ closeItemDetailPage(); return; }
+  document.getElementById('itemDetailTitle').textContent = it.name;
+  const steps = getItemSteps(it.id);
+  let html = '<div id="stepsListContainer">';
+  steps.forEach(s=>{
+    html += `<div class="step-card" data-stepid="${s.id}">
+      <div class="step-row-top">
+        <div class="step-drag" data-stepdrag="${s.id}"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div>
+        <div class="check ${s.done?'done':''}" data-stepcheck="${s.id}">${checkIcon()}</div>
+        <textarea class="step-text" data-steptext="${s.id}" placeholder="這步驟要做什麼…">${escapeHtml(s.text||'')}</textarea>
+        <div class="step-del" data-stepdel="${s.id}">×</div>
+      </div>`;
+    if(s.image){
+      html += `<img class="step-img" src="${s.image}">`;
+    }
+    html += `<div class="step-photo-row">
+      <label class="photo-btn" for="stepPhoto_${s.id}">${s.image?'更換照片':'新增照片'}</label>
+      <input type="file" id="stepPhoto_${s.id}" accept="image/*" style="display:none;" data-stepphoto="${s.id}">`;
+    if(s.image) html += `<span class="step-photo-remove" data-stepphotoremove="${s.id}">移除照片</span>`;
+    html += `</div></div>`;
+  });
+  html += '</div>';
+
+  html += `<div class="fin-add-row">
+    <input class="fin-add-input" id="newStepInput" placeholder="新增步驟…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="fin-add-btn" id="addStepBtn">＋</button>
+  </div>`;
+
+  document.getElementById('itemDetailBody').innerHTML = html;
+  bindItemDetailEvents();
+}
+function addStep(){
+  const input = document.getElementById('newStepInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const steps = getItemSteps(currentDetailItemId);
+  steps.push({id:uid(), text, image:null, done:false});
+  save();
+  input.value = '';
+  renderItemDetailPage();
+}
+function handleStickerUpload(file){
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const maxDim = 160;
+      let w = img.width, h = img.height;
+      if(w>h){ if(w>maxDim){ h = Math.round(h*maxDim/w); w = maxDim; } }
+      else{ if(h>maxDim){ w = Math.round(w*maxDim/h); h = maxDim; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+      if(!data.customStickers) data.customStickers = [];
+      data.customStickers.push(dataUrl);
+      save();
+      render();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function handleStepPhotoFile(stepId, file){
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const maxDim = 1000;
+      let w = img.width, h = img.height;
+      if(w>h){ if(w>maxDim){ h = Math.round(h*maxDim/w); w = maxDim; } }
+      else{ if(h>maxDim){ w = Math.round(w*maxDim/h); h = maxDim; } }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===stepId);
+      if(step) step.image = dataUrl;
+      save();
+      renderItemDetailPage();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function autoGrowTextarea(el){
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+function bindItemDetailEvents(){
+  document.querySelectorAll('[data-stepcheck]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-stepcheck');
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===id);
+      if(step){ step.done = !step.done; save(); renderItemDetailPage(); }
+    };
+  });
+  document.querySelectorAll('[data-steptext]').forEach(el=>{
+    autoGrowTextarea(el);
+    el.oninput = ()=>{
+      const id = el.getAttribute('data-steptext');
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===id);
+      if(step){ step.text = el.value; save(); }
+      autoGrowTextarea(el);
+    };
+  });
+  document.querySelectorAll('[data-stepdel]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-stepdel');
+      data.itemSteps[currentDetailItemId] = getItemSteps(currentDetailItemId).filter(s=>s.id!==id);
+      save();
+      renderItemDetailPage();
+    };
+  });
+  document.querySelectorAll('[data-stepphoto]').forEach(el=>{
+    el.onchange = (e)=>{
+      const id = el.getAttribute('data-stepphoto');
+      const file = e.target.files && e.target.files[0];
+      if(file) handleStepPhotoFile(id, file);
+    };
+  });
+  document.querySelectorAll('[data-stepphotoremove]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.getAttribute('data-stepphotoremove');
+      const steps = getItemSteps(currentDetailItemId);
+      const step = steps.find(s=>s.id===id);
+      if(step){ step.image = null; save(); renderItemDetailPage(); }
+    };
+  });
+  const addBtn = document.getElementById('addStepBtn');
+  if(addBtn) addBtn.onclick = addStep;
+  const newStepInput = document.getElementById('newStepInput');
+  if(newStepInput) newStepInput.onkeydown = (e)=>{ if(e.key==='Enter') addStep(); };
+}
+
 function renderMonthView(){
   let html = '';
   const cats = orderedCategories();
@@ -776,16 +2552,35 @@ function renderMonthView(){
 
     if(cat.recurringCount){
       const key = cat.recurringCount.key+':'+cat.id;
-      const c = getCount(key, curMonth), t = cat.recurringCount.target;
+      const c = getCount(key, curMonth), t = getRecurringTarget(cat);
       const pct = Math.min(100, Math.round(c/t*100));
       html += `<div class="counter-row">
-        <div class="counter-name ${c>=t?'done':''}">${cat.recurringCount.key}</div>
+        <div class="counter-name ${c>=t?'done':''}" data-editrecurringlabel="${cat.id}">${escapeHtml(getRecurringLabel(cat))}</div>
         <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
         <div class="stepper">
           <button class="stbtn" data-bump="${key}|-1">−</button>
-          <div class="stval">${c}/${t}</div>
+          <div class="stval">${c}/<span class="edit-target" data-edittarget="${cat.id}">${t}</span></div>
           <button class="stbtn" data-bump="${key}|1">+</button>
         </div>
+      </div>`;
+    }
+    if(cat.id===ONCE_COUNTER_CAT){
+      getOnceCounters(cat.id).forEach(oc=>{
+        const key = onceCounterKey(oc, cat.id);
+        const c = getCount(key, curMonth);
+        html += `<div class="counter-row">
+          <div class="counter-name ${c>=1?'done':''}" data-editoncename="${cat.id}|${oc.id}">${escapeHtml(oc.name)}</div>
+          <div class="stepper">
+            <button class="stbtn" data-oncebump="${key}|-1">−</button>
+            <div class="stval">${c}/1</div>
+            <button class="stbtn" data-oncebump="${key}|1">+</button>
+          </div>
+          <div class="del" data-delonce="${cat.id}|${oc.id}">×</div>
+        </div>`;
+      });
+      html += `<div class="add-row">
+        <input class="add-input" placeholder="新增累積項目（如捐血、志工）…" data-onceinput="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="add-btn" data-onceadd="${cat.id}">＋</button>
       </div>`;
     }
     if(cat.recurringCheck){
@@ -807,24 +2602,58 @@ function renderMonthView(){
         <div class="finance-row-arrow">›</div>
       </div>`;
     }
-    if(items.length===0 && !cat.recurringCount && !cat.recurringCheck && !cat.financeLink){
+    if(cat.customCounters){
+      getCustomCounters(cat.id).forEach(cc=>{
+        const c = customCounterValue(cc, cat.id, curMonth), t = cc.target;
+        const pct = Math.min(100, Math.round(c/t*100));
+        html += `<div class="counter-row">
+          <div class="counter-name ${c>=t?'done':''}" data-editccname="${cat.id}|${cc.id}">${escapeHtml(cc.name)}</div>
+          <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
+          <div class="stepper">
+            <button class="stbtn" data-ccbump="${cat.id}|${cc.id}|-1">−</button>
+            <div class="stval">${c}/<span class="edit-target" data-editcctarget="${cat.id}|${cc.id}">${t}</span></div>
+            <button class="stbtn" data-ccbump="${cat.id}|${cc.id}|1">+</button>
+          </div>
+          <div class="del" data-delcustomcounter="${cat.id}|${cc.id}">×</div>
+        </div>`;
+      });
+      html += `<div class="add-row">
+        <input class="add-input" placeholder="項目名稱…" data-ccinput="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <input class="add-input" type="number" inputmode="numeric" placeholder="目標" style="max-width:64px;flex:0 0 64px;" data-cctargetinput="${cat.id}">
+        <button class="add-btn" data-ccadd="${cat.id}">＋</button>
+      </div>`;
+    }
+    if(items.length===0 && !cat.recurringCount && !cat.recurringCheck && !cat.financeLink && cat.id!==ONCE_COUNTER_CAT && !cat.customCounters){
       html += `<div class="empty-state" style="padding:16px 0 4px;">尚無項目</div>`;
     }
     items.forEach(it=>{
       const on = it.completedMonth===curMonth;
-      html += `<div class="item-row">
-        <div class="check ${on?'done':''}" data-check="${it.id}">${checkIcon()}</div>
-        <div class="item-name ${on?'done':''}" data-edititem="${it.id}">${escapeHtml(it.name)}</div>
-        <div class="del" data-del="${it.id}">×</div>
+      const pct = typeof it.progress==='number' ? it.progress : (on?100:0);
+      html += `<div class="item-row-wrap" data-itemrow="${it.id}">
+        <div class="item-row">
+          <div class="item-drag-handle" data-itemdraghandle="${it.id}"><svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div>
+          <div class="check ${on?'done':''}" data-check="${it.id}">${checkIcon()}</div>
+          <div class="item-name ${on?'done':''}" data-edititem="${it.id}">${escapeHtml(it.name)}</div>
+          <div class="del" data-del="${it.id}">×</div>
+        </div>
+        <div class="item-progress-row">
+          <div class="item-progress-bar"><div class="item-progress-fill" style="width:${pct}%"></div></div>
+          <button class="progbtn" data-progress="${it.id}|-10">−</button>
+          <div class="progval">${pct}%</div>
+          <button class="progbtn" data-progress="${it.id}|10">+</button>
+        </div>
       </div>`;
     });
 
-    html += `<div class="add-row">
-      <input class="add-input" placeholder="新增項目…" data-input="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button class="add-btn" data-add="${cat.id}">＋</button>
-    </div>`;
+    if(cat.id!==ONCE_COUNTER_CAT && !cat.customCounters){
+      html += `<div class="add-row">
+        <input class="add-input" placeholder="新增項目…" data-input="${cat.id}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="add-btn" data-add="${cat.id}">＋</button>
+      </div>`;
+    }
     html += `</div></div></div>`;
   });
+  html += `<div class="add-category-btn" id="addCategoryBtn">＋ 新增主題</div>`;
   return html;
 }
 
@@ -842,7 +2671,7 @@ function renderYearView(){
       const goalText = data.yearGoals[year] || '';
       html += `<div class="goal-card" data-cat="yeargoal">
         <div class="goal-title-row"><span class="goal-title">${year} 年度目標</span><div class="drag-handle" data-drag="yeargoal"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><circle cx="6" cy="4" r="1.6"/><circle cx="14" cy="4" r="1.6"/><circle cx="6" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/></svg></div></div>
-        <textarea class="goal-input" id="goalInput" placeholder="寫下這一年想達成的目標…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">${escapeHtml(goalText)}</textarea>
+        <textarea class="goal-input" id="goalInput" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">${escapeHtml(goalText)}</textarea>
         <div class="goal-saved" id="goalSaved"></div>
       </div>`;
       return;
@@ -861,11 +2690,26 @@ function renderYearView(){
     let recurringDoneBonus = 0;
     if(cat.recurringCount){
       const key = cat.recurringCount.key+':'+cat.id;
-      if(annualCount(key, year) >= 12*cat.recurringCount.target) recurringDoneBonus++;
+      if(annualCount(key, year) >= 365) recurringDoneBonus++;
     }
     if(cat.recurringCheck){
       const key = cat.recurringCheck.key+':'+cat.id;
       if(monthsCheckedInYear(key, year)===12) recurringDoneBonus++;
+    }
+    if(cat.id===ONCE_COUNTER_CAT){
+      getOnceCounters(cat.id).forEach(oc=>{
+        total += 1;
+        const key = onceCounterKey(oc, cat.id);
+        if(annualCount(key, year) >= 1) recurringDoneBonus++;
+      });
+    }
+    if(cat.customCounters){
+      getCustomCounters(cat.id).forEach(cc=>{
+        total += 1;
+        const val = cc.resetMonthly ? annualCount(customCounterStorageKey(cc, cat.id), year) : (cc.count||0);
+        const target = cc.resetMonthly ? 365 : cc.target;
+        if(val >= target) recurringDoneBonus++;
+      });
     }
     done += recurringDoneBonus;
 
@@ -876,7 +2720,7 @@ function renderYearView(){
       <div class="yr-tags">`;
     if(doneItems.length===0) html += `<span class="tag empty">—</span>`;
     doneItems.forEach(it=>{
-      html += `<span class="tag done">✓ ${escapeHtml(it.name)}</span>`;
+      html += `<span class="tag done" style="background:var(--complete-color);opacity:.3;">✓ ${escapeHtml(it.name)}</span>`;
     });
     html += `</div>
 
@@ -884,19 +2728,38 @@ function renderYearView(){
       <div class="yr-tags">`;
     if(undoneItems.length===0) html += `<span class="tag empty">—</span>`;
     undoneItems.forEach(it=>{
-      html += `<span class="tag">${escapeHtml(it.name)}</span>`;
+      const pct = typeof it.progress==='number' ? it.progress : 0;
+      html += `<span class="tag tag-progress" style="background:linear-gradient(to right, var(--complete-color) ${pct}%, var(--incomplete-color) ${pct}%);">${escapeHtml(it.name)}（${pct}%）</span>`;
     });
     html += `</div>`;
 
     if(cat.recurringCount){
       const key = cat.recurringCount.key+':'+cat.id;
       const ac = annualCount(key, year);
-      html += `<div class="run-note">${cat.recurringCount.key}年度累計：<b>${ac} / ${12*cat.recurringCount.target}</b></div>`;
+      html += `<div class="run-note">${escapeHtml(getRecurringLabel(cat))}年度累計：<b>${ac} / 365</b></div>`;
     }
     if(cat.recurringCheck){
       const key = cat.recurringCheck.key+':'+cat.id;
       const mc = monthsCheckedInYear(key, year);
       html += `<div class="run-note">${cat.recurringCheck.key}完成月數：<b>${mc} / 12</b></div>`;
+    }
+    if(cat.id===ONCE_COUNTER_CAT){
+      getOnceCounters(cat.id).forEach(oc=>{
+        const key = onceCounterKey(oc, cat.id);
+        const ac = annualCount(key, year);
+        html += `<div class="run-note">${escapeHtml(oc.name)}年度累計：<b>${ac} / 12</b></div>`;
+      });
+    }
+    if(cat.customCounters){
+      getCustomCounters(cat.id).forEach(cc=>{
+        if(cc.resetMonthly){
+          const key = customCounterStorageKey(cc, cat.id);
+          const ac = annualCount(key, year);
+          html += `<div class="run-note">${escapeHtml(cc.name)}年度累計：<b>${ac} / 365</b></div>`;
+        }else{
+          html += `<div class="run-note">${escapeHtml(cc.name)}累計（不分年）：<b>${cc.count||0} / ${cc.target}</b></div>`;
+        }
+      });
     }
     html += `</div>`;
   });
@@ -911,7 +2774,7 @@ function escapeHtml(s){
 const FIN_INCOME_LABELS = {work:'工作', project:'案子', side:'副業'};
 const FIN_FIXED_LABELS = {rent:'房租／租金', transport:'交通', food:'伙食', utilities:'水電／網路／電話', insurance:'健保／勞保', software:'軟件（網站/Google）', other:'其他支出'};
 const FIN_PCT_LABELS = {reserve:'備用金（緊急預備金）', savings:'存款（長期不動用）', fund:'基金（作品/專業資格）', invest:'投資'};
-const FIN_SUMMARY_LABELS = {reserve:'備用金累積', savings:'存款累積', fund:'基金累積', invest:'投資金累積', debt:'項目餘額', total:'總資產'};
+const FIN_SUMMARY_LABELS = {reserve:'備用金累積', savings:'存款累積', fund:'基金累積', invest:'投資金累積', debt:'項目餘額', total:'總資產', other:'其他項目'};
 const FIN_DEFAULT_LABELS = {income:FIN_INCOME_LABELS, fixed:FIN_FIXED_LABELS, pct:FIN_PCT_LABELS, summary:FIN_SUMMARY_LABELS};
 
 function finLabel(type, key){
@@ -932,10 +2795,17 @@ function renderFinancePage(){
 
   let html = '';
 
-  // debt settings
+  // combined asset tracking + debt items (topmost section)
   html += `<div class="fin-section">
-    <div class="fin-section-title fin-title-editable" id="financeDebtSectionTitle">${data.finance.debtSectionTitle ? escapeHtml(data.finance.debtSectionTitle) : '<span class="name-placeholder">點此命名</span>'}</div>`;
-  ['A1','A2','A3','A4','A5'].forEach(k=>{
+    <div class="fin-section-title fin-title-editable" id="financeDebtSectionTitle">${data.finance.debtSectionTitle ? escapeHtml(data.finance.debtSectionTitle) : '<span class="name-placeholder">點此命名</span>'}</div>
+    <div class="fin-total-assets fin-total-assets-top"><span class="fin-title-editable" id="finLabelText_summary_total" data-finlabel="summary:total">${escapeHtml(finLabel('summary','total'))}</span><span id="finSummaryVal_total">$0</span></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_reserve" data-finlabel="summary:reserve">${escapeHtml(finLabel('summary','reserve'))}</span><b id="finSummaryVal_reserve">$0 <span id="finReserveGapNote" class="fin-summary-note"></span></b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_savings" data-finlabel="summary:savings">${escapeHtml(finLabel('summary','savings'))}</span><b id="finSummaryVal_savings">$0</b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_fund" data-finlabel="summary:fund">${escapeHtml(finLabel('summary','fund'))}</span><b id="finSummaryVal_fund">$0</b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_invest" data-finlabel="summary:invest">${escapeHtml(finLabel('summary','invest'))}</span><b id="finSummaryVal_invest">$0</b></div>
+    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_other" data-finlabel="summary:other">${escapeHtml(finLabel('summary','other'))}</span></div>`;
+  const visibleDebtKeys = activeDebtKeys();
+  visibleDebtKeys.forEach(k=>{
     html += `<div class="fin-row">
       <input class="fin-name-input" data-fin-debtname="${k}" value="${escapeHtml(debts[k].name)}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <div class="fin-debt-simple">
@@ -943,7 +2813,11 @@ function renderFinancePage(){
       </div>
     </div>`;
   });
-  html += `<div class="fin-hint">這裡設定的是每個欠款項目的「總額」，會用來計算下方的欠款餘額。</div></div>`;
+  const hiddenCount = 5 - visibleDebtKeys.length;
+  html += (showAllDebts || hiddenCount>0)
+    ? `<div class="fin-debt-toggle" id="finDebtToggleBtn">${showAllDebts ? '▲' : '▼'}</div>`
+    : '';
+  html += `</div>`;
 
   // income
   html += `<div class="fin-section">
@@ -970,14 +2844,25 @@ function renderFinancePage(){
   html += `<div class="fin-subtotal"><span>收入小計</span><span id="finIncomeTotal">$0</span></div></div>`;
 
   // fixed expenses
+  const manualOn = !!fm.manualMode;
   html += `<div class="fin-section">
     <div class="fin-section-title">② 支出</div>`;
-  ['A1','A2','A3','A4','A5'].forEach(k=>{
+  activeDebtKeys().forEach(k=>{
     html += `<div class="fin-row">
-      <div class="fin-row-label" id="finDebtLabel_${k}">${escapeHtml(debts[k].name)}</div>
+      <div class="fin-row-label-wrap">
+        <span id="finDebtLabel_${k}" style="font-size:13.5px;color:var(--sub);flex:0 0 auto;">${escapeHtml(debts[k].name)}</span>
+        <input class="fin-note-mini" type="text" data-fin-debtnote="${k}" value="${escapeHtml(debts[k].note||'')}" placeholder="備註" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
       <input class="fin-num-input" type="number" inputmode="decimal" data-fin-fixed="${k}" value="${fm.fixed[k]||0}">
     </div>`;
   });
+  html += `<div class="fin-manual-toggle-row">
+    <label class="fin-toggle-label">
+      <input type="checkbox" id="finManualModeToggle" ${manualOn?'checked':''}>
+      簡易模式：直接輸入戶口目前總餘額，App 自動算出跟上個月的差額
+    </label>
+  </div>`;
+  html += `<div id="fixedDetailRows" style="${manualOn?'display:none;':''}">`;
   Object.keys(FIN_FIXED_LABELS).forEach(k=>{
     html += `<div class="fin-row">
       <div class="fin-row-label fin-title-editable" id="finLabelText_fixed_${k}" data-finlabel="fixed:${k}">${escapeHtml(finLabel('fixed',k))}</div>
@@ -997,11 +2882,19 @@ function renderFinancePage(){
     <input class="fin-add-input" id="finAddFixedName" placeholder="新增固定支出項目…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
     <button class="fin-add-btn" id="finAddFixedBtn">＋</button>
   </div>`;
-  html += `<div class="fin-subtotal"><span>支出小計</span><span id="finFixedTotal">$0</span></div></div>`;
+  html += `</div>`;
+  html += `<div id="manualExpenseRow" class="fin-row" style="${manualOn?'':'display:none;'}">
+    <div class="fin-row-label">本月底戶口總餘額（看戶口填）</div>
+    <input class="fin-num-input" type="number" inputmode="decimal" id="finAccountBalanceInput" value="${fm.accountBalance||0}">
+  </div>`;
+  if(manualOn){
+    html += `<div class="fin-hint">只要填本月底戶口總餘額，下方就會直接用「備用金基礎＋超過的部分依比例」算出各項的累積金額，不需要再扣掉上個月。</div>`;
+  }
+  html += `<div class="fin-subtotal"><span id="finFixedTotalLabel">支出小計</span><span id="finFixedTotal">$0</span></div></div>`;
 
   // remain
   html += `<div class="fin-remain">
-    <div class="fin-remain-label">剩餘可分配金額</div>
+    <div class="fin-remain-label" id="finRemainLabel">剩餘可分配金額</div>
     <div class="fin-remain-value" id="finRemainValue">$0</div>
   </div>`;
 
@@ -1021,7 +2914,7 @@ function renderFinancePage(){
         <span style="font-size:13px;color:var(--faint);">%</span>
       </div>
     </div>
-    <div class="fin-alloc-row"><span>分配金額</span><b id="finAlloc_${k}">$0</b></div>`;
+    <div class="fin-alloc-row"><span>分配後金額</span><b id="finAlloc_${k}">$0</b></div>`;
   });
   html += `<div class="fin-pct-warn" id="finPctWarn"></div>
   </div>`;
@@ -1035,33 +2928,24 @@ function renderFinancePage(){
   html += `<button class="fin-save-btn" id="financeSaveBtn">儲存本月資料</button>
   <div class="fin-saved-note" id="financeSavedNote"></div>`;
 
-  // cumulative summary (based on saved data)
-  html += `<div class="fin-section" id="financeSummarySection"></div>`;
-
   html += `<button class="fin-reset-btn" id="financeResetBtn">重設所有理財設定與數字為預設值</button>`;
 
   document.getElementById('financeBody').innerHTML = html;
   bindFinanceEvents();
   recalcFinanceLive();
-  renderFinanceSummary();
+  updateFinanceTrackingValues();
 }
 
-function renderFinanceSummary(){
+function updateFinanceTrackingValues(){
   const s = financeSummaryUpTo(curMonth);
-  const el = document.getElementById('financeSummarySection');
-  if(!el) return;
+  const setTxt = (id, val)=>{ const el = document.getElementById(id); if(el) el.textContent = val; };
+  setTxt('finSummaryVal_reserve', fmtMoney(s.reserve));
   const gap = getReserveTarget() - s.reserve;
-  const reserveNote = gap>0 ? `（距離 ${fmtMoney(getReserveTarget())} 還差 ${fmtMoney(gap)}）` : '（已達標）';
-  el.innerHTML = `
-    <div class="fin-section-title">資產累積追蹤</div>
-    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_reserve" data-finlabel="summary:reserve">${escapeHtml(finLabel('summary','reserve'))}</span><b>${fmtMoney(s.reserve)} <span class="fin-summary-note">${reserveNote}</span></b></div>
-    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_savings" data-finlabel="summary:savings">${escapeHtml(finLabel('summary','savings'))}</span><b>${fmtMoney(s.savings)}</b></div>
-    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_fund" data-finlabel="summary:fund">${escapeHtml(finLabel('summary','fund'))}</span><b>${fmtMoney(s.fund)}</b></div>
-    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_invest" data-finlabel="summary:invest">${escapeHtml(finLabel('summary','invest'))}</span><b>${fmtMoney(s.invest)}</b></div>
-    <div class="fin-summary-row"><span class="fin-title-editable" id="finLabelText_summary_debt" data-finlabel="summary:debt">${escapeHtml(finLabel('summary','debt'))}</span><b>${fmtMoney(s.debtRemaining)}</b></div>
-    <div class="fin-total-assets"><span class="fin-title-editable" id="finLabelText_summary_total" data-finlabel="summary:total">${escapeHtml(finLabel('summary','total'))}</span><span>${fmtMoney(s.totalAssets)}</span></div>
-  `;
-  bindFinLabelClicks(el);
+  setTxt('finReserveGapNote', gap>0 ? `（距離 ${fmtMoney(getReserveTarget())} 還差 ${fmtMoney(gap)}）` : '（已達標）');
+  setTxt('finSummaryVal_savings', fmtMoney(s.savings));
+  setTxt('finSummaryVal_fund', fmtMoney(s.fund));
+  setTxt('finSummaryVal_invest', fmtMoney(s.invest));
+  setTxt('finSummaryVal_total', fmtMoney(s.totalAssets));
   updateDebtPaidDisplays();
 }
 function updateDebtPaidDisplays(){
@@ -1087,36 +2971,70 @@ function readFinanceDraftFromDOM(){
   document.querySelectorAll('[data-fin-pct]').forEach(el=>{
     pct[el.getAttribute('data-fin-pct')] = parseFloat(el.value)||0;
   });
-  return {income, fixed, pct};
+  const manualToggle = document.getElementById('finManualModeToggle');
+  const manualInput = document.getElementById('finAccountBalanceInput');
+  const manualMode = manualToggle ? manualToggle.checked : false;
+  const accountBalance = manualInput ? (parseFloat(manualInput.value)||0) : 0;
+  return {income, fixed, pct, manualMode, accountBalance};
 }
 
 function recalcFinanceLive(){
   const draft = readFinanceDraftFromDOM();
-  const incomeTotal = Object.values(draft.income).reduce((a,b)=>a+b, 0);
-  const fixedTotal = Object.values(draft.fixed).reduce((a,b)=>a+b, 0);
-  const remain = incomeTotal - fixedTotal;
-  const incEl = document.getElementById('finIncomeTotal'); if(incEl) incEl.textContent = fmtMoney(incomeTotal);
-  const fixEl = document.getElementById('finFixedTotal'); if(fixEl) fixEl.textContent = fmtMoney(fixedTotal);
-  const remEl = document.getElementById('finRemainValue'); if(remEl) remEl.textContent = fmtMoney(remain);
-
   const before = financeStateBefore(curMonth);
+  const incomeTotal = Object.values(draft.income).reduce((a,b)=>a+b, 0);
+  const debtPaid = ['A1','A2','A3','A4','A5'].reduce((s,k)=> s+(draft.fixed[k]||0), 0);
+  let fixedTotal, remain, runningBalance;
+  if(draft.manualMode){
+    runningBalance = draft.accountBalance||0;
+    remain = runningBalance - before.lastBalance;
+    fixedTotal = null; // not meaningful in balance mode
+  }else{
+    const otherExpense = Object.keys(draft.fixed).filter(k=>!['A1','A2','A3','A4','A5'].includes(k)).reduce((s,k)=> s+(draft.fixed[k]||0), 0);
+    fixedTotal = debtPaid + otherExpense;
+    remain = incomeTotal - fixedTotal;
+    runningBalance = before.lastBalance + remain;
+  }
+  const incEl = document.getElementById('finIncomeTotal'); if(incEl) incEl.textContent = fmtMoney(incomeTotal);
+  const fixEl = document.getElementById('finFixedTotal');
+  const fixLabelEl = document.getElementById('finFixedTotalLabel');
+  const fixRow = fixEl ? fixEl.parentElement : null;
+  if(draft.manualMode){
+    if(fixRow) fixRow.style.display = 'none';
+  }else{
+    if(fixRow) fixRow.style.display = '';
+    if(fixLabelEl) fixLabelEl.textContent = '支出小計';
+    if(fixEl) fixEl.textContent = fmtMoney(fixedTotal);
+  }
+  const remEl = document.getElementById('finRemainValue');
+  const remLabelEl = document.getElementById('finRemainLabel');
+  if(remLabelEl) remLabelEl.textContent = draft.manualMode ? '本月底戶口總餘額' : '剩餘可分配金額';
+  if(remEl) remEl.textContent = fmtMoney(draft.manualMode ? runningBalance : remain);
+
+  const target = getReserveTarget();
   const gateEl = document.getElementById('finGateStatus');
   let pctSum = 0;
   Object.keys(FIN_PCT_LABELS).forEach(k=>{ pctSum += (draft.pct[k]||0); });
 
-  if(!before.unlocked){
-    const gap = Math.max(0, getReserveTarget() - before.reserve);
-    if(gateEl) gateEl.innerHTML = `尚未達 ${fmtMoney(getReserveTarget())}（目前累積 ${fmtMoney(before.reserve)}，還差 ${fmtMoney(gap)}）— 本月剩餘金額會 100% 進備用金，比例分配下方僅供參考，達標下個月才會啟用。`;
+  const excessNow = Math.max(0, runningBalance - target);
+  const pctOf = k => (draft.pct[k]||0);
+  const setAlloc = o => {
     ['reserve','savings','fund','invest'].forEach(k=>{
-      const allocEl = document.getElementById('finAlloc_'+k);
-      if(allocEl) allocEl.textContent = k==='reserve' ? fmtMoney(remain) : fmtMoney(0);
+      const el = document.getElementById('finAlloc_'+k);
+      if(el) el.textContent = fmtMoney(o[k]);
     });
+  };
+  if(runningBalance <= target){
+    const gap = Math.max(0, target - runningBalance);
+    if(gateEl) gateEl.innerHTML = `備用金基礎 ${fmtMoney(target)}：目前戶口總額 ${fmtMoney(runningBalance)}，還差 ${fmtMoney(gap)} 才超過。未超過前，戶口裡的錢全部算備用金；一超過，超過的部分當月就依比例分配。`;
+    setAlloc({reserve:runningBalance, savings:0, fund:0, invest:0});
   }else{
-    if(gateEl) gateEl.innerHTML = `已達 ${fmtMoney(getReserveTarget())} 備用金目標，本月依下方比例分配。`;
-    Object.keys(FIN_PCT_LABELS).forEach(k=>{
-      const p = draft.pct[k]||0;
-      const allocEl = document.getElementById('finAlloc_'+k);
-      if(allocEl) allocEl.textContent = fmtMoney(Math.round(remain*p/100));
+    const reserveNow = target + Math.round(excessNow*pctOf('reserve')/100);
+    if(gateEl) gateEl.innerHTML = `戶口總額 ${fmtMoney(runningBalance)} 超過備用金基礎 ${fmtMoney(target)}：備用金 = ${fmtMoney(target)} +（${fmtMoney(runningBalance)} − ${fmtMoney(target)}）× ${pctOf('reserve')}% = ${fmtMoney(reserveNow)}；超過的 ${fmtMoney(excessNow)} 依下方比例分配。`;
+    setAlloc({
+      reserve: reserveNow,
+      savings: Math.round(excessNow*pctOf('savings')/100),
+      fund: Math.round(excessNow*pctOf('fund')/100),
+      invest: Math.round(excessNow*pctOf('invest')/100)
     });
   }
   const warnEl = document.getElementById('finPctWarn');
@@ -1144,6 +3062,13 @@ function bindFinanceEvents(){
   document.getElementById('financeDebtSectionTitle').onclick = ()=>{
     openRenameFor('financeDebtTitle', data.finance.debtSectionTitle);
   };
+  const debtToggleBtn = document.getElementById('finDebtToggleBtn');
+  if(debtToggleBtn){
+    debtToggleBtn.onclick = ()=>{
+      showAllDebts = !showAllDebts;
+      refreshFinancePagePreserveDraft();
+    };
+  }
   bindFinLabelClicks(document.getElementById('financeBody'));
   document.querySelectorAll('[data-fin-income],[data-fin-fixed],[data-fin-pct]').forEach(el=>{
     el.oninput = recalcFinanceLive;
@@ -1155,7 +3080,7 @@ function bindFinanceEvents(){
       const label = document.getElementById('finDebtLabel_'+k);
       if(label) label.textContent = data.finance.debts[k].name;
       save();
-      renderFinanceSummary();
+      updateFinanceTrackingValues();
     };
   });
   document.querySelectorAll('[data-fin-debttotal]').forEach(el=>{
@@ -1163,15 +3088,36 @@ function bindFinanceEvents(){
       const k = el.getAttribute('data-fin-debttotal');
       data.finance.debts[k].total = parseFloat(el.value)||0;
       save();
-      renderFinanceSummary();
+      updateFinanceTrackingValues();
+    };
+  });
+  document.querySelectorAll('[data-fin-debtnote]').forEach(el=>{
+    el.oninput = (e)=>{
+      const k = el.getAttribute('data-fin-debtnote');
+      data.finance.debts[k].note = el.value;
+      save();
     };
   });
   document.getElementById('finReserveTargetInput').oninput = (e)=>{
     data.finance.reserveTarget = parseFloat(e.target.value)||200000;
     save();
     recalcFinanceLive();
-    renderFinanceSummary();
+    updateFinanceTrackingValues();
   };
+  document.getElementById('finManualModeToggle').onchange = (e)=>{
+    const detailRows = document.getElementById('fixedDetailRows');
+    const manualRow = document.getElementById('manualExpenseRow');
+    if(e.target.checked){
+      detailRows.style.display = 'none';
+      manualRow.style.display = '';
+    }else{
+      detailRows.style.display = '';
+      manualRow.style.display = 'none';
+    }
+    recalcFinanceLive();
+  };
+  const manualExpenseInput = document.getElementById('finAccountBalanceInput');
+  if(manualExpenseInput) manualExpenseInput.oninput = recalcFinanceLive;
   document.querySelectorAll('[data-fin-delcustom]').forEach(el=>{
     el.onclick = ()=>{
       const id = el.getAttribute('data-fin-delcustom');
@@ -1234,6 +3180,16 @@ function refreshFinancePagePreserveDraft(){
   Object.keys(draft.pct).forEach(k=>{
     const el = document.querySelector('[data-fin-pct="'+k+'"]'); if(el) el.value = draft.pct[k];
   });
+  const toggle = document.getElementById('finManualModeToggle');
+  if(toggle){
+    toggle.checked = draft.manualMode;
+    const detailRows = document.getElementById('fixedDetailRows');
+    const manualRow = document.getElementById('manualExpenseRow');
+    if(draft.manualMode){ detailRows.style.display='none'; manualRow.style.display=''; }
+    else{ detailRows.style.display=''; manualRow.style.display='none'; }
+  }
+  const manualInput = document.getElementById('finAccountBalanceInput');
+  if(manualInput) manualInput.value = draft.accountBalance;
   const noteEl = document.getElementById('financeNoteInput'); if(noteEl) noteEl.value = note;
   recalcFinanceLive();
 }
@@ -1257,7 +3213,7 @@ function handleFinanceResetClick(){
     data.finance = JSON.parse(JSON.stringify(FINANCE_DEFAULT));
     data.finance.labels = {income:{}, fixed:{}, pct:{}, summary:{}};
     data.finance.reserveTarget = 200000;
-    data.finance.debtSectionTitle = '項目設定';
+    data.finance.debtSectionTitle = '總資產追蹤';
     data.finance.customFixed = [];
     data.finance.customIncome = [];
     save();
@@ -1269,14 +3225,18 @@ function handleFinanceResetClick(){
 function saveFinanceMonth(){
   const draft = readFinanceDraftFromDOM();
   const note = document.getElementById('financeNoteInput').value;
-  data.finance.months[curMonth] = {income:draft.income, fixed:draft.fixed, pct:draft.pct, note};
+  data.finance.months[curMonth] = {
+    income:draft.income, fixed:draft.fixed, pct:draft.pct,
+    manualMode:draft.manualMode, accountBalance:draft.accountBalance,
+    note
+  };
   save();
   const noteEl = document.getElementById('financeSavedNote');
   if(noteEl){
     noteEl.textContent = '已儲存';
     setTimeout(()=>{ if(noteEl) noteEl.textContent=''; }, 1500);
   }
-  renderFinanceSummary();
+  updateFinanceTrackingValues();
   render();
 }
 
@@ -1291,10 +3251,11 @@ function closeFinancePage(){
 function render(){
   document.getElementById('appTitleEl').innerHTML = appTitleHtml();
   document.title = getAppTitle() || 'Professsor Wong';
-  document.getElementById('navLabel').textContent = view==='month' ? monthLabel(curMonth) : (yearOf(curMonth)+'年');
+  document.getElementById('navLabel').textContent = view==='year' ? (yearOf(curMonth)+'年') : monthLabel(curMonth);
   const main = document.getElementById('main');
-  main.innerHTML = view==='month' ? renderMonthView() : renderYearView();
+  main.innerHTML = view==='month' ? renderMonthView() : view==='year' ? renderYearView() : view==='schedule' ? renderScheduleView() : renderItemsListView();
   bindEvents();
+  bindScheduleEvents();
 }
 
 function initDragHandle(handle){
@@ -1394,6 +3355,7 @@ function initDragHandle(handle){
 function bindEvents(){
   document.querySelectorAll('[data-toggle]').forEach(el=>{
     el.onclick = ()=>{
+      if(catJustSwiped){ catJustSwiped = false; return; }
       const id = el.getAttribute('data-toggle');
       openState[id] = !(openState[id] !== false);
       render();
@@ -1408,11 +3370,21 @@ function bindEvents(){
   document.querySelectorAll('[data-check]').forEach(el=>{
     el.onclick = (e)=>{ e.stopPropagation(); toggleItem(el.getAttribute('data-check')); };
   });
+  document.querySelectorAll('[data-progress]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [id, d] = el.getAttribute('data-progress').split('|');
+      setItemProgress(id, parseInt(d));
+    };
+  });
   document.querySelectorAll('[data-checkrec]').forEach(el=>{
     el.onclick = (e)=>{ e.stopPropagation(); toggleCheck(el.getAttribute('data-checkrec'), curMonth); };
   });
   document.querySelectorAll('[data-openfinance]').forEach(el=>{
     el.onclick = (e)=>{ e.stopPropagation(); openFinancePage(); };
+  });
+  document.querySelectorAll('[data-openitem]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); openItemDetailPage(el.getAttribute('data-openitem')); };
   });
   document.querySelectorAll('[data-del]').forEach(el=>{
     el.onclick = (e)=>{ e.stopPropagation(); deleteItem(el.getAttribute('data-del')); };
@@ -1432,6 +3404,90 @@ function bindEvents(){
       bumpCount(key, curMonth, parseInt(d));
     };
   });
+  document.querySelectorAll('[data-oncebump]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [key, d] = el.getAttribute('data-oncebump').split('|');
+      bumpOnceCounter(key, curMonth, parseInt(d));
+    };
+  });
+  document.querySelectorAll('[data-delonce]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [catId, ocId] = el.getAttribute('data-delonce').split('|');
+      deleteOnceCounter(catId, ocId);
+    };
+  });
+  document.querySelectorAll('[data-delcustomcounter]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [catId, ccId] = el.getAttribute('data-delcustomcounter').split('|');
+      deleteCustomCounter(catId, ccId);
+    };
+  });
+  document.querySelectorAll('[data-editcctarget]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [catId, ccId] = el.getAttribute('data-editcctarget').split('|');
+      const cc = getCustomCounters(catId).find(c=>c.id===ccId);
+      if(!cc) return;
+      const next = prompt('設定目標次數：', cc.target);
+      const t = parseInt(next);
+      if(next!==null && t>0){ cc.target = t; save(); render(); }
+    };
+  });
+  document.querySelectorAll('[data-ccbump]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const [catId, ccId, d] = el.getAttribute('data-ccbump').split('|');
+      bumpCustomCounter(catId, ccId, parseInt(d));
+    };
+  });
+  document.querySelectorAll('[data-ccadd]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const catId = el.getAttribute('data-ccadd');
+      const input = document.querySelector(`[data-ccinput="${catId}"]`);
+      const targetInput = document.querySelector(`[data-cctargetinput="${catId}"]`);
+      const cat = allCategories().find(c=>c.id===catId);
+      addCustomCounter(catId, input.value, targetInput?targetInput.value:null, cat&&cat.countersResetMonthly);
+      input.value='';
+      if(targetInput) targetInput.value='';
+    };
+  });
+  document.querySelectorAll('[data-ccinput], [data-cctargetinput]').forEach(el=>{
+    el.onclick = (e)=>e.stopPropagation();
+    el.onkeydown = (e)=>{
+      if(e.key==='Enter'){
+        const catId = el.getAttribute('data-ccinput') || el.getAttribute('data-cctargetinput');
+        const nameInput = document.querySelector(`[data-ccinput="${catId}"]`);
+        const targetInput = document.querySelector(`[data-cctargetinput="${catId}"]`);
+        const cat = allCategories().find(c=>c.id===catId);
+        addCustomCounter(catId, nameInput.value, targetInput?targetInput.value:null, cat&&cat.countersResetMonthly);
+        nameInput.value='';
+        if(targetInput) targetInput.value='';
+      }
+    };
+  });
+  document.querySelectorAll('[data-onceadd]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const catId = el.getAttribute('data-onceadd');
+      const input = document.querySelector(`[data-onceinput="${catId}"]`);
+      addOnceCounter(catId, input.value);
+      input.value='';
+    };
+  });
+  document.querySelectorAll('[data-onceinput]').forEach(el=>{
+    el.onclick = (e)=>e.stopPropagation();
+    el.onkeydown = (e)=>{
+      if(e.key==='Enter'){
+        const catId = el.getAttribute('data-onceinput');
+        addOnceCounter(catId, el.value);
+        el.value='';
+      }
+    };
+  });
   document.querySelectorAll('[data-add]').forEach(el=>{
     el.onclick = (e)=>{
       e.stopPropagation();
@@ -1439,6 +3495,19 @@ function bindEvents(){
       const input = document.querySelector(`[data-input="${catId}"]`);
       addItem(catId, input.value);
       input.value='';
+    };
+  });
+  const addCategoryBtn = document.getElementById('addCategoryBtn');
+  if(addCategoryBtn){
+    addCategoryBtn.onclick = openAddCategoryModal;
+  }
+  document.querySelectorAll('[data-delcat]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const id = el.getAttribute('data-delcat');
+      if(confirm('確定要刪除這個主題嗎？裡面的項目也會一併刪除。')){
+        deleteCustomCategory(id);
+      }
     };
   });
   document.querySelectorAll('[data-input]').forEach(el=>{
@@ -1454,10 +3523,12 @@ function bindEvents(){
 
   const goalInput = document.getElementById('goalInput');
   if(goalInput){
+    autoGrowTextarea(goalInput);
     let t;
     goalInput.oninput = ()=>{
       const year = yearOf(curMonth);
       data.yearGoals[year] = goalInput.value;
+      autoGrowTextarea(goalInput);
       clearTimeout(t);
       const saved = document.getElementById('goalSaved');
       t = setTimeout(async ()=>{
@@ -1478,11 +3549,11 @@ document.querySelectorAll('.tab').forEach(t=>{
   };
 });
 document.getElementById('prevBtn').onclick = ()=>{
-  curMonth = view==='month' ? shiftMonthKey(curMonth,-1) : shiftYearKey(curMonth,-1);
+  curMonth = view==='year' ? shiftYearKey(curMonth,-1) : shiftMonthKey(curMonth,-1);
   render();
 };
 document.getElementById('nextBtn').onclick = ()=>{
-  curMonth = view==='month' ? shiftMonthKey(curMonth,1) : shiftYearKey(curMonth,1);
+  curMonth = view==='year' ? shiftYearKey(curMonth,1) : shiftMonthKey(curMonth,1);
   render();
 };
 
@@ -1497,7 +3568,28 @@ document.getElementById('renameInput').onkeydown = (e)=>{
 
 document.getElementById('appTitleEl').onclick = renameAppTitle;
 document.getElementById('settingsBtn').onclick = openSettingsModal;
+document.getElementById('undoBtn').onclick = ()=>{
+  if(undoStack.length===0) return;
+  undo();
+};
 document.getElementById('financeCloseBtn').onclick = closeFinancePage;
+document.getElementById('itemDetailCloseBtn').onclick = closeItemDetailPage;
+document.querySelectorAll('.cat-type-btn').forEach(btn=>{
+  btn.onclick = ()=>{
+    if(btn.classList.contains('disabled')) return;
+    newCategoryType = btn.getAttribute('data-cattype');
+    document.querySelectorAll('.cat-type-btn').forEach(b=>b.classList.toggle('selected', b===btn));
+  };
+});
+document.getElementById('addCategoryCancelBtn').onclick = closeAddCategoryModal;
+document.getElementById('addCategoryConfirmBtn').onclick = confirmAddCategory;
+document.getElementById('addCategoryModalOverlay').onclick = (e)=>{
+  if(e.target.id==='addCategoryModalOverlay') closeAddCategoryModal();
+};
+document.getElementById('schedPickerCancelBtn').onclick = closeDaySlotPicker;
+document.getElementById('schedPickerOverlay').onclick = (e)=>{
+  if(e.target.id==='schedPickerOverlay') closeDaySlotPicker();
+};
 document.getElementById('settingsOverlay').onclick = (e)=>{
   if(e.target.id==='settingsOverlay'){ applyTheme(data.theme); closeSettingsModal(); }
 };
@@ -1513,6 +3605,22 @@ document.getElementById('headerColorInput').oninput = (e)=>{
   draftTheme.headerColor = e.target.value;
   applyTheme(draftTheme);
 };
+document.getElementById('textColorInput').oninput = (e)=>{
+  draftTheme.textColor = e.target.value;
+  applyTheme(draftTheme);
+};
+document.getElementById('incompleteColorInput').oninput = (e)=>{
+  draftTheme.incompleteColor = e.target.value;
+  applyTheme(draftTheme);
+};
+document.getElementById('completeColorInput').oninput = (e)=>{
+  draftTheme.completeColor = e.target.value;
+  applyTheme(draftTheme);
+};
+document.getElementById('dayConfirmedColorInput').oninput = (e)=>{
+  draftTheme.dayConfirmedColor = e.target.value;
+  applyTheme(draftTheme);
+};
 document.getElementById('bgPhotoInput').onchange = (e)=>{
   const file = e.target.files && e.target.files[0];
   if(file) handlePhotoFile(file);
@@ -1523,12 +3631,37 @@ document.getElementById('bgPhotoRemove').onclick = ()=>{
   updatePhotoPreviewUI();
 };
 document.getElementById('settingsResetBtn').onclick = ()=>{
-  draftTheme = {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', bgImage:null};
+  draftTheme = {bg:'#ffffff', accent:'#DFFF00', headerColor:'#DFFF00', textColor:'#111111', incompleteColor:'#e2e2e5', completeColor:'#8fa300', dayConfirmedColor:'#DFFF00', bgImage:null};
   document.getElementById('bgColorInput').value = draftTheme.bg;
   document.getElementById('accentColorInput').value = draftTheme.accent;
   document.getElementById('headerColorInput').value = draftTheme.headerColor;
+  document.getElementById('textColorInput').value = draftTheme.textColor;
+  document.getElementById('incompleteColorInput').value = draftTheme.incompleteColor;
+  document.getElementById('completeColorInput').value = draftTheme.completeColor;
+  document.getElementById('dayConfirmedColorInput').value = draftTheme.dayConfirmedColor;
   updatePhotoPreviewUI();
   applyTheme(draftTheme);
+};
+document.getElementById('resetTitlesBtn').onclick = ()=>{
+  const year = yearOf(curMonth);
+  if(!confirm('要還原成預設嗎？\n\n• '+year+' 年度目標的文字會被刪除\n• 所有主題標題、App 標題改回預設\n• 總資產追蹤的標題與各列名稱改回預設\n\n你的項目、紀錄與金額不會被動到。')) return;
+  if(!data.yearGoals) data.yearGoals = {};
+  data.yearGoals[year] = '';
+  data.categoryNames = {};
+  CATEGORIES.forEach(c=>{ data.categoryNames[c.id] = ''; });
+  (data.customCategories||[]).forEach(c=>{ data.categoryNames[c.id] = c.name; });
+  data.appTitle = '';
+  const t0 = document.querySelector('title');
+  document.title = (t0 && t0.getAttribute('data-default')) || 'Professsor Wong';
+  if(data.finance){
+    data.finance.debtSectionTitle = '總資產追蹤';
+    data.finance.labels = {income:{}, fixed:{}, pct:{}, summary:{}};
+    ['A1','A2','A3','A4','A5'].forEach(k=>{ if(data.finance.debts && data.finance.debts[k]) data.finance.debts[k].name = k; });
+  }
+  save();
+  applyTheme(data.theme);
+  closeSettingsModal();
+  render();
 };
 document.getElementById('settingsCancelBtn').onclick = ()=>{
   applyTheme(data.theme);
@@ -1539,6 +3672,31 @@ document.getElementById('settingsSaveBtn').onclick = ()=>{
   save();
   applyTheme(data.theme);
   closeSettingsModal();
+};
+
+document.addEventListener('pointerdown', scheduleDragPointerDown);
+document.addEventListener('pointermove', scheduleDragPointerMove, {passive:false});
+document.addEventListener('pointerup', scheduleDragPointerUp);
+
+document.addEventListener('pointerdown', stepDragPointerDown);
+document.addEventListener('pointermove', stepDragPointerMove, {passive:false});
+document.addEventListener('pointerup', stepDragPointerUp);
+
+document.addEventListener('pointerdown', slotSwipePointerDown);
+document.addEventListener('pointermove', slotSwipePointerMove);
+document.addEventListener('pointerup', slotSwipePointerUp);
+
+document.addEventListener('pointerdown', itemDragPointerDown);
+document.addEventListener('pointermove', itemDragPointerMove, {passive:false});
+document.addEventListener('pointerup', itemDragPointerUp);
+
+document.addEventListener('pointerdown', catHeadSwipeDown);
+document.addEventListener('pointermove', catHeadSwipeMove, {passive:false});
+document.addEventListener('pointerup', catHeadSwipeUp);
+
+document.getElementById('exportYearList').onclick = (e)=>{
+  const b = e.target.closest('[data-exportyear]');
+  if(b) exportYearReport(b.getAttribute('data-exportyear'));
 };
 
 load();
